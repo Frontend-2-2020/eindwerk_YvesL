@@ -1,0 +1,19 @@
+.navb {
+  position: "sticky";
+  top: 0;
+  margin-bottom: 20px;
+}
+
+.mr-2 {
+  background-color: white;
+  display: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .mr-2 {
+    display: block;
+  }
+  .btn {
+    display: none;
+  }
+}

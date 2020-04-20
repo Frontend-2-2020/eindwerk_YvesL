@@ -1,0 +1,36 @@
+.parallax {
+  /* The image used */
+  background-image: url("../assets//images/griffith.jpg");
+
+  /* Set a specific height */
+  min-height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -1;
+}
+
+.social a:nth-child(1) {
+  color: orange;
+}
+.social a:nth-child(2) {
+  color: rgb(8, 8, 8);
+}
+.social a:nth-child(3) {
+  color: rgb(236, 41, 57);
+}
+.social a:nth-child(4) {
+  color: rgb(0, 77, 128);
+}
+.social a:nth-child(5) {
+  color: rgb(29, 54, 163);
+}
+.social a:nth-child(6) {
+  color: rgb(82, 102, 167);
+}
+.social a:hover {
+  transform: skew(8deg);
+}
