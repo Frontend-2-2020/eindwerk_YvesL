@@ -32,11 +32,8 @@ const Navi = (props) => {
           register
         </button>
       </Link>
-      <NavbarToggler
-        onClick={toggleNavbar}
-        className="mr-2 "
-        //style={{ color: "white" }}
-      />
+
+      <NavbarToggler onClick={toggleNavbar} className="mr-2 " />
       <Collapse isOpen={!collapsed} navbar>
         <Nav navbar>
           <NavItem>

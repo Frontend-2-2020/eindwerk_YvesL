@@ -1,0 +1,30 @@
+.social {
+  position: fixed;
+  left: 20px;
+  top: 30%;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.8rem;
+}
+
+.social a:nth-child(1) {
+  color: orange;
+}
+.social a:nth-child(2) {
+  color: rgb(8, 8, 8);
+}
+.social a:nth-child(3) {
+  color: rgb(236, 41, 57);
+}
+.social a:nth-child(4) {
+  color: rgb(0, 77, 128);
+}
+.social a:nth-child(5) {
+  color: rgb(29, 54, 163);
+}
+.social a:nth-child(6) {
+  color: rgb(82, 102, 167);
+}
+.social a:hover {
+  transform: skew(8deg);
+}

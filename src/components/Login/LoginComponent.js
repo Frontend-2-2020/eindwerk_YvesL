@@ -1,64 +1,36 @@
 import React, { Component } from "react";
-import { SwatchesPicker } from "react-color";
+//import { SwatchesPicker } from "react-color";
 import { API, TOKEN } from "../../config/API";
+import classes from "./LoginComponent.module.css";
 
 class LoginComponent extends Component {
   state = {
-    // Default kleur van onze Colorpicker
+    /////#FFF IS STORED AS DEFAULT IN THE INITIAL STATE
     color: "#fff",
     user: "",
   };
 
   componentDidMount() {
     if (TOKEN) {
-      // Als er een token is (uit local storage) dan gaan we de gebruikersgevens ophalen
+      //////IF WE HAVE A TOKEN ,COMPONENTDIDMOUNT WILL EXECUTE THE AXIOS CALL/////////
       this.getUserData();
     }
   }
 
   getUserData = () => {
-    // Een call naar dit enpoint haalt de gebruikersgevens op voor de momenteel ingelogde persoon. Dit enpoint heeft
-    // dus sowieso de Authorization token nodig
+    /////BECAUSE WE GET THE CURRENT LOGGED IN PERSON HERE WE NEED AUTHORIZATION (TOKEN)//////
     API.get("api/user").then((response) => {
       // Als dat lukt dan steken we die data in de state. Hiervoor was state.user dus undefined.
-      this.setState({ user: response.data });
-    });
-  };
-
-  handleChangeComplete = (color) => {
-    // Het kleur component werkt door de huidig geselecteerde kleur in de state op te slaan, dit is heel handig
-    // om daar bij het versturen dan de waarde van uit te lezen.
-    this.setState({ color: color.hex });
-  };
-
-  register = () => {
-    // Aanmaken van een user. Alle waarden worden uit de input velden gehaald met basic JS, de kleur daarintegen
-    // Halen we uit de state.
-
-    // Velden die nodig zijn worden bepaald door de API
-
-    // Avatar is een url naar een foto, in dit geval de adorable.io avatar generator.
-
-    API.post("api/users", {
-      first_name: document.querySelector("[name=first_name]").value,
-      last_name: document.querySelector("[name=last_name]").value,
-      email: document.querySelector("[name=email]").value,
-      password: document.querySelector("[name=password]").value,
-      favorite_color: this.state.color,
-      avatar:
-        "https://api.adorable.io/avatars/285/" +
-        document.querySelector("[name=email]").value,
-    }).then((response) => {
-      alert(response.statusText);
+      this.setState({
+        user: response.data,
+      });
+      console.log(response.data);
     });
   };
 
   login = () => {
-    // Bij een login doen we een call naar oauth/token, de velden die we hier moeten aan meegeven zijn standaard
-    // voor oauth2.
-
-    // Client id/secret moet je krijgen van de API of zoals bij Facebook kan je die aanvragen in de interface.
-
+    /////CLIENT_ID EN CLIENT_SECRET IS PROVIDED BY THE API (ITC JANNICK)//////
+    ////API CALL NAAR "API + OAUTH/TOKEN" , ALL FIEDS ARE REQUIRED FOR OATH2///////
     API.post("oauth/token", {
       grant_type: "password",
       client_id: 2,
@@ -66,11 +38,7 @@ class LoginComponent extends Component {
       username: document.querySelector("[name=login_email]").value,
       password: document.querySelector("[name=login_password]").value,
     }).then((response) => {
-      // Als die call lukt doen we 3 dingen:
-
-      // We slaan de token op in localstorage, dit zodat we na het herladen van de pagina nog steeds verder kunnen
-      // met deze token. In API.js stellen we deze token onmiddellijk in bij het inladen van de pagina als deze
-      // beschikbaar is
+      ////STORING OUR TOKEN IN THE APPLICATION'S LOCAL STORAGE//////
       window.localStorage.setItem(
         "yves_acces_token",
         response.data.access_token
@@ -81,41 +49,54 @@ class LoginComponent extends Component {
       API.defaults.headers.common["Authorization"] =
         "Bearer " + response.data.access_token;
 
-      // Na het juist instellen van alles kunnen we gaan ophalen wie er is ingelogd om dit dan weer te geven op
-      // de pagina
+      ///////NOW THAT WE HAVE AN ACCES TOKEN WE CAN RUN THE AXIOS CALL TO GET THE POSTS
       this.getUserData();
     });
   };
 
-  getposts = () => {
-    API.get("api/posts")
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((e) => {
-        alert(e.response.statusText);
-      });
-  };
-
+  //////ON LOGOUT WE REMOVE THE TOKEN FROM THE LOCAL STORAGE////////
   logout = () => {
     window.localStorage.setItem("yves_acces_token", undefined);
     API.defaults.headers.common["Authorization"] = undefined;
     this.setState({ user: undefined });
+    console.log("loggedout");
   };
 
   render() {
     const { user } = this.state;
+
     return (
-      <div className="App">
-        {user && (
-          <p>
-            <button onClick={this.logout}>logout</button>
-          </p>
-        )}
+      <div className={classes.LoginField}>
+        <h1>Login</h1>
         <p>
-          <button onClick={this.getposts}>getposts</button>
+          {/* <label htmlFor="email">email</label> */}
+          <input type="text" placeholder="email" name="login_email" />
         </p>
-        <h1>Register</h1>
+
+        <p>
+          {/* <label htmlFor="password">password</label> */}
+          <input type="password" placeholder="password" name="login_password" />
+        </p>
+
+        {user ? (
+          <div>
+            <p>
+              <strong>{user.first_name}</strong> you are now logged in
+            </p>
+            <button className="btn btn-outline-dark" onClick={this.logout}>
+              logout
+            </button>
+          </div>
+        ) : (
+          <div>
+            <p>Log in to place a new post</p>
+            <button className="btn btn-outline-dark" onClick={this.login}>
+              Login
+            </button>
+          </div>
+        )}
+
+        {/* <h1>Register</h1>
 
         <p>
           <label htmlFor="first_name">first_name</label>
@@ -146,25 +127,33 @@ class LoginComponent extends Component {
         <br />
         <br />
 
-        <button onClick={this.register}>Register</button>
+        <button onClick={this.register}>Register</button> */}
 
-        <br />
-        <h1>Login</h1>
-        <p>
-          <label htmlFor="email">email</label>
-          <input type="text" name="login_email" />
-        </p>
-
-        <p>
-          <label htmlFor="password">password</label>
-          <input type="password" name="login_password" />
-        </p>
-
-        <button onClick={this.login}>Login</button>
-        <button onClick={this.logout}>Logout</button>
+        {/* <button onClick={this.logout}>Logout</button> */}
       </div>
     );
   }
 }
 
 export default LoginComponent;
+
+// handleChangeComplete = (color) => {
+//   /////COLOR GETS STORED IN DE STATE/////////
+//   this.setState({ color: color.hex });
+// };
+
+// register = () => {
+//   //////HERE WE CREATE A USER ,REQUIRED FIELDS ARE DETERMINED BY THE API////////
+//   API.post("api/users", {
+//     first_name: document.querySelector("[name=first_name]").value,
+//     last_name: document.querySelector("[name=last_name]").value,
+//     email: document.querySelector("[name=email]").value,
+//     password: document.querySelector("[name=password]").value,
+//     favorite_color: this.state.color,
+//     avatar:
+//       "https://api.adorable.io/avatars/285/" +
+//       document.querySelector("[name=email]").value,
+//   }).then((response) => {
+//     alert(response.statusText);
+//   });
+// };

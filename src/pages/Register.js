@@ -22,7 +22,6 @@ class Register extends Component {
 
   validateHandler = (values) => {
     const errors = {};
-
     const requiredFields = ["firstname", "lastname", "email"];
 
     requiredFields.forEach((field) => {
@@ -30,13 +29,13 @@ class Register extends Component {
         errors[field] = "required";
       }
     });
-
     return errors;
   };
 
   render() {
     return (
       <div className="container">
+        <h1 style={{ textAlign: "center" }}>Register Form</h1>
         <Formik
           onSubmit={this.subimitHandler}
           validate={this.validateHandler}

@@ -1,173 +1,128 @@
 import React, { Component } from "react";
-import "./PostComponent.css";
-import picture from "../../assets/images/yves_sitting.JPG";
-import {
-  FaWhatsapp,
-  FaThumbsUp,
-  FaThumbsDown,
-  FaFacebook,
-  FaTwitter,
-  FaInstagram,
-  FaRegComment,
-} from "react-icons/fa";
-import { FiShare } from "react-icons/fi";
-import $ from "jquery";
+import { API } from "../../config/API";
+import classes from "./PostComponent.module.css";
+import CardComponent from "../CardComponent/CardComponent";
+import CreatePostFormComponent from "../CreatePostComponent/CreatePostFormComponent";
+import Pagination from "react-js-pagination";
+import { Spinner } from "../../ui/social/spinner/Spinner";
 
 class PostComponent extends Component {
+  state = {
+    posts: [],
+    loading: false,
+    user: {},
+    activePage: 1,
+    isClicked: false,
+    //CurrentloggedInUser: "",
+  };
+  ///////MAKING THE API CALL TO GET THE POSTS////////
+  getposts() {
+    const { activePage } = this.state;
+    API.get("api/posts?page=" + activePage).then((response) => {
+      const { data } = response.data;
+      console.log(data);
+      ////UPDATING THE STATE TO STORE THE POSTS AND SET THE LOADING TO TRUE(SPINNER)//////
+      this.setState({
+        posts: data,
+        loading: true,
+      });
+    });
+  }
+  ////////PAGINATION, I CHOSE TO USE THE PAGINATION NODE HERE////////
+  handlePageChange = (pageNumber) => {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({ activePage: pageNumber }, () => this.getposts());
+  };
+
+  ///////PREVENTING AN INFINITE LOOP////////////
   componentDidMount() {
-    $(".hidePostBtn").hide();
-    $(".card-text").hide();
+    this.getposts();
+  }
+  //////TO DISPLAY THE CREATE POST FORM/////////
+  createPostHandler = () => {
+    this.setState({ isClicked: !this.state.isClicked });
+  };
+
+  ////////PERFORMING AN AXIOS PUT TO PLACE THE NEW POST ON THE SERVER//////////////
+  addPostHandler() {
+    API.post("api/posts", {
+      body: document.getElementById("body").value,
+      title: document.getElementById("title").value,
+    }).then((res) => console.log(res));
+    console.log("posted");
   }
 
-  hidePostHandler = () => {
-    $(".card-text").hide();
-    $(".hidePostBtn").hide();
-    $(".showPostBtn").show();
-    console.log("hide");
-  };
-  showPostHandler = () => {
-    $(".card-text").show();
-    $(".hidePostBtn").show();
-    $(".showPostBtn").hide();
-    console.log("show");
-  };
   render() {
-    return (
-      <div
-        className="card"
-        style={{
-          display: "flex",
-          width: "auto",
-          height: "auto",
-          margin: 20,
-          borderRadius: "8px",
-          boxShadow: "4px 6px 10px #95AFF9",
-        }}
-      >
-        <div className="card-body">
-          <div
-            className="card-header"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              boxShadow: "0 3px 8px #B5ABA9",
-              /* backgroundColor: "#B9C4E1", */
-            }}
-          >
-            <img
-              src={picture}
-              alt="profile pic"
-              style={{ width: 120, height: 160 }}
+    // this.addPostHandler();
+    const { posts } = this.state;
+    const { loading } = this.state;
+    const { isClicked } = this.state;
+
+    ///////STORING ALL THE PAGE CONTENT IN A VARIABLE TO OUTPUT WHEN LOADING IS COMPLETE///////
+    const AllPosts = (
+      <div className={classes.row}>
+        {posts.map((post) => (
+          <div key={post.id}>
+            <CardComponent
+              title={post.title}
+              body={post.body}
+              timestamp={post.created_at}
+              updated={post.updatedAt}
+              comments={post.comments_count}
+              id={post.user_id}
+              name={post.user.first_name}
+              postid={post.id}
+              avatar={post.user.avatar}
             />
-            <h3 style={{ fontFamily: "Lobster" && "cursive" }}>Topic</h3>
-            <div
-              className="posted"
-              style={{
-                display: "flex",
-                flexFlow: "column",
-                justifyContent: "space-between",
-              }}
-            >
-              <div className="btn">
-                {" "}
-                <button id="follow-button">+ Follow</button>
-              </div>
+          </div>
+        ))}
+        ;
+      </div>
+    );
 
-              <div
-                style={{
-                  display: "flex",
-                  color: "grey",
-                }}
-              >
-                <p style={{ margin: 10 }}>
-                  <span style={{ color: "black" }}>
-                    Posted by <a href="https://">Yves</a>{" "}
-                  </span>
-                  3 hours ago
-                </p>
-              </div>
-            </div>
-          </div>
-          <hr />
-          <div className="card-body">
-            <div className="hidePost">
-              {" "}
-              <button
-                className="hidePostBtn"
-                style={{
-                  borderRadius: 5,
-                  border: "1px solid red ",
-                  color: "red",
-                }}
-                onClick={this.hidePostHandler}
-              >
-                hide Post
-              </button>
-            </div>
-            <div
-              className="readPost"
-              style={{ display: "flex", justifyContent: "center" }}
-            >
-              {" "}
-              <button
-                className="showPostBtn"
-                style={{
-                  borderRadius: 5,
-                  border: "1px solid  green ",
-                  color: "green",
-                  justifyContent: "center",
-                }}
-                onClick={this.showPostHandler}
-              >
-                Read Blogpost
-              </button>
-            </div>
-            <div className="card-text" style={{ marginBottom: 20 }}>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Reprehenderit quaerat nemo nisi obcaecati ratione excepturi, sint
-              labore quibusdam eaque magni ipsa dolor possimus facilis iste
-              vitae veniam aperiam distinctio id.Iusto rem ducimus illo esse.
-              Quas architecto enim quaerat dicta nihil vel ullam possimus
-              corporis dolore magni a ducimus, quos, dolorem optio eos!
-              Similique, aut beatae vero eaque assumenda iure!
-            </div>
+    //////IF LOADING IS TRUE SHOW SPINNER ELSE SHOW PAGE///////
+    const spinner = <Spinner />;
+    const loadAllPosts = AllPosts;
+    const pageIsLoaded = !loading ? spinner : loadAllPosts;
 
-            <div
-              className="commentsAndLikes"
-              style={{ display: "flex", justifyContent: "space-between " }}
-            >
-              <div className="comment-box" style={{ color: "#9E9A99" }}>
-                <FaRegComment style={{ margin: 10 }} />
-                33 Comments
-                <FiShare style={{ margin: 10 }} />
-                Share
-              </div>
-              <div className="like-box">
-                <FaThumbsUp style={{ margin: 10 }} />
-                <FaThumbsDown style={{ margin: 10 }} />
-              </div>
-            </div>
-          </div>
-          <hr />
-          <div
-            className="card-footer"
-            style={{
-              margin: 10,
-              boxShadow: "0 3px 8px #B5ABA9",
-              //backgroundColor: "#B9C4E1",
-            }}
-          >
-            <div
-              className="likebox"
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <FaWhatsapp />
-              <FaFacebook />
-              <FaTwitter />
-              <FaInstagram />
-            </div>
-          </div>
+    //////HERE WE ARE DISPLAYING THE POSTFORM TO ADD A NEW POST//////
+    const postBox = (
+      <div>
+        <CreatePostFormComponent />
+        <button
+          className="btn btn-outline-dark"
+          type="submit"
+          onClick={this.addPostHandler}
+        >
+          Submit Post
+        </button>{" "}
+      </div>
+    );
+
+    ////////BY CLICKING THE "CREATE POST" BUTTON WE DISPLAY THE POSTFORM,//////////
+    ////////OTHERWISE ALL THE POSTS ARE SHOWN//////////////////////////////////////
+    const showPostBox = isClicked ? postBox : pageIsLoaded;
+
+    return (
+      <div>
+        <button
+          className="btn btn-outline-dark"
+          onClick={this.createPostHandler}
+        >
+          + POST
+        </button>
+        <div className={classes.pagination}>
+          <Pagination
+            itemClass="page-item"
+            linkClass="page-link"
+            activePage={this.state.activePage}
+            itemsCountPerPage={15}
+            totalItemsCount={56}
+            pageRangeDisplayed={4}
+            onChange={this.handlePageChange}
+          />
         </div>
+        {showPostBox}
       </div>
     );
   }
