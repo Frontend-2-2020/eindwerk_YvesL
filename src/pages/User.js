@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import UserComponent from "../components/UserComponent/UserComponent";
+import Users from "../components/User/Users";
 
 export class User extends Component {
   render() {
     console.log(this.props.match.params.id);
     return (
       <div>
-        <UserComponent id={this.props.match.params.id} />
+        <Users id={this.props.match.params.id} />
       </div>
     );
   }

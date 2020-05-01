@@ -18,11 +18,14 @@ const Navi = (props) => {
 
   const toggleNavbar = () => setCollapsed(!collapsed);
   return (
-    <Navbar className="navb" color="dark" light fixed="top">
+    <Navbar className="navb" color="dark" light fixed="top" name="Yves">
       <NavbarBrand href="/" className="mr-auto">
         <FaRedditAlien style={{ color: "white", height: 50, width: 50 }} />
       </NavbarBrand>
-      <Link to="/login" style={{ margin: 10 }}>
+      <div className="loggedIn">
+        <div className="ledgreen"></div>
+      </div>
+      <Link to="/login" pro="lgnbtn" style={{ margin: 10 }}>
         <button type="button" className="btn btn-outline-primary navbar-right">
           login
         </button>

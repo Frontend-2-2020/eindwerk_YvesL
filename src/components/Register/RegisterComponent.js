@@ -67,3 +67,57 @@ class RegisterComponent extends Component {
 }
 
 export default RegisterComponent;
+
+// handleChangeComplete = (color) => {
+//   /////COLOR GETS STORED IN DE STATE/////////
+//   this.setState({ color: color.hex });
+// };
+
+// register = () => {
+//   //////HERE WE CREATE A USER ,REQUIRED FIELDS ARE DETERMINED BY THE API////////
+//   API.post("api/users", {
+//     first_name: document.querySelector("[name=first_name]").value,
+//     last_name: document.querySelector("[name=last_name]").value,
+//     email: document.querySelector("[name=email]").value,
+//     password: document.querySelector("[name=password]").value,
+//     favorite_color: this.state.color,
+//     avatar:
+//       "https://api.adorable.io/avatars/285/" +
+//       document.querySelector("[name=email]").value,
+//   }).then((response) => {
+//     alert(response.statusText);
+//   });
+// };
+
+/* <h1>Register</h1>
+
+        <p>
+          <label htmlFor="first_name">first_name</label>
+          <input type="text" name="first_name" />
+        </p>
+
+        <p>
+          <label htmlFor="last_name">last_name</label>
+          <input type="text" name="last_name" />
+        </p>
+
+        <p>
+          <label htmlFor="email">email</label>
+          <input type="text" name="email" />
+        </p>
+
+        <p>
+          <label htmlFor="password">password</label>
+          <input type="password" name="password" />
+        </p>
+
+        <label htmlFor="favorite_color">favorite_color</label>
+        <SwatchesPicker
+          color={this.state.color}
+          onChangeComplete={this.handleChangeComplete}
+        />
+
+        <br />
+        <br />
+
+        <button onClick={this.register}>Register</button> */

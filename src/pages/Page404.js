@@ -1,7 +1,9 @@
 import React from "react";
 
-function Page404() {
-  return <div>Page404page</div>;
-}
+const Page404 = (props) => (
+  <div>
+    <h2>STATUS 404 :Invalid pathname on {props.error}</h2>
+  </div>
+);
 
 export default Page404;

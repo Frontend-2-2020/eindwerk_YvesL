@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import DetailComponent from "../components/DetailComponent/DetailComponent";
+import DetailPost from "../components/DetailPost/DetailPost";
 
 export class Detail extends Component {
   render() {
     return (
       <div>
-        <DetailComponent id={this.props.match.params.id} />
+        <DetailPost id={this.props.match.params.id} />
       </div>
     );
   }

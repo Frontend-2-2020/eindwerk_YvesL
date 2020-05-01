@@ -19,13 +19,15 @@ class LoginComponent extends Component {
 
   getUserData = () => {
     /////BECAUSE WE GET THE CURRENT LOGGED IN PERSON HERE WE NEED AUTHORIZATION (TOKEN)//////
-    API.get("api/user").then((response) => {
-      // Als dat lukt dan steken we die data in de state. Hiervoor was state.user dus undefined.
-      this.setState({
-        user: response.data,
-      });
-      console.log(response.data);
-    });
+    API.get("api/user")
+      .then((response) => {
+        //////PUSH THE RESPONSE.DATA IN DE STATE.USER WITH SETSTATE/////
+        this.setState({
+          user: response.data,
+        });
+        console.log(response.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   login = () => {
@@ -56,7 +58,7 @@ class LoginComponent extends Component {
 
   //////ON LOGOUT WE REMOVE THE TOKEN FROM THE LOCAL STORAGE////////
   logout = () => {
-    window.localStorage.setItem("yves_acces_token", undefined);
+    window.localStorage.removeItem("yves_acces_token", undefined);
     API.defaults.headers.common["Authorization"] = undefined;
     this.setState({ user: undefined });
     console.log("loggedout");
@@ -64,10 +66,26 @@ class LoginComponent extends Component {
 
   render() {
     const { user } = this.state;
+    const ledlights = (
+      <div className={classes.led}>
+        <h1>Login</h1>
+        {user ? (
+          <div className={classes.loggedIn}>
+            <div className={classes.ledgreen}></div>
+          </div>
+        ) : (
+          <div className={classes.loggedOut}>
+            <div className={classes.ledred}></div>
+          </div>
+        )}
+      </div>
+    );
 
     return (
       <div className={classes.LoginField}>
-        <h1>Login</h1>
+        {ledlights}
+
+        {/* login form */}
         <p>
           {/* <label htmlFor="email">email</label> */}
           <input type="text" placeholder="email" name="login_email" />
@@ -77,7 +95,7 @@ class LoginComponent extends Component {
           {/* <label htmlFor="password">password</label> */}
           <input type="password" placeholder="password" name="login_password" />
         </p>
-
+        {/* message when logged in */}
         {user ? (
           <div>
             <p>
