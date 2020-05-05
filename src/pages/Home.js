@@ -1,5 +1,5 @@
 import React from "react";
-import LoadPosts from "../components/LoadsPost/LoadPosts";
+import LoadPosts from "../components/LoadsPost/AllPosts/LoadPosts";
 import classes from "./Home.module.css";
 
 const Home = (props) => {

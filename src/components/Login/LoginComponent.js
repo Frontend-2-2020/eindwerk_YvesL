@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-//import { SwatchesPicker } from "react-color";
+
 import { API, TOKEN } from "../../config/API";
 import classes from "./LoginComponent.module.css";
 
 class LoginComponent extends Component {
+  _isMounted = true;
   state = {
     /////#FFF IS STORED AS DEFAULT IN THE INITIAL STATE
-    color: "#fff",
+    // color: "#fff",
     user: "",
   };
 
@@ -30,7 +31,7 @@ class LoginComponent extends Component {
       .catch((err) => console.log(err));
   };
 
-  login = () => {
+  login = (props) => {
     /////CLIENT_ID EN CLIENT_SECRET IS PROVIDED BY THE API (ITC JANNICK)//////
     ////API CALL NAAR "API + OAUTH/TOKEN" , ALL FIEDS ARE REQUIRED FOR OATH2///////
     API.post("oauth/token", {
@@ -113,65 +114,9 @@ class LoginComponent extends Component {
             </button>
           </div>
         )}
-
-        {/* <h1>Register</h1>
-
-        <p>
-          <label htmlFor="first_name">first_name</label>
-          <input type="text" name="first_name" />
-        </p>
-
-        <p>
-          <label htmlFor="last_name">last_name</label>
-          <input type="text" name="last_name" />
-        </p>
-
-        <p>
-          <label htmlFor="email">email</label>
-          <input type="text" name="email" />
-        </p>
-
-        <p>
-          <label htmlFor="password">password</label>
-          <input type="password" name="password" />
-        </p>
-
-        <label htmlFor="favorite_color">favorite_color</label>
-        <SwatchesPicker
-          color={this.state.color}
-          onChangeComplete={this.handleChangeComplete}
-        />
-
-        <br />
-        <br />
-
-        <button onClick={this.register}>Register</button> */}
-
-        {/* <button onClick={this.logout}>Logout</button> */}
       </div>
     );
   }
 }
 
 export default LoginComponent;
-
-// handleChangeComplete = (color) => {
-//   /////COLOR GETS STORED IN DE STATE/////////
-//   this.setState({ color: color.hex });
-// };
-
-// register = () => {
-//   //////HERE WE CREATE A USER ,REQUIRED FIELDS ARE DETERMINED BY THE API////////
-//   API.post("api/users", {
-//     first_name: document.querySelector("[name=first_name]").value,
-//     last_name: document.querySelector("[name=last_name]").value,
-//     email: document.querySelector("[name=email]").value,
-//     password: document.querySelector("[name=password]").value,
-//     favorite_color: this.state.color,
-//     avatar:
-//       "https://api.adorable.io/avatars/285/" +
-//       document.querySelector("[name=email]").value,
-//   }).then((response) => {
-//     alert(response.statusText);
-//   });
-// };

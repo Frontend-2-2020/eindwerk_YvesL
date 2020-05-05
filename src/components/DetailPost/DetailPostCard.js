@@ -1,7 +1,7 @@
 import React from "react";
 // import "./DetailCard.css";
 import { Link } from "react-router-dom";
-import { FaArrowCircleRight } from "react-icons/fa";
+import { Trashcan } from "../../ui/helpers/Trashcan";
 import moment from "moment";
 
 const DetailPostCard = (props) => {
@@ -27,15 +27,14 @@ const DetailPostCard = (props) => {
               <h3 className="card-title pt-1">
                 {props.title} {props.name}
               </h3>
-              <p className="card-text text-sm">
-                {props.body} {props.email}
-              </p>
+
+              <strong dangerouslySetInnerHTML={{ __html: props.body }}></strong>
               <Link to={"/user/" + props.iduser}>
                 <p> {props.author}</p>
               </Link>
 
               <ul style={{ padding: "1rem" }}>{props.comment}</ul>
-              <hr />
+              <hr style={{ width: "40%" }} />
               <p>
                 <strong>posted on:</strong>
                 {moment(props.created).format("llll")}
@@ -44,9 +43,8 @@ const DetailPostCard = (props) => {
                 <strong>updated on:</strong>
                 {moment(props.updated).format("llll")}
               </p>
-              <span className="text-sm text-uppercase font-weight-bold">
-                Learn More&nbsp;
-                <FaArrowCircleRight style={{ marginBottom: "4px" }} />
+              <span onClick={props.clicked}>
+                <Trashcan />
               </span>
             </div>
           </div>

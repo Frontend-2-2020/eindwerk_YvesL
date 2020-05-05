@@ -1,7 +1,7 @@
 import React from "react";
 import LoginComponent from "../components/Login/LoginComponent";
 
-const Login = () => {
+const Login = (props) => {
   return (
     <div>
       <LoginComponent />

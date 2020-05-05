@@ -6,6 +6,7 @@ const UserProfileCard = (props) => {
   return (
     <div className="container">
       <h3>User Profile {props.first_name}</h3>
+      <hr />
       <div className="row">
         <div className="profile-card">
           <div className="profile-img">
@@ -13,8 +14,18 @@ const UserProfileCard = (props) => {
           </div>
           <div className="profile-content">
             <h2 className="title">
-              {props.firstname} {props.lastname}
-              <span>{props.useremail}</span>
+              {props.first_name} {props.last_name}
+              <span>{props.email}</span>
+              <p>Favourite color :</p>
+              <p
+                className="col"
+                style={{
+                  height: 10,
+                  backgroundColor: props.favorite_color,
+                  border: "1px solid black",
+                  textAlign: "center",
+                }}
+              ></p>
             </h2>
             <ul className="social-link">
               <li>

@@ -12,9 +12,8 @@ const UserCard = (props) => {
       </div>
       <div className="card-body text-center">
         <h3 className="card-title pt-1">{props.title}</h3>
-        <p className="card-text text-sm">{props.body}</p>
-        <p> Fav color :{props.color}</p>
-
+        <p className="card-text text-xl">{props.body}</p>
+        Fav color :{props.favorite_color}
         <hr />
         <p>
           <strong>posted on:</strong>

@@ -5,8 +5,8 @@ import DetailPostCard from "./DetailPostCard";
 import { Link, Redirect } from "react-router-dom";
 import "./DetailPost.css";
 import { Spinner } from "../../ui/spinner/Spinner";
-import CKEditor from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Validate from "../Forms/Validate";
+import { FaEdit } from "react-icons/fa";
 
 export class DetailPost extends Component {
   state = {
@@ -14,8 +14,23 @@ export class DetailPost extends Component {
     user: {},
     comments: [],
     loading: false,
-    editpostdata: {},
+    redirect: false,
   };
+
+  ///////HIDE OR SHOW THE INPUT FORM///////////
+  showEditpostBtn() {
+    let editBtn = document.querySelector(".container");
+    if (editBtn.style.display === "none") {
+      editBtn.style.display = "block";
+    } else {
+      editBtn.style.display = "none";
+    }
+  }
+
+  ///////PREVENTING THE INFINITE LOOP////////
+  componentDidMount() {
+    this.getDetailedpost();
+  }
 
   /////GET THE DETAILS OF THE SPECIFIC POST, PROPS (ID) RECEIVED FROM BUTTON POSTSCARD(ROUTER/:ID)//////
   getDetailedpost() {
@@ -29,41 +44,37 @@ export class DetailPost extends Component {
         user: user,
         comments: comments,
         loading: true,
-        editpostdata: [],
-        redirect: false,
       });
     });
   }
-  ///////PREVENTING THE INFINITE LOOP////////
-  componentDidMount() {
-    this.getDetailedpost();
-  }
-  ///////CKEDITOR TO EDIT THE POSTS//////////
-  onChangeInEditor = (event, editor) => {
-    const data = editor.getData();
-    this.setState({ editpostdata: data });
-  };
+
   ///////MAKING A PUT REQUEST TO EDIT THE SPECIFIC POST(SAME ID AS RECEIVED FROM PROPS)///////
   //////PASSING THE TITLE AND BODY THAT WE LIKE TO EDIT//////////
-  updateDetailpost = () => {
+  submitHandler = (values) => {
     const { id } = this.props;
-    const { editpostdata } = this.state;
+
+    console.log(values.title);
     const data = {
-      title: "updated",
-      body: editpostdata,
+      title: values.title,
+      body: values.body,
     };
     API.put("api/posts/" + id, data)
       .then((res) => alert("You updated your post succesfully" + res))
+      .then(() => this.setState({ redirect: true }))
       .catch((err) => alert("Oops! Something went wrong" + err));
   };
+
   /////////DELETE THE POST (I CAN ONLY DELETE MY OWN POSTS)/////////
   deletePost = () => {
+    console.log("delete");
     const { id } = this.props;
 
     API.delete("api/posts/" + id)
       .then((res) => alert("Post" + id + "has been deleted" + res))
       .then(() => this.setState({ redirect: true }))
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        alert("You are not Authorized to delete a post from another user" + err)
+      );
   };
 
   render() {
@@ -91,36 +102,33 @@ export class DetailPost extends Component {
       </div>
     ));
 
+    //////USER'S ORIGINAL POST//////
     const pageContent = (
-      //////USER'S ORIGINAL POST//////
       <div className="cards">
-        <div>
-          <CKEditor
-            editor={ClassicEditor}
-            data=""
-            onChange={(event, editor) => this.onChangeInEditor(event, editor)}
-          />
-          <button
-            className="btn btn-outline-dark"
-            style={{ float: "right", marginRight: "50px", margin: 10 }}
-            onClick={this.updateDetailpost}
-          >
-            SUBMIT
-          </button>
-          <button
-            className="btn btn-outline-dark"
-            style={{ float: "right", marginRight: "50px", margin: 10 }}
-            onClick={this.deletePost}
-          >
-            DELETE
-          </button>
+        <div style={{ textAlign: "center", cursor: "pointer" }}>
+          <FaEdit onClick={this.showEditpostBtn} style={{ fontSize: 35 }} />
+          <p>Change Post</p>
         </div>
-        <h1 className="headers">{user.first_name}'s post</h1>
-        <DetailPostCard {...postDetails} {...user} />
 
-        <h1 className="headers">
-          People who commented on {user.first_name}'s post
-        </h1>
+        {/* ///////FORMIK//////// */}
+        <div className="container">
+          <Validate
+            btnTxt="Edit"
+            formTxt="Edit Post"
+            submit={this.submitHandler}
+          />
+        </div>
+
+        <div>
+          <h1 className="headers">{user.first_name}'s post</h1>
+          <DetailPostCard
+            {...postDetails}
+            {...user}
+            clicked={this.deletePost}
+          />
+        </div>
+
+        <h1 className="headers">See comments on {user.first_name}'s post</h1>
         <DetailPostCard
           {...user}
           comment={postComments}
@@ -129,10 +137,10 @@ export class DetailPost extends Component {
       </div>
     );
 
+    //////SPINNER///////
     const pageIsloaded = !loading ? <Spinner /> : pageContent;
 
-    // redirect ?  <Redirect to="/" /> : pageIsloaded
-
+    //////REDIRECT TO HOMEPAGE AFTER //////
     if (redirect) {
       return <Redirect to="/" />;
     } else {

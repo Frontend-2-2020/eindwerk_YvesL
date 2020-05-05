@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API } from "../../config/API";
-//import moment from "moment";
+import "./Users.css";
 import UserCard from "./UserCard";
 import { Spinner } from "../../ui/spinner/Spinner";
 import UserProfileCard from "./UserProfileCard";
@@ -22,7 +22,6 @@ export class User extends Component {
     API.get("api/users/" + id).then((response) => {
       const { data } = response;
       data.comments.map((comm) => this.setState({ blog: comm.blog_post }));
-
       ///////SETTING THE NEW STATE////////
       this.setState({
         user: data,
@@ -32,6 +31,7 @@ export class User extends Component {
       });
     });
   }
+
   //////PREVENTING INFINITE LOOP///////
   componentDidMount() {
     this.getuser();
@@ -41,35 +41,35 @@ export class User extends Component {
     const { user, blogposts, comments, loaded } = this.state;
 
     ///////ASSIGNING A CONSTANT TO THE JSX BLOCK TO OUTPUT//////////
-
     const userOutput = (
-      <div style={{ textAlign: "center" }}>
+      <div className="profilepage">
         {/* USER PROFILE CARD */}
-        <div className="userProfileCard" style={{ marginTop: 100 }}>
-          <UserProfileCard {...user} />
-        </div>
+        <UserProfileCard {...user} />
 
-        {/* ALL POSTS MADE BY USER */}
+        {/* PREVIOUS POSTS MADE BY USER */}
         <h3>Previous posts by {user.first_name}</h3>
-        <hr style={{ width: "70vw" }} />
-        <div
-          className="userPostsCard"
-          style={{ display: "flex", flexWrap: "wrap", alignItems: "center" }}
-        >
+        <hr />
+        <div className="userPostsCard">
           {blogposts.map((blogpost) => (
             <UserCard key={blogpost.id} {...blogpost} {...user} />
           ))}
         </div>
 
-        {/* POSTS WAAR IK OP HEB GECOMMENT */}
-        <h3 style={{ marginTop: 30 }}>Comments made by {user.first_name}</h3>
-        <hr style={{ width: "70vw" }} />
+        {/* POSTS WHERE I COMMENTED ON */}
+        <h3>Comments made by {user.first_name}</h3>
+        <hr />
         {comments.map((comment) => (
-          <UsersComments key={comment.id} {...comment} {...user} />
+          <UsersComments
+            key={comment.id}
+            commId={comment.id}
+            {...comment}
+            {...user}
+            {...comments}
+          />
         ))}
       </div>
     );
-    ///////ES6 IF/ELSE TO SET SPINNER WHILE LOADING////////
+    ///////SPINNER WHILE LOADING////////
     const spinner = <Spinner />;
     const pageIsLoaded = !loaded ? spinner : userOutput;
 
