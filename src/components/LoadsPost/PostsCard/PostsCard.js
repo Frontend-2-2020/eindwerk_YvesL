@@ -42,7 +42,8 @@ class CardComponent extends Component {
           err +
             " ,Make sure that you are logged in if you want to make a comment"
         )
-      );
+      )
+      .then(() => window.location.reload());
   };
 
   render() {

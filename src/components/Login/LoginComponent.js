@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-
 import { API, TOKEN } from "../../config/API";
-import classes from "./LoginComponent.module.css";
+//import classes from "./LoginComponent.module.css";
+import LoginValidate from "../Forms/LoginValidate";
 
 class LoginComponent extends Component {
   _isMounted = true;
   state = {
-    /////#FFF IS STORED AS DEFAULT IN THE INITIAL STATE
-    // color: "#fff",
     user: "",
   };
 
@@ -31,7 +29,8 @@ class LoginComponent extends Component {
       .catch((err) => console.log(err));
   };
 
-  login = (props) => {
+  login = () => {
+    console.log("loggedIn");
     /////CLIENT_ID EN CLIENT_SECRET IS PROVIDED BY THE API (ITC JANNICK)//////
     ////API CALL NAAR "API + OAUTH/TOKEN" , ALL FIEDS ARE REQUIRED FOR OATH2///////
     API.post("oauth/token", {
@@ -66,37 +65,35 @@ class LoginComponent extends Component {
   };
 
   render() {
-    const { user } = this.state;
-    const ledlights = (
-      <div className={classes.led}>
-        <h1>Login</h1>
-        {user ? (
-          <div className={classes.loggedIn}>
-            <div className={classes.ledgreen}></div>
-          </div>
-        ) : (
-          <div className={classes.loggedOut}>
-            <div className={classes.ledred}></div>
-          </div>
-        )}
-      </div>
-    );
+    // const { user } = this.state;
+    // const ledlights = (
+    //   <div className={classes.led}>
+    //     <h1>Login</h1>
+    //     {user ? (
+    //       <div className={classes.loggedIn}>
+    //         <div className={classes.ledgreen}></div>
+    //       </div>
+    //     ) : (
+    //       <div className={classes.loggedOut}>
+    //         <div className={classes.ledred}></div>
+    //       </div>
+    //     )}
+    //   </div>
+    // );
 
     return (
-      <div className={classes.LoginField}>
+      <LoginValidate submit={this.login} />
+      /* <div className={classes.LoginField}>
         {ledlights}
-
-        {/* login form */}
         <p>
-          {/* <label htmlFor="email">email</label> */}
+          <label htmlFor="email">email</label>
           <input type="text" placeholder="email" name="login_email" />
         </p>
-
         <p>
-          {/* <label htmlFor="password">password</label> */}
+          <label htmlFor="password">password</label>
           <input type="password" placeholder="password" name="login_password" />
         </p>
-        {/* message when logged in */}
+         message when logged in 
         {user ? (
           <div>
             <p>
@@ -111,10 +108,13 @@ class LoginComponent extends Component {
             <p>Log in to place a new post</p>
             <button className="btn btn-outline-dark" onClick={this.login}>
               Login
-            </button>
+            </button> 
           </div>
-        )}
-      </div>
+        )} */
+
+      /* <button onClick={this.login}>login</button>
+        <button onClick={this.logout}>logout</button> */
+      //</div>
     );
   }
 }

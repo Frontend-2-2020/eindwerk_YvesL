@@ -61,6 +61,7 @@ export class DetailPost extends Component {
     API.put("api/posts/" + id, data)
       .then((res) => alert("You updated your post succesfully" + res))
       .then(() => this.setState({ redirect: true }))
+      // .then(() => window.location.reload())
       .catch((err) => alert("Oops! Something went wrong" + err));
   };
 
@@ -72,6 +73,7 @@ export class DetailPost extends Component {
     API.delete("api/posts/" + id)
       .then((res) => alert("Post" + id + "has been deleted" + res))
       .then(() => this.setState({ redirect: true }))
+      // .then(() => window.location.reload())
       .catch((err) =>
         alert("You are not Authorized to delete a post from another user" + err)
       );
@@ -140,7 +142,7 @@ export class DetailPost extends Component {
     //////SPINNER///////
     const pageIsloaded = !loading ? <Spinner /> : pageContent;
 
-    //////REDIRECT TO HOMEPAGE AFTER //////
+    ////REDIRECT TO HOMEPAGE AFTER //////
     if (redirect) {
       return <Redirect to="/" />;
     } else {
