@@ -23,10 +23,10 @@ export default class Validate extends Component {
           onSubmit={this.props.submit}
           validate={this.validateHandler}
           initialValues={{
-            login_email: "",
+            username: "",
           }}
         >
-          {(props) => <LoginForm {...props} />}
+          {(props) => <LoginForm {...this.props} />}
         </Formik>
       </div>
     );

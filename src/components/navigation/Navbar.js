@@ -12,9 +12,11 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import store from "../../redux/Store";
 
 const Navi = (props) => {
   const [collapsed, setCollapsed] = useState(true);
+  console.log(store);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
   return (
@@ -25,7 +27,7 @@ const Navi = (props) => {
       <div className="loggedIn">
         <div className="ledgreen"></div>
       </div>
-      <Link to="/login" pro="lgnbtn" style={{ margin: 10 }}>
+      <Link to="/login" style={{ margin: 10 }}>
         <button type="button" className="btn btn-outline-primary navbar-right">
           login
         </button>
@@ -56,47 +58,3 @@ const Navi = (props) => {
 };
 
 export default Navi;
-
-/* <nav
-      className="navbar navbar-expand-lg navbar-light bg-dark "
-      style={{
-        marginBottom: 30,
-      }}
-    >
-      <div class="container-fluid">
-        <a className="navbar-brand" href="www">
-          <FaRedditAlien style={{ color: "white", height: 50, width: 50 }} />
-        </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <Link to="/" style={{ margin: 10 }}>
-              Home
-            </Link>
-            <Link to="/register" style={{ margin: 10 }}>
-              <button type="button" className="btn btn-outline-primary ">
-                register
-              </button>
-            </Link>
-            <Link to="/login" style={{ margin: 10 }}>
-              <button
-                type="button"
-                className="btn btn-outline-primary navbar-right"
-              >
-                login
-              </button>
-            </Link>
-          </ul>
-        </div>
-      </div>
-    </nav> */

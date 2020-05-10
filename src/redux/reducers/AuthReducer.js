@@ -4,11 +4,11 @@ const initialState = {
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_USER_DATA":
-      console.log("set_userdata_reducer");
+    case "LOGIN":
+      console.log("reducer_gettoken");
       return { user: action.payload };
-    case "DELETE_USER_DATA":
-      console.log("delete_userdate_reducer");
+    case "LOGOUT":
+      console.log("reducer_removetoken");
       return { initialState };
     default:
       return state;

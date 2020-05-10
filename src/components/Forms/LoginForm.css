@@ -1,248 +1,180 @@
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
 
 * {
-    padding: 0;
-    margin: 0;
-    font-family: "Source Sans Pro", sans-serif;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    background-color: #778beb;
+  width: 100%;
+  height: 100%;
 }
 
-.container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    max-width: 1200px;
-    margin: auto;
-    padding: 15px;
+/* body {
+  background: #614385;
+  background: -webkit-linear-gradient(
+    to right,
+    #516395,
+    #614385
+  );
+  background: linear-gradient(
+    to right,
+    #516395,
+    #614385
+  ); 
+  font-family: "Raleway", sans-serif;
+  letter-spacing: 0.1em;
+} */
+
+.con {
+  width: 400px;
+  height: 400px;
+  background: #ededed;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
 }
 
-.form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.content-con {
+  width: 95%;
+  height: auto;
+  position: relative;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-
-form {
-    padding: 30px 25px 15px 25px;
-    background-color: #ffffff;
-    min-width: 350px;
-    border-radius: 10px;
-}
-
-.form-group {
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
-.form-title {
-    margin-bottom: 20px;
-}
-
-h2 {
-    font-size: 30px;
-    color: #323232;
-    text-align: left;
-}
-
-p {
-    color: #777777;
-}
-
 label {
-    color: #565656;
+  color: #e74c3c;
+  text-transform: uppercase;
+}
+input {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 20px;
+  background: none;
+  color: #e74c3c;
+  border: none;
+  border-bottom: 1px solid #e74c3c;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+input:hover {
+  opacity: 1;
+}
+input:focus {
+  outline: none;
+}
+.frg-password {
+  text-decoration: none;
+  color: #e74c3c;
+}
+.frg-password:hover {
+  color: black;
+}
+.frg-password:visited {
+  color: #e74c3c;
+}
+.login {
+  width: 100%;
+  height: 30px;
+  border: none;
+  margin-bottom: 20px;
+  border-radius: 25px;
+  font-family: "Raleway", sans-serif;
+  letter-spacing: 0.2em;
+  color: #e74c3c;
+  transition: background 1s, color 1s;
+}
+.login:hover {
+  background: #e74c3c;
+  color: #ecf0f1;
+  cursor: pointer;
 }
 
-input[type="text"],
-input[type="password"] {
-    display: block;
-    width: 100%;
-    margin-top: 6px;
-    margin-bottom: 10px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    border: 1px solid #f0f0f0;
-    padding: 10px;
-    font-size: 16px;
+.logout {
+  width: 100%;
+  height: 30px;
+  border: none;
+
+  border-radius: 25px;
+  font-family: "Raleway", sans-serif;
+  letter-spacing: 0.2em;
+  color: #e74c3c;
+  transition: background 1s, color 1s;
+}
+.logout:hover {
+  background: #e74c3c;
+  color: #ecf0f1;
+  cursor: pointer;
+}
+.media {
+  width: 100%;
+  height: 30px;
+  border: none;
+  margin: 5px 0;
+  border-radius: 25px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+.media:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.fb {
+  background: #3a5a98;
+  color: white;
+}
+.g {
+  background: #dc4437;
+  color: white;
+}
+button:focus {
+  outline: none;
 }
 
-.form-group p {
-    margin-top: 13px;
-    text-align: center;
+.led {
+  display: flex;
 }
 
-.form-group a {
-    text-decoration: none;
-    color: #676767;
+.loggedIn {
+  height: 30px;
+  width: 25%;
+  margin: 10px 0;
+}
+.ledgreen {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #abff00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89ff00 0 2px 12px;
 }
 
-button {
-    border: none;
-    outline: none;
-    padding: 12px 20px;
-    border-radius: 7px;
-    margin-left: 12.5%;
-    margin-right: 12.5%;
-    cursor: pointer;
-    margin-top: 15px;
-    background-color: #778beb;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bolder;
-    width: 75%;
-    transition: all 0.3s ease;
+.loggedOut {
+  height: 30px;
+  width: 25%;
+  margin: 10px 0;
 }
 
-button:hover {
-    background-color: #6b7cd1;
-}
-
-.sosmed::before {
-    display: block;
-    content: "";
-    height: 1px;
-    width: 30%;
-    margin-left: 35%;
-    margin-right: 35%;
-    position: absolute;
-    top: 0;
-    background-color: rgb(200, 200, 200);
-}
-
-.sosmed {
-    position: relative;
-    margin-top: 3px;
-    padding-top: 16px;
-}
-
-.sosmed a {
-    display: block;
-    text-align: center;
-    padding: 10px 15px;
-    border-radius: 8px;
-    width: 80%;
-    margin: auto;
-    margin-bottom: 12px;
-    text-decoration: none;
-}
-
-.google {
-    border: 1px solid rgb(200, 200, 200);
-    color: #333;
-    transition: all 0.3s ease;
-}
-
-.google:hover {
-    background-color: rgb(245, 245, 245);
-}
-
-.google img {
-    width: 16px;
-    margin-bottom: -2px;
-    margin-right: 3px;
-}
-
-html * {
-    font-family: "Montserrat", sans-serif;
-    box-sizing: border-box;
-}
-
-body {
-    background: #4688f1;
-    padding: 0;
-    margin: 0;
-}
-
-.login-box {
-    background: #fff;
-    padding: 20px;
-    max-width: 480px;
-    margin: 25vh auto;
-    text-align: center;
-    letter-spacing: 1px;
-    position: relative;
-}
-
-.login-box:hover {
-    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.login-box h2 {
-    margin: 20px 0 20px;
-    padding: 0;
-    text-transform: uppercase;
-    color: #4688f1;
-}
-
-.social-button {
-    background-position: 25px 0px;
-    box-sizing: border-box;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    display: inline-block;
-    height: 50px;
-    line-height: 50px;
-    text-align: left;
-    text-decoration: none;
-    text-transform: uppercase;
-    vertical-align: middle;
-    width: 100%;
-    border-radius: 3px;
-    margin: 10px auto;
-    outline: rgb(255, 255, 255) none 0px;
-    padding-left: 20%;
-    transition: all 0.2s cubic-bezier(0.72, 0.01, 0.56, 1) 0s;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-#facebook-connect {
-    background: rgb(255, 255, 255)
-        url("https://raw.githubusercontent.com/eswarasai/social-login/master/img/facebook.svg?sanitize=true") no-repeat
-        scroll 5px 0px / 30px 50px padding-box border-box;
-    border: 1px solid rgb(60, 90, 154);
-}
-
-#facebook-connect:hover {
-    border-color: rgb(60, 90, 154);
-    background: rgb(60, 90, 154)
-        url("https://raw.githubusercontent.com/eswarasai/social-login/master/img/facebook-white.svg?sanitize=true")
-        no-repeat scroll 5px 0px / 30px 50px padding-box border-box;
-    -webkit-transition: all 0.8s ease-out;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease-out;
-}
-
-#facebook-connect span {
-    box-sizing: border-box;
-    color: rgb(60, 90, 154);
-    cursor: pointer;
-    text-align: center;
-    text-transform: uppercase;
-    border: 0px none rgb(255, 255, 255);
-    outline: rgb(255, 255, 255) none 0px;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-#facebook-connect:hover span {
-    color: #fff;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+.ledred {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #f00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.5) 0 2px 12px;
+  -webkit-animation: blinkRed 0.5s infinite;
+  -moz-animation: blinkRed 0.5s infinite;
+  -ms-animation: blinkRed 0.5s infinite;
+  -o-animation: blinkRed 0.5s infinite;
+  animation: blinkRed 0.5s infinite;
 }

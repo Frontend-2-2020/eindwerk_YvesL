@@ -6,7 +6,11 @@ class CustomErrorMessage extends Component {
     return (
       <ErrorMessage
         name={this.props.name}
-        render={(error) => <div className="error">{error}</div>}
+        render={(error) => (
+          <small className="error" style={{ color: "red" }}>
+            {error}
+          </small>
+        )}
       />
     );
   }

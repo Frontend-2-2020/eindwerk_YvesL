@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import { API } from "../../config/API";
-import Validate from "../../components/Register/RegisterValidate";
+import Validate from "../Forms/RegisterValidate";
+import { registerAction } from "../../redux/actions/RegisterActions";
+import { connect } from "react-redux";
 
 class RegisterComponent extends Component {
-  // state = {
-  //   color: "#fff",
-  // };
-  register = () => {
+  state = {
+    color: "#FFFF",
+  };
+
+  register = (values) => {
     //////HERE WE CREATE A USER ,REQUIRED FIELDS ARE DETERMINED BY THE API////////
     API.post("api/users", {
       first_name: document.querySelector("[name=firstname]").value,
@@ -19,12 +22,27 @@ class RegisterComponent extends Component {
         document.querySelector("[name=email]").value,
     }).then((response) => {
       alert(response.statusText);
+      this.props.registerAction();
     });
   };
 
   render() {
-    return <Validate submit={this.register} />;
+    return (
+      <div>
+        <Validate submit={this.register} />;
+      </div>
+    );
   }
 }
 
-export default RegisterComponent;
+const mapStateToProps = (state) => {
+  return { register: state.register };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    RegisterAction: () => dispatch(registerAction()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterComponent);

@@ -20,8 +20,9 @@ class App extends Component {
         <Social />
 
         <Router>
-          <Navi {...this.props} />
+          <Navi />
           <Suspense fallback={<div>Loading...</div>}>
+            {" "}
             <Switch>
               <Route path="/user/:id" component={User} />
               <Route path="/detail/:id" component={Detail} />

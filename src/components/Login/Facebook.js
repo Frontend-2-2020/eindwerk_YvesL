@@ -25,7 +25,7 @@ class Facebook extends Component {
 
   init = () => {
     window.FB.init({
-      appId: "2597493473825632",
+      appId: "2501851989916558",
       cookie: true,
       xfbml: true,
       version: "v7.0",
@@ -59,6 +59,7 @@ class Facebook extends Component {
     window.FB.login((response) => {
       this.getlogin();
       this.getUserData();
+      this.props.loginfb();
     }, {});
   };
 
