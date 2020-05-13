@@ -29,7 +29,6 @@ class App extends Component {
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
               <Route path="/" component={Home} />
-
               <Route component={Page404} />
             </Switch>
           </Suspense>

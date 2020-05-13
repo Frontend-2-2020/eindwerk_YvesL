@@ -2,12 +2,10 @@ import React from "react";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import classes from "./Comments.module.css";
-//import Codepencomment from "../Codepencomment";
 
 const CreateCommentComponent = (props) => {
   return (
     <div>
-      {/* <Codepencomment /> */}
       <div className={classes.commentInputbox}>
         <div className={classes.outer} onClick={props.commentbox}>
           <div className={classes.inner}>

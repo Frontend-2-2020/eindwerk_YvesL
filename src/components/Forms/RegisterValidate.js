@@ -10,7 +10,7 @@ export default class Validate extends Component {
 
     requiredFields.forEach((field) => {
       if (!values[field]) {
-        errors[field] = "required";
+        errors[field] = field + " is required";
       }
     });
     return errors;

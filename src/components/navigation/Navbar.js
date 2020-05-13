@@ -1,31 +1,30 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaRedditAlien } from "react-icons/fa";
+import React, { useState } from "react";
 import "./NavBar.css";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-} from "reactstrap";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import store from "../../redux/Store";
+import { FaRedditAlien } from "react-icons/fa";
+import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
 
 const Navi = (props) => {
   const [collapsed, setCollapsed] = useState(true);
-  console.log(store);
-
   const toggleNavbar = () => setCollapsed(!collapsed);
+  const state = store.getState();
+  const { led } = state.auth;
+
   return (
     <Navbar className="navb" color="dark" light fixed="top" name="Yves">
-      <NavbarBrand href="/" className="mr-auto">
+      <Link to="/" className="mr-auto navbar-brand">
         <FaRedditAlien style={{ color: "white", height: 50, width: 50 }} />
-      </NavbarBrand>
+      </Link>
+
       <div className="loggedIn">
-        <div className="ledgreen"></div>
+        {led ? (
+          <div className="ledgreen"></div>
+        ) : (
+          <div className="ledred"></div>
+        )}
+        ;
       </div>
       <Link to="/login" style={{ margin: 10 }}>
         <button type="button" className="btn btn-outline-primary navbar-right">
@@ -37,19 +36,18 @@ const Navi = (props) => {
           register
         </button>
       </Link>
-
       <NavbarToggler onClick={toggleNavbar} className="mr-2 " />
       <Collapse isOpen={!collapsed} navbar>
         <Nav navbar>
           <NavItem>
-            <NavLink href="/login" style={{ color: "white" }}>
+            <Link to="/login" style={{ color: "white" }}>
               login
-            </NavLink>
+            </Link>
           </NavItem>
           <NavItem>
-            <NavLink href="/register" style={{ color: "white" }}>
+            <Link to="/register" style={{ color: "white" }}>
               register
-            </NavLink>
+            </Link>
           </NavItem>
         </Nav>
       </Collapse>
@@ -57,4 +55,8 @@ const Navi = (props) => {
   );
 };
 
-export default Navi;
+const mapStateToProps = (state) => {
+  return { auth: state.auth };
+};
+
+export default connect(mapStateToProps)(Navi);

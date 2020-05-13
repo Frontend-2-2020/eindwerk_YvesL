@@ -8,3 +8,11 @@ export const API = axios.create({
 if (TOKEN) {
   API.defaults.headers.common["Authorization"] = "Bearer " + TOKEN;
 }
+
+export const textLimit = (str) => {
+  if (str.length > 20) {
+    return str.substring(0, 20) + "...";
+  } else {
+    return str;
+  }
+};

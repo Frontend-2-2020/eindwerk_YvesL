@@ -1,6 +1,7 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import "./UserProfileCard.css";
+import PropTypes from "prop-types";
 
 const UserProfileCard = (props) => {
   return (
@@ -46,3 +47,11 @@ const UserProfileCard = (props) => {
 };
 
 export default UserProfileCard;
+
+UserProfileCard.propTypes = {
+  first_name: PropTypes.string,
+  last_name: PropTypes.string,
+  avatar: PropTypes.string,
+  email: PropTypes.string,
+  favorite_color: PropTypes.string,
+};

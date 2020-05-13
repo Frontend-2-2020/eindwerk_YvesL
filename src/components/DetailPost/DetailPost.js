@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { API } from "../../config/API";
-import moment from "moment";
-import DetailPostCard from "./DetailPostCard";
-import { Link, Redirect } from "react-router-dom";
 import "./DetailPost.css";
+import { Redirect } from "react-router";
+import { API } from "../../config/API";
 import { Spinner } from "../../ui/spinner/Spinner";
 import Validate from "../Forms/Validate";
 import { FaEdit } from "react-icons/fa";
+import DetailPostCard from "./DetailPostCard";
+import CommentPostcard from "./CommentPostCard";
 
 export class DetailPost extends Component {
   state = {
@@ -52,8 +52,6 @@ export class DetailPost extends Component {
   //////PASSING THE TITLE AND BODY THAT WE LIKE TO EDIT//////////
   submitHandler = (values) => {
     const { id } = this.props;
-
-    console.log(values.title);
     const data = {
       title: values.title,
       body: values.body,
@@ -61,7 +59,6 @@ export class DetailPost extends Component {
     API.put("api/posts/" + id, data)
       .then((res) => alert("You updated your post succesfully" + res))
       .then(() => this.setState({ redirect: true }))
-      // .then(() => window.location.reload())
       .catch((err) => alert("Oops! Something went wrong" + err));
   };
 
@@ -73,7 +70,6 @@ export class DetailPost extends Component {
     API.delete("api/posts/" + id)
       .then((res) => alert("Post" + id + "has been deleted" + res))
       .then(() => this.setState({ redirect: true }))
-      // .then(() => window.location.reload())
       .catch((err) =>
         alert("You are not Authorized to delete a post from another user" + err)
       );
@@ -82,36 +78,12 @@ export class DetailPost extends Component {
   render() {
     const { postDetails, user, comments, loading, redirect } = this.state;
 
-    const postComments = comments.map((comment) => (
-      <div key={comment.id} id="comments">
-        <li style={{ marginBottom: "15px", listStyleType: "none" }}>
-          <p style={{ color: "green" }}>
-            <strong>
-              <Link to={"/user/" + comment.user_id}>
-                {comment.user.first_name}
-              </Link>
-            </strong>{" "}
-            commented
-          </p>
-          <strong dangerouslySetInnerHTML={{ __html: comment.body }}></strong>
-          <p style={{ marginTop: "35px" }}>
-            {" "}
-            On: {moment(comment.created_at).format("llll")}
-          </p>
-          <p>Updated: {moment(comment.updated_at).format("llll")}</p>
-        </li>
-        <hr />
-      </div>
-    ));
-
-    //////USER'S ORIGINAL POST//////
     const pageContent = (
       <div className="cards">
         <div style={{ textAlign: "center", cursor: "pointer" }}>
           <FaEdit onClick={this.showEditpostBtn} style={{ fontSize: 35 }} />
           <p>Change Post</p>
         </div>
-
         {/* ///////FORMIK//////// */}
         <div className="container">
           <Validate
@@ -120,22 +92,20 @@ export class DetailPost extends Component {
             submit={this.submitHandler}
           />
         </div>
-
         <div>
-          <h1 className="headers">{user.first_name}'s post</h1>
           <DetailPostCard
             {...postDetails}
             {...user}
             clicked={this.deletePost}
           />
         </div>
+        <div>
+          <h1 className="headers">Comments on {user.first_name}'s post</h1>
 
-        <h1 className="headers">See comments on {user.first_name}'s post</h1>
-        <DetailPostCard
-          {...user}
-          comment={postComments}
-          blogid={postComments.blog_post_id}
-        />
+          {comments.map((comment) => (
+            <CommentPostcard key={comment.id} {...postDetails} {...comment} />
+          ))}
+        </div>
       </div>
     );
 

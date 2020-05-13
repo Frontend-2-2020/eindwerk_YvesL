@@ -20,19 +20,25 @@ export default class componentName extends Component {
           <div className="right-side">
             <h1>Sign Up</h1>
 
-            <label htmlFor="first_name">first_name</label>
+            <label htmlFor="first_name">
+              first_name <span>*</span>
+            </label>
             <Field type="text" name="firstname" />
             <CustomErrorMessage name="firstname" />
             <br />
             <br />
 
-            <label htmlFor="last_name">last_name</label>
+            <label htmlFor="last_name">
+              last_name <span>*</span>
+            </label>
             <Field type="text" name="lastname" />
             <CustomErrorMessage name="lastname" />
             <br />
             <br />
 
-            <label htmlFor="email">email</label>
+            <label htmlFor="email">
+              email <span>*</span>
+            </label>
             <Field type="email" name="email" />
             <CustomErrorMessage name="email" />
             <br />

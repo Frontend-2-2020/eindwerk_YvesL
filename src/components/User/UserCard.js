@@ -2,9 +2,9 @@ import React from "react";
 import "./UserCard.css";
 import { FaArrowCircleRight } from "react-icons/fa";
 import moment from "moment";
+import PropTypes from "prop-types";
 
 const UserCard = (props) => {
-  //console.log(props);
   return (
     <div className="usercard">
       <div className="box-shadow bg-white rounded-circle mx-auto text-center">
@@ -33,3 +33,12 @@ const UserCard = (props) => {
 };
 
 export default UserCard;
+
+UserCard.propTypes = {
+  avatar: PropTypes.string,
+  title: PropTypes.string,
+  body: PropTypes.string,
+  favorite_color: PropTypes.string,
+  created_at: PropTypes.string,
+  updated_at: PropTypes.string,
+};

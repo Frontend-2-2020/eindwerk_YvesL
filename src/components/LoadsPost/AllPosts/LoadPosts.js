@@ -31,18 +31,16 @@ class LoadPosts extends Component {
 
   ////////PAGINATION, I CHOSE TO USE THE PAGINATION NODE HERE////////
   handlePageChange = (pageNumber) => {
-    console.log(`active page is ${pageNumber}`);
     this.setState({ activePage: pageNumber }, () => this.getposts());
   };
 
   ///////PREVENTING AN INFINITE LOOP////////////
   componentDidMount() {
     this.getposts();
-
-    //////REFRESHING THE PAGE EVERY 5 MINUTES
+    //REFRESHING THE PAGE EVERY 10 SEC
     // setInterval(() => {
     //   this.getposts();
-    // }, 300000);
+    // }, 10000);
   }
 
   //////TO DISPLAY THE MAKE POST FORM/////////
@@ -63,8 +61,7 @@ class LoadPosts extends Component {
       })
       .catch((err) => {
         console.log(err);
-      })
-      .then(() => window.location.reload());
+      });
   }
 
   render() {
@@ -93,21 +90,13 @@ class LoadPosts extends Component {
         {posts.map((post) => (
           <div key={post.id}>
             <PostsCard
-              title={post.title}
-              body={post.body}
-              timestamp={post.created_at}
-              updated={post.updatedAt}
-              comments={post.comments_count}
-              id={post.user_id}
-              name={post.user.first_name}
               postid={post.id}
-              avatar={post.user.avatar}
               posts={post.user_id}
-              {...posts}
+              {...post}
+              {...post.user}
             />
           </div>
         ))}
-        ;
       </div>
     );
 

@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import moment from "moment";
-import "./UsersComments.css";
+import { withRouter } from "react-router";
 import { API } from "../../config/API";
 import Validate from "../Forms/Validate";
+import moment from "moment";
+import "./UsersComments.css";
 import { Trashcan } from "../../ui/helpers/Trashcan";
+import PropTypes from "prop-types";
 
 class UsersComments extends Component {
   editComment = (values) => {
@@ -15,13 +17,12 @@ class UsersComments extends Component {
     API.put("api/comments/" + commId, data)
       .then((res) => alert("You updated your comment succesfully" + res))
       .catch((err) => alert("Oops! Something went wrong" + err))
-      .then(() => window.location.reload());
+      .then(() => this.props.history.push("/"));
   };
 
   deleteComment = () => {
     const { commId } = this.props;
     console.log("delete");
-
     API.delete("api/comments/" + commId)
       .then((res) => alert("Comment" + commId + "has been deleted" + res))
       .catch((err) =>
@@ -29,29 +30,31 @@ class UsersComments extends Component {
           "You are not Authorized to delete a comment from another user" + err
         )
       )
-      .then(() => window.location.reload());
+      .then(() => this.props.history.push("/"));
   };
 
   render() {
+    const { blog_post, first_name, body } = this.props;
+
     return (
       <div>
         <div className="page">
           <div className="details">
-            <p>Admin user id:{this.props.blog_post.user_id}</p>
-            <p>{moment(this.props.blog_post.updated_at).format("llll")}</p>
+            <p>Admin user id:{blog_post.user_id}</p>
+            <p>{moment(blog_post.updated_at).format("llll")}</p>
           </div>
           <div className="contentbody">
-            <h4 className="title">{this.props.blog_post.title}</h4>
+            <h4 className="title">{blog_post.title}</h4>
             <hr />
-            <p className="text">{this.props.blog_post.body} </p>
+            <p className="text">{blog_post.body} </p>
           </div>
           <div className="contentcomment">
-            <h4>{this.props.first_name} said ...</h4>
+            <h4>{first_name} said ...</h4>
             <hr />
             <div>
-              {/* ////////////GETTING RID OF THE HOML TAGS////////// */}
+              {/* ////////////GETTING RID OF THE HTML TAGS////////// */}
               <div style={{ backgroundColor: "white", marginBottom: 20 }}>
-                <p dangerouslySetInnerHTML={{ __html: this.props.body }}></p>
+                <p dangerouslySetInnerHTML={{ __html: body }}></p>
                 <div onClick={this.deleteComment}>
                   <Trashcan />
                 </div>
@@ -75,4 +78,12 @@ class UsersComments extends Component {
   }
 }
 
-export default UsersComments;
+export default withRouter(UsersComments);
+
+UsersComments.propTypes = {
+  title: PropTypes.string,
+  user_id: PropTypes.number.isRequired,
+  updated_at: PropTypes.string,
+  body: PropTypes.string,
+  first_name: PropTypes.string,
+};

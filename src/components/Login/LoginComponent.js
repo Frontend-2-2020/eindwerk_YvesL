@@ -7,7 +7,6 @@ import { logoutAuth } from "../../redux/actions/authActions";
 
 class LoginComponent extends Component {
   login = (values) => {
-    console.log("loggedIn");
     /////CLIENT_ID EN CLIENT_SECRET IS PROVIDED BY THE API (ITC JANNICK)//////
     ////API CALL NAAR "API + OAUTH/TOKEN" , ALL FIEDS ARE REQUIRED FOR OATH2///////
     API.post("oauth/token", {
@@ -26,7 +25,6 @@ class LoginComponent extends Component {
       API.defaults.headers.common["Authorization"] =
         "Bearer " + response.data.access_token;
       ///////NOW THAT WE HAVE AN ACCES TOKEN WE CAN RUN THE AXIOS CALL TO GET THE POSTS
-      // this.getUserData();
       this.props.loginAuth();
     });
   };

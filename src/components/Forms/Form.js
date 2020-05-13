@@ -36,6 +36,7 @@ export default class componentName extends Component {
         <div className="row">
           <div className="col">
             <div className="form-group">
+              {/* CKEditor */}
               <CKEditor
                 name="body"
                 editor={ClassicEditor}

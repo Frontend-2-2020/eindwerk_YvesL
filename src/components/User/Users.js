@@ -5,6 +5,7 @@ import UserCard from "./UserCard";
 import { Spinner } from "../../ui/spinner/Spinner";
 import UserProfileCard from "./UserProfileCard";
 import UsersComments from "./UsersComments";
+import PropTypes from "prop-types";
 
 export class User extends Component {
   /////////INITIAL STATE//////////
@@ -65,6 +66,7 @@ export class User extends Component {
             {...comment}
             {...user}
             {...comments}
+            name={this.props}
           />
         ))}
       </div>
@@ -78,3 +80,7 @@ export class User extends Component {
 }
 
 export default User;
+
+User.propTypes = {
+  first_name: PropTypes.string,
+};

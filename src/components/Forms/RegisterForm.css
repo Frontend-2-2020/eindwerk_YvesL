@@ -60,7 +60,11 @@ input.submit-btn {
   margin-top: 30px;
 }
 input.submit-btn:hover {
-  background: linear-gradient(120deg, rgba(63, 94, 251, 1), rgba(106, 208, 217, 1));
+  background: linear-gradient(
+    120deg,
+    rgba(63, 94, 251, 1),
+    rgba(106, 208, 217, 1)
+  );
   border: 0;
   color: #fff;
   cursor: pointer;
@@ -68,4 +72,8 @@ input.submit-btn:hover {
 
 *:focus {
   outline: none;
+}
+
+span {
+  color: red;
 }

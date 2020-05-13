@@ -5,6 +5,8 @@ import { API } from "../../../config/API";
 import Comments from "./Comments/Comments";
 import moment from "moment";
 import { FaRegComment, FaCommentMedical } from "react-icons/fa";
+import PropTypes from "prop-types";
+import { textLimit } from "../../../config/API";
 
 class CardComponent extends Component {
   state = {
@@ -26,8 +28,7 @@ class CardComponent extends Component {
   /////WE RECEIVER THE NEEDED ID FROM THE SETSTATE AND STORE IT IN A CONST///////
   ////THEN WE STORE THE VALUES THAT WE WANNA POST ALSO IN A VARIABLE(DATA ITC)///
   addCommentHandler = () => {
-    const { id } = this.state;
-    const { commentInput } = this.state;
+    const { id, commentInput } = this.state;
     const data = {
       blog_post_id: id,
       body: commentInput,
@@ -35,22 +36,21 @@ class CardComponent extends Component {
     /////POSTING OUT DATA TO THE SERVER THROUGH AXIOS//////////
     API.post("api/comments", data)
       .then((res) => {
-        alert(res);
+        alert("Your comment was posted succesfully");
       })
       .catch((err) =>
         alert(
           err +
             " ,Make sure that you are logged in if you want to make a comment"
         )
-      )
-      .then(() => window.location.reload());
+      );
   };
 
   render() {
     const { isClicked } = this.state;
-    const { body } = this.props;
-    const sub = body.substring(0, 10);
-    const blogtext = body.length > 10 ? sub + "..." : body;
+
+    const { props } = this;
+    const str = props.body;
 
     ///////BOX WHERE WE TYPE OUR COMMENTS//////////
     const commentfield = (
@@ -68,13 +68,13 @@ class CardComponent extends Component {
       <div className={classes.card}>
         <div className={classes.cardbody}>
           <div className={classes.cardheader}>
-            <img src={this.props.avatar} alt="profile pic" />
-            <h3>{this.props.title}</h3>
+            <img src={props.avatar} alt="profile pic" />
+            <h3>{props.title}</h3>
 
             <div className={classes.posted}>
               <div className="btn">
                 {" "}
-                <Link to={"/user/" + this.props.id}>
+                <Link to={"/user/" + props.id}>
                   <button className={classes.followbutton}>+ Profile</button>
                 </Link>
               </div>
@@ -83,14 +83,12 @@ class CardComponent extends Component {
                 <p style={{ margin: 10 }}>
                   <span style={{ color: "black" }}>
                     Posted by{" "}
-                    <Link to={"/user/" + this.props.id}>
-                      {this.props.name}{" "}
-                    </Link>
+                    <Link to={"/user/" + props.id}>{props.first_name} </Link>
                     on{""}
                   </span>
                 </p>
                 <div style={{ margin: 10, color: "grey" }}>
-                  {moment(this.props.timestamp).format("llll")}
+                  {moment(props.timestamp).format("llll")}
                 </div>
               </div>
             </div>
@@ -100,10 +98,14 @@ class CardComponent extends Component {
           <div className={classes.cardheader2}>
             <div>
               <div className={classes.cardtext}>
-                <strong dangerouslySetInnerHTML={{ __html: blogtext }}></strong>
+                <strong
+                  dangerouslySetInnerHTML={{
+                    __html: textLimit(str),
+                  }}
+                ></strong>
 
                 <div className={classes.readpost}>
-                  <Link to={"/detail/" + this.props.postid}>
+                  <Link to={"/detail/" + props.postid}>
                     <button className="btn btn-outline-dark">Full post</button>
                   </Link>
                 </div>
@@ -116,8 +118,8 @@ class CardComponent extends Component {
             >
               <div className={classes.commentbox}>
                 <div className={classes.nofcomments}>
-                  <Link to={"/detail/" + this.props.postid}>
-                    <FaRegComment /> {this.props.comments}
+                  <Link to={"/detail/" + props.postid}>
+                    <FaRegComment /> {props.comments_count}
                     <span> Comments</span>
                   </Link>
                 </div>
@@ -137,14 +139,6 @@ class CardComponent extends Component {
             {showcommentfield}
           </div>
           <hr />
-          {/* <div className={classes.cardfooter}>
-            <div className={classes.socialbox}>
-              <FaWhatsapp />
-              <FaFacebook />
-              <FaTwitter />
-              <FaInstagram />
-            </div>
-          </div>  */}
         </div>
       </div>
     );
@@ -161,3 +155,15 @@ export default React.memo(CardComponent, (prevProps, nextProps) => {
   }
   return false;
 });
+
+CardComponent.propTypes = {
+  avatar: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  timediv: PropTypes.instanceOf(Date),
+  timstamp: PropTypes.instanceOf(Date),
+  first_name: PropTypes.string.isRequired,
+  postid: PropTypes.number.isRequired,
+  body: PropTypes.string.isRequired,
+  comments_count: PropTypes.number,
+};

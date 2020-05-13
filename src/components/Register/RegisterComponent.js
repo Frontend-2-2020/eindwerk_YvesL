@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { API } from "../../config/API";
 import Validate from "../Forms/RegisterValidate";
-import { registerAction } from "../../redux/actions/RegisterActions";
-import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
 class RegisterComponent extends Component {
   state = {
@@ -10,7 +9,7 @@ class RegisterComponent extends Component {
   };
 
   register = (values) => {
-    //////HERE WE CREATE A USER ,REQUIRED FIELDS ARE DETERMINED BY THE API////////
+    //////HERE WE CREATE A USER ,ALL FIELDS ARE REQUIRED AND DETERMINED BY THE API////////
     API.post("api/users", {
       first_name: document.querySelector("[name=firstname]").value,
       last_name: document.querySelector("[name=lastname]").value,
@@ -22,11 +21,12 @@ class RegisterComponent extends Component {
         document.querySelector("[name=email]").value,
     }).then((response) => {
       alert(response.statusText);
-      this.props.registerAction();
+      this.props.history.push("/login");
     });
   };
 
   render() {
+    console.log(this.props.history);
     return (
       <div>
         <Validate submit={this.register} />;
@@ -34,15 +34,5 @@ class RegisterComponent extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return { register: state.register };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    RegisterAction: () => dispatch(registerAction()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterComponent);
+////USED COMPOSE TO USE WITHROUTER IN COMBINATION WITH CONNECT
+export default withRouter(RegisterComponent);

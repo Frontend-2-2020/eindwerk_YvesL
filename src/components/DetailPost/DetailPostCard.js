@@ -1,12 +1,12 @@
 import React from "react";
-// import "./DetailCard.css";
-import { Link } from "react-router-dom";
 import { Trashcan } from "../../ui/helpers/Trashcan";
 import moment from "moment";
+import PropTypes from "prop-types";
 
 const DetailPostCard = (props) => {
   return (
     <div>
+      <h1 className="headers">{props.first_name}'s post</h1>
       <div className="row pt-5 mt-30 ">
         <div className="col-lg-4 col-sm-6 mb-30 pb-5 m-auto">
           <div className="card" href="http">
@@ -24,16 +24,8 @@ const DetailPostCard = (props) => {
               />
             </div>
             <div className="card-body text-center">
-              <h3 className="card-title pt-1">
-                {props.title} {props.name}
-              </h3>
-
-              <strong dangerouslySetInnerHTML={{ __html: props.body }}></strong>
-              <Link to={"/user/" + props.iduser}>
-                <p> {props.author}</p>
-              </Link>
-
-              <ul style={{ padding: "1rem" }}>{props.comment}</ul>
+              <h3 className="card-title pt-1">{props.title}</h3>
+              <p dangerouslySetInnerHTML={{ __html: props.body }}></p>
               <hr style={{ width: "40%" }} />
               <p>
                 <strong>posted on:</strong>
@@ -43,9 +35,17 @@ const DetailPostCard = (props) => {
                 <strong>updated on:</strong>
                 {moment(props.updated).format("llll")}
               </p>
-              <span onClick={props.clicked}>
-                <Trashcan />
-              </span>
+
+              {props.first_name === "Yves" ? (
+                <span onClick={props.clicked}>
+                  {" "}
+                  <Trashcan />
+                </span>
+              ) : (
+                <div style={{ opacity: "0.3" }}>
+                  <Trashcan />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -55,3 +55,14 @@ const DetailPostCard = (props) => {
 };
 
 export default DetailPostCard;
+
+DetailPostCard.propTypes = {
+  title: PropTypes.string,
+  name: PropTypes.string,
+  body: PropTypes.string,
+  iduser: PropTypes.number,
+  author: PropTypes.string,
+  comment: PropTypes.array,
+  created: PropTypes.instanceOf(Date),
+  updated: PropTypes.instanceOf(Date),
+};

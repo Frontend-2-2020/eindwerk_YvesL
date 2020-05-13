@@ -4,7 +4,7 @@ export const loginAuth = () => async (dispatch) => {
   console.log("isLoggedIn");
   await API.get("api/user").then((response) => {
     console.log(response.data);
-    dispatch({ type: "LOGIN", payload: response.data, login: true });
+    dispatch({ type: "LOGIN", payload: response.data });
   });
 };
 
