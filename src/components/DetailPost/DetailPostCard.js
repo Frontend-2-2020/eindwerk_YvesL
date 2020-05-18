@@ -37,7 +37,7 @@ const DetailPostCard = (props) => {
               </p>
 
               {props.first_name === "Yves" ? (
-                <span onClick={props.clicked}>
+                <span onClick={props.delete}>
                   {" "}
                   <Trashcan />
                 </span>

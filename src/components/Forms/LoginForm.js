@@ -4,36 +4,20 @@ import "./LoginForm.css";
 import CustomErrorMessage from "../Forms/CustomErrorMessage";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 
+
 export default class loginForm extends Component {
   render() {
-    //const { user } = this.props;
-    //console.log(user);
-    // const ledlights = (
-    //   <div className="led">
-    //     {user ? (
-    //       <div className="loggedIn">
-    //         <div className="ledgreen"></div>{" "}
-    //       </div>
-    //     ) : (
-    //       <div className="loggedOut">
-    //         {" "}
-    //         <div className="ledred"></div>
-    //       </div>
-    //     )}
-    //   </div>
-    // );
-
     return (
-      <div className="con">
-        {/* {ledlights} */}
-        <div className="content-con">
+      <div className="container">
+        
+        <div className="content">
           <Form>
-            <label htmlFor="username">email</label>
+            <h4 htmlFor="username">Email <span>*</span></h4>
             <Field type="email" name="username" />
             <CustomErrorMessage name="username" />
             <br />
 
-            <label htmlFor="password">password</label>
+            <h4 htmlFor="password">Password <span>*</span></h4>
             <input type="password" name="password" />
 
             <div>

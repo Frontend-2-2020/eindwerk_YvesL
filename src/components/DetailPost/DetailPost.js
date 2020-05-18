@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "@reach/dialog/styles.css";
 import "./DetailPost.css";
 import { Redirect } from "react-router";
 import { API } from "../../config/API";
@@ -7,6 +8,7 @@ import Validate from "../Forms/Validate";
 import { FaEdit } from "react-icons/fa";
 import DetailPostCard from "./DetailPostCard";
 import CommentPostcard from "./CommentPostCard";
+//import Confirm from "../../ui/modal/Confirm";
 
 export class DetailPost extends Component {
   state = {
@@ -19,7 +21,7 @@ export class DetailPost extends Component {
 
   ///////HIDE OR SHOW THE INPUT FORM///////////
   showEditpostBtn() {
-    let editBtn = document.querySelector(".container");
+    let editBtn = document.querySelector(".editForm");
     if (editBtn.style.display === "none") {
       editBtn.style.display = "block";
     } else {
@@ -49,7 +51,7 @@ export class DetailPost extends Component {
   }
 
   ///////MAKING A PUT REQUEST TO EDIT THE SPECIFIC POST(SAME ID AS RECEIVED FROM PROPS)///////
-  //////PASSING THE TITLE AND BODY THAT WE LIKE TO EDIT//////////
+  //////PASSING THE TITLE AND BODY(RECEIVED FROM VALUES) THAT WE LIKE TO EDIT//////////
   submitHandler = (values) => {
     const { id } = this.props;
     const data = {
@@ -66,13 +68,19 @@ export class DetailPost extends Component {
   deletePost = () => {
     console.log("delete");
     const { id } = this.props;
-
-    API.delete("api/posts/" + id)
-      .then((res) => alert("Post" + id + "has been deleted" + res))
-      .then(() => this.setState({ redirect: true }))
-      .catch((err) =>
-        alert("You are not Authorized to delete a post from another user" + err)
-      );
+    const confirmDelete = window.confirm(
+      "Are you sure want to delete your post?"
+    );
+    if (confirmDelete === true) {
+      API.delete("api/posts/" + id)
+        .then((res) => alert("Post" + id + "has been deleted"))
+        .then(() => this.setState({ redirect: true }))
+        .catch((err) =>
+          alert(
+            "You are not Authorized to delete a post from another user" + err
+          )
+        );
+    }
   };
 
   render() {
@@ -80,28 +88,36 @@ export class DetailPost extends Component {
 
     const pageContent = (
       <div className="cards">
-        <div style={{ textAlign: "center", cursor: "pointer" }}>
+        {/* ///////EDIT POST BUTTON//////// */}
+        <div
+          style={{
+            textAlign: "center",
+            cursor: "pointer",
+            color: "#FFF",
+            marginTop: 120,
+          }}
+        >
           <FaEdit onClick={this.showEditpostBtn} style={{ fontSize: 35 }} />
           <p>Change Post</p>
         </div>
-        {/* ///////FORMIK//////// */}
-        <div className="container">
+
+        {/* ///////FORMIK EDIT POST//////// */}
+        <div className="editForm">
           <Validate
             btnTxt="Edit"
             formTxt="Edit Post"
             submit={this.submitHandler}
           />
         </div>
+
+        {/* ///////ORIGINAL POST DETAIL//////// */}
         <div>
-          <DetailPostCard
-            {...postDetails}
-            {...user}
-            clicked={this.deletePost}
-          />
+          <DetailPostCard {...postDetails} {...user} delete={this.deletePost} />
         </div>
         <div>
           <h1 className="headers">Comments on {user.first_name}'s post</h1>
 
+          {/* //////COMMENTS MADE ON THAT POST//////// */}
           {comments.map((comment) => (
             <CommentPostcard key={comment.id} {...postDetails} {...comment} />
           ))}

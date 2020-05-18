@@ -1,25 +1,23 @@
-body {
-  background: rgb(255, 244, 244);
-}
 .profile-card {
   position: relative;
   overflow: hidden;
   margin: 0px auto;
   text-align: center;
   box-shadow: 0px 2px 3px #222;
-  /* top: 50px;  */
-  /* left: auto; */
   width: 500px;
   height: 500px;
 }
+
 .profile-card:hover .profile-img img {
   transform: scale(1.2);
 }
+
 .profile-card .profile-img img {
   width: 500px;
   height: 500px;
   transition: transform 1s;
 }
+
 .profile-card .profile-content::before {
   content: "";
   position: absolute;
@@ -33,6 +31,7 @@ body {
   transform: scale(1, 1);
   transition: all 0.5s linear;
 }
+
 .profile-card .profile-content::after {
   content: "";
   position: absolute;
@@ -45,10 +44,12 @@ body {
   border-top: 3px solid transparent;
   transition: all 0.5s linear;
 }
+
 .profile-card:hover .profile-content:before {
   top: 20px;
   left: 20px;
 }
+
 .profile-card:hover .profile-content:after {
   bottom: 20px;
   right: 20px;
@@ -63,9 +64,11 @@ body {
   padding: 30% 4%;
   text-align: center;
 }
+
 .profile-card .profile-content:hover {
   background-color: rgba(255, 43, 131, 0.5);
 }
+
 .profile-card .profile-content .title {
   font-size: 24px;
   color: #333;
@@ -75,11 +78,13 @@ body {
   transform: translateY(-100px);
   transition: all 900ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s;
 }
+
 .profile-card:hover .title {
   opacity: 1;
   transform: translateY(0);
   color: #f5f5f5;
 }
+
 .profile-card:hover .title::after {
   content: "";
   display: block;
@@ -87,13 +92,15 @@ body {
   margin: 10px auto;
   border-bottom: 2px solid #222;
 }
-.profile-card .profile-content .title > span {
+
+.profile-card .profile-content .title>span {
   display: block;
   margin: 5px 0;
   font-size: 14px;
   text-transform: capitalize;
   color: #f5f5f5;
 }
+
 .profile-card .profile-content .social-link {
   margin: 20px 0;
   padding: 0;
@@ -101,10 +108,12 @@ body {
   transform: translateY(100px);
   transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s;
 }
+
 .profile-card:hover .social-link {
   opacity: 1;
   transform: translateY(0);
 }
+
 .profile-card .profile-content .social-link li {
   display: inline-block;
   list-style: none;
@@ -112,6 +121,7 @@ body {
   color: #d5cfeb;
   font-size: x-large;
 }
+
 .profile-card .profile-content .social-link li a {
   color: #333;
   width: 30px;

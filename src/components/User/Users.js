@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { API } from "../../config/API";
 import "./Users.css";
-import UserCard from "./UserCard";
 import { Spinner } from "../../ui/spinner/Spinner";
+import UserCard from "./UserCard";
 import UserProfileCard from "./UserProfileCard";
 import UsersComments from "./UsersComments";
 import PropTypes from "prop-types";
@@ -13,7 +13,7 @@ export class User extends Component {
     user: {},
     blogposts: [],
     comments: [],
-    blogs: [],
+    blog: [],
     loaded: false,
   };
 
@@ -23,6 +23,7 @@ export class User extends Component {
     API.get("api/users/" + id).then((response) => {
       const { data } = response;
       data.comments.map((comm) => this.setState({ blog: comm.blog_post }));
+
       ///////SETTING THE NEW STATE////////
       this.setState({
         user: data,
@@ -40,6 +41,9 @@ export class User extends Component {
 
   render() {
     const { user, blogposts, comments, loaded } = this.state;
+    // console.log(blogposts);
+    //////USE LATER ON!!!!!//////////
+    const numberOfPosts = Object.keys(blogposts).length;
 
     ///////ASSIGNING A CONSTANT TO THE JSX BLOCK TO OUTPUT//////////
     const userOutput = (
@@ -48,7 +52,9 @@ export class User extends Component {
         <UserProfileCard {...user} />
 
         {/* PREVIOUS POSTS MADE BY USER */}
-        <h3>Previous posts by {user.first_name}</h3>
+        <h3>
+          {numberOfPosts} Previous posts by {user.first_name}
+        </h3>
         <hr />
         <div className="userPostsCard">
           {blogposts.map((blogpost) => (

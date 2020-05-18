@@ -1,144 +1,19 @@
-.cardbody {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  width: 70vw;
-  height: auto;
-  margin: auto;
-  margin-bottom: 35px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px black;
-}
-
-.cardtext {
-  justify-content: center;
-  width: 65vw;
-  height: auto;
-  margin: 0px auto;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px black;
-
-  margin: 10px;
-  padding: 15px;
-  color: black;
-}
-
-.cardheader {
-  display: flex;
-  flex-wrap: wrap;
-  box-shadow: 0 3px 8px #b5aba9;
-  margin: 15px;
-}
-
-.cardheader2 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  box-shadow: 0 3px 8px #b5aba9;
-  margin: 15px;
-}
-
-.cardheader h3 {
-  font-family: Lobster, cursive;
-  padding: 10px;
-  margin: 10px;
-}
-
-.cardheader img {
-  width: 120px;
-  height: 160px;
-  border-radius: 20px;
-  padding: 5px;
-}
-
-.commentsAndLikes {
-  padding: 15px;
-}
-
-span {
-  color: black;
-}
-
-span:hover {
-  text-decoration: underline;
-}
-
-.posted {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-between;
-}
-
-.timediv {
-  display: flex;
-  color: grey;
-}
-
-.showpostbtn {
-  border-radius: 5px;
-
-  justify-content: center;
-}
-
-.readpost {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .commentInputbox {
   margin-bottom: 20px;
-  margin: 10px;
+  margin: 15px;
   padding: 0 20px 20px 20px;
   color: black;
   border-radius: 8px;
-  box-shadow: 0 3px 8px #b5aba9;
+  box-shadow: 0 3px 8px #1d1b1b;
   display: flex;
   flex-flow: column;
-}
-
-.cardfooter {
-  margin: 10px;
-  box-shadow: 0 3px 8px #b5aba9;
-}
-
-.commentbox {
-  color: black;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-.commentbox > * {
-  margin-left: 20px;
-}
-
-.nofcomments {
-  justify-content: flex-start;
-}
-
-/* .addcomment {
-    display: flex;
-  }
-  
-  .addcomment :hover {
-    color: black;
-  } */
-
-.likebox > * {
-  margin: 10px;
-}
-
-.socialbox {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
 }
 
 .outer {
   position: relative;
-  /* margin: auto; */
-  left: 600px;
+  left: 95%;
   width: 30px;
-  margin-top: 0 5px 0 5px;
+  margin: 5px;
   cursor: pointer;
 }
 
@@ -151,7 +26,7 @@ label {
   font-size: 0.8em;
   line-height: 4em;
   text-transform: uppercase;
-  color: red;
+  color: black;
   transition: all 0.3s ease-in;
   opacity: 0;
   cursor: pointer;
@@ -163,7 +38,7 @@ label {
   content: "";
   height: 1px;
   width: inherit;
-  background: black;
+  background: red;
   left: 0;
   transition: all 0.3s ease-in;
 }
@@ -193,26 +68,4 @@ label {
 
 .outer:hover .inner:after {
   bottom: 0;
-}
-
-.followbutton {
-  color: #3399ff;
-  font-family: "Helvetica";
-  font-size: 10pt;
-  background-color: #ffffff;
-  border: 1px solid;
-  border-color: #3399ff;
-  border-radius: 3px;
-  width: 85px;
-  height: 30px;
-  float: right;
-  /* position: relative;
-    top: 50px;
-    left: 50px; */
-  cursor: hand;
-}
-
-.followbutton:hover {
-  border-color: #104274;
-  color: #104274;
 }

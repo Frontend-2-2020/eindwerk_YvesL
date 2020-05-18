@@ -4,9 +4,18 @@ import classes from "./PostsCard.module.css";
 import { API } from "../../../config/API";
 import Comments from "./Comments/Comments";
 import moment from "moment";
-import { FaRegComment, FaCommentMedical } from "react-icons/fa";
+import {
+  FaRegComment,
+  FaCommentMedical,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+  FaUser,
+} from "react-icons/fa";
 import PropTypes from "prop-types";
 import { textLimit } from "../../../config/API";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
 
 class CardComponent extends Component {
   state = {
@@ -33,7 +42,7 @@ class CardComponent extends Component {
       blog_post_id: id,
       body: commentInput,
     };
-    /////POSTING OUT DATA TO THE SERVER THROUGH AXIOS//////////
+    /////POSTING COMMENT DATA TO THE SERVER THROUGH AXIOS//////////
     API.post("api/comments", data)
       .then((res) => {
         alert("Your comment was posted succesfully");
@@ -43,20 +52,23 @@ class CardComponent extends Component {
           err +
             " ,Make sure that you are logged in if you want to make a comment"
         )
-      );
+      )
+      .then(this.setState({ isClicked: !this.state.isClicked }));
   };
 
   render() {
     const { isClicked } = this.state;
-
     const { props } = this;
-    const str = props.body;
+    const str = props.body; //FUNCTION IN CONFIG
+    console.log(props.user);
+    TimeAgo.addLocale(en); //PACKAGE USED FOR ...DAYS AGO
+    const timeAgo = new TimeAgo("en-US");
 
     ///////BOX WHERE WE TYPE OUR COMMENTS//////////
     const commentfield = (
       <Comments
         commentbox={this.showCommentHandler}
-        postcomment={this.addCommentHandler}
+        addComment={this.addCommentHandler}
         editor={this.onChangeInEditor}
       />
     );
@@ -67,43 +79,65 @@ class CardComponent extends Component {
     return (
       <div className={classes.card}>
         <div className={classes.cardbody}>
-          <div className={classes.cardheader}>
-            <img src={props.avatar} alt="profile pic" />
-            <h3>{props.title}</h3>
+          <div className={classes.contactinfo}>
+            <div className={classes.social}>
+              <a href="https://www.instagram.com">
+                <FaInstagram />
+              </a>
+              <a href="https://www.linkedin.com">
+                <FaLinkedin />
+              </a>
 
-            <div className={classes.posted}>
+              <a href="https://www.twitter.com">
+                <FaTwitter />
+              </a>
+            </div>
+            <div className={classes.iconuser}>
               <div className="btn">
                 {" "}
                 <Link to={"/user/" + props.id}>
-                  <button className={classes.followbutton}>+ Profile</button>
+                  <button className={classes.followbutton}>
+                    <FaUser />
+                  </button>
                 </Link>
-              </div>
-
-              <div className={classes.timediv}>
-                <p style={{ margin: 10 }}>
-                  <span style={{ color: "black" }}>
-                    Posted by{" "}
-                    <Link to={"/user/" + props.id}>{props.first_name} </Link>
-                    on{""}
-                  </span>
-                </p>
-                <div style={{ margin: 10, color: "grey" }}>
-                  {moment(props.timestamp).format("llll")}
-                </div>
               </div>
             </div>
           </div>
-          <hr />
+          <div className={classes.cardheader}>
+            <img src={props.avatar} alt="profile pic" />
+            <h3>{props.first_name}</h3>
+
+            <div className={classes.dateposted}>
+              <div style={{ margin: 10 }}>
+                <span style={{ color: "black" }}>
+                  Posted by{" "}
+                  <Link to={"/user/" + props.id}>{props.first_name} </Link>
+                  on {moment(props.date).format("llll")}
+                </span>
+              </div>
+              <div style={{ margin: 10, color: "grey" }}>
+                <br />
+                <strong>
+                  {timeAgo.format(new Date(props.date) - 2 * 60 * 60 * 1000)}
+                </strong>
+              </div>
+            </div>
+          </div>
 
           <div className={classes.cardheader2}>
             <div>
               <div className={classes.cardtext}>
-                <strong
-                  dangerouslySetInnerHTML={{
-                    __html: textLimit(str),
-                  }}
-                ></strong>
-
+                <div className="noname">
+                  <h3 style={{ color: "grey", textDecoration: "underline" }}>
+                    {props.title}
+                  </h3>
+                  <p
+                    className={classes.balloon}
+                    dangerouslySetInnerHTML={{
+                      __html: textLimit(str),
+                    }}
+                  ></p>
+                </div>
                 <div className={classes.readpost}>
                   <Link to={"/detail/" + props.postid}>
                     <button className="btn btn-outline-dark">Full post</button>
@@ -112,15 +146,14 @@ class CardComponent extends Component {
               </div>
             </div>
 
-            <div
-              className={classes.commentsAndLikes}
-              style={{ display: "flex", justifyContent: "space-around " }}
-            >
+            <div className={classes.commentsAndLikes}>
               <div className={classes.commentbox}>
                 <div className={classes.nofcomments}>
                   <Link to={"/detail/" + props.postid}>
-                    <FaRegComment /> {props.comments_count}
-                    <span> Comments</span>
+                    <span>
+                      <FaRegComment style={{ marginBottom: 3 }} />{" "}
+                      {props.comments_count} Comments
+                    </span>
                   </Link>
                 </div>
 
@@ -129,16 +162,16 @@ class CardComponent extends Component {
                   onClick={this.showCommentHandler}
                 >
                   {" "}
-                  <div style={{ color: "#5dbcd2" }}>
-                    <FaCommentMedical />
-                    <span> Add Comment</span>
+                  <div>
+                    <span>
+                      <FaCommentMedical /> Add Comment
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
             {showcommentfield}
           </div>
-          <hr />
         </div>
       </div>
     );

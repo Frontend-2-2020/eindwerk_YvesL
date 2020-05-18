@@ -1,0 +1,44 @@
+.customBtn {
+    border: none;
+    margin: 30px auto 15px;
+    display: block;
+    font-size: 20px;
+    outline: none;
+    position: relative;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    padding: 10px;
+    background-color: transparent;
+    color: black;
+}
+
+.customBtn:focus {
+    outline: 0;
+}
+
+
+.customBtn:before {
+    content: '';
+    border-bottom: 1px solid #000;
+    padding: 0 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.customBtn:hover:before {
+    width: 100%;
+    padding: 0;
+}
+
+.customBtn:active {
+    /* background: #000; */
+    color: #000;
+    -webkit-transition: none;
+    transition: none;
+}

@@ -3,11 +3,7 @@ import RegisterComponent from "../components/Register/RegisterComponent";
 
 class Register extends Component {
   render() {
-    return (
-      <div className="container">
-        <RegisterComponent {...this.props} />
-      </div>
-    );
+    return <RegisterComponent {...this.props} />;
   }
 }
 

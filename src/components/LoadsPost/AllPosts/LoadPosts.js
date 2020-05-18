@@ -37,7 +37,7 @@ class LoadPosts extends Component {
   ///////PREVENTING AN INFINITE LOOP////////////
   componentDidMount() {
     this.getposts();
-    //REFRESHING THE PAGE EVERY 10 SEC
+    //RELOADING THE PAGE EVERY 10 SEC
     // setInterval(() => {
     //   this.getposts();
     // }, 10000);
@@ -62,18 +62,17 @@ class LoadPosts extends Component {
       .catch((err) => {
         console.log(err);
       });
+    setInterval(() => {}, 100);
   }
 
   render() {
     const { posts, loading, isClicked } = this.state;
+    console.log(posts);
 
     ///////STORING ALL THE PAGE CONTENT IN A VARIABLE TO OUTPUT WHEN LOADING IS COMPLETE///////
     const AllPosts = (
       <div className={classes.row}>
-        <button
-          className="btn btn-outline-dark"
-          onClick={this.createPostHandler}
-        >
+        <button onClick={this.createPostHandler} className={classes.btn}>
           + POST
         </button>
         <div className={classes.pagination}>
@@ -87,6 +86,8 @@ class LoadPosts extends Component {
             onChange={this.handlePageChange}
           />
         </div>
+        <br />
+
         {posts.map((post) => (
           <div key={post.id}>
             <PostsCard
@@ -94,6 +95,7 @@ class LoadPosts extends Component {
               posts={post.user_id}
               {...post}
               {...post.user}
+              date={post.created_at}
             />
           </div>
         ))}

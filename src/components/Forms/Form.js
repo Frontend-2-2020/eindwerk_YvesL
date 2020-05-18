@@ -14,13 +14,14 @@ export default class componentName extends Component {
           border: "2px solid black",
           borderRadius: "8px",
           padding: 15,
+          backgroundColor: "lightgrey",
         }}
       >
         <h3>{this.props.formTxt}</h3>
-        <div className="row mt-4">
+        <div className="row mt-2">
           <div className="col">
             <div className="form-group">
-              <label htmlFor="exampleFormControlInput1">Title</label>
+              {/* <label htmlFor="exampleFormControlInput1">Title</label> */}
               <Field
                 type="text"
                 name="title"
@@ -56,7 +57,7 @@ export default class componentName extends Component {
               <input
                 type="submit"
                 value={this.props.buttonTxt}
-                className="btn btn-primary float-right"
+                className="btn btn-outline-dark float-right"
               />
             </div>
           </div>

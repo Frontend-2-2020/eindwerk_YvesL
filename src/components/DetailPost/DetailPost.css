@@ -1,7 +1,8 @@
 body {
   margin-top: 20px;
-  /* background: #eee; */
+
 }
+
 .card::after {
   display: block;
   position: absolute;
@@ -15,6 +16,7 @@ body {
   content: "";
   z-index: -1;
 }
+
 a.card {
   text-decoration: none;
 }
@@ -27,6 +29,7 @@ a.card {
   -webkit-box-shadow: 0 12px 20px 1px rgba(64, 64, 64, 0.09);
   box-shadow: 0 12px 20px 1px rgba(64, 64, 64, 0.09);
 }
+
 .card {
   position: relative;
   display: -webkit-box;
@@ -53,13 +56,16 @@ a.card {
 .mx-auto {
   margin-left: auto !important;
 }
+
 .mr-auto,
 .mx-auto {
   margin-right: auto !important;
 }
+
 .rounded-circle {
   border-radius: 50% !important;
 }
+
 .bg-white {
   background-color: #fff !important;
 }
@@ -73,9 +79,11 @@ a.card {
 .mx-auto {
   margin-right: auto !important;
 }
+
 .d-block {
   display: block !important;
 }
+
 img,
 figure {
   max-width: 100%;
@@ -91,6 +99,7 @@ figure {
 .text-sm {
   font-size: 12px !important;
 }
+
 p,
 .p {
   margin: 0 0 16px;
@@ -118,12 +127,7 @@ p,
   margin-top: 70px;
 }
 
-/* .editNdelete {
-  display: flex;
-  float: right;
-  margin: 20px 20px 0 0;
-} */
-
-.container {
+.editForm {
   display: none;
+
 }

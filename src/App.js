@@ -5,6 +5,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import Navi from "./components/navigation/Navbar";
 import Page404 from "./pages/Page404";
 import Social from "./ui/social/Social";
+// import User from "./pages/User";
+// import Detail from "./pages/Detail";
+// import Register from "./pages/Register";
+// import Login from "./pages/Login";
+// import Home from "./pages/Home";
 
 /////IMPORTING THROUGH REACT.LAZY
 const User = React.lazy(() => import("./pages/User"));
@@ -18,11 +23,10 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Social />
-
         <Router>
-          <Navi />
           <Suspense fallback={<div>Loading...</div>}>
             {" "}
+            <Navi />
             <Switch>
               <Route path="/user/:id" component={User} />
               <Route path="/detail/:id" component={Detail} />

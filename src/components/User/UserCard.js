@@ -1,6 +1,5 @@
 import React from "react";
 import "./UserCard.css";
-import { FaArrowCircleRight } from "react-icons/fa";
 import moment from "moment";
 import PropTypes from "prop-types";
 
@@ -12,8 +11,15 @@ const UserCard = (props) => {
       </div>
       <div className="card-body text-center">
         <h3 className="card-title pt-1">{props.title}</h3>
-        <p className="card-text text-xl">{props.body}</p>
-        Fav color :{props.favorite_color}
+        <p
+          className="card-text text-md"
+          dangerouslySetInnerHTML={{ __html: props.body }}
+        ></p>
+        Fav color :
+        <div
+          className="visualizeColor"
+          style={{ backgroundColor: props.favorite_color }}
+        ></div>
         <hr />
         <p>
           <strong>posted on:</strong>
@@ -23,10 +29,6 @@ const UserCard = (props) => {
           <strong>updated on:</strong>
           {moment(props.updated_at).format("llll")}
         </p>
-        <span className="text-sm text-uppercase font-weight-bold">
-          Learn More&nbsp;
-          <FaArrowCircleRight style={{ marginBottom: "4px" }} />
-        </span>
       </div>
     </div>
   );

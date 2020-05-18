@@ -4,8 +4,9 @@ import "./UserProfileCard.css";
 import PropTypes from "prop-types";
 
 const UserProfileCard = (props) => {
+  console.log(props);
   return (
-    <div className="container">
+    <div className="profile">
       <h3>User Profile {props.first_name}</h3>
       <hr />
       <div className="row">
@@ -21,10 +22,11 @@ const UserProfileCard = (props) => {
               <p
                 className="col"
                 style={{
-                  height: 10,
+                  height: 40,
+                  width: 40,
+                  margin: "0px auto",
                   backgroundColor: props.favorite_color,
                   border: "1px solid black",
-                  textAlign: "center",
                 }}
               ></p>
             </h2>

@@ -31,13 +31,17 @@ class LoginComponent extends Component {
 
   ////ON LOGOUT WE REMOVE THE TOKEN FROM THE LOCAL STORAGE////////
   logout = () => {
-    this.props.logoutAuth(); /////<-----LOGOUT FUNCTION FRON AUTH ACTIONS
+    this.props.logoutAuth(); /////<-----LOGOUT FUNCTION FROM AUTH ACTIONS
   };
 
   render() {
     return (
       <div>
-        <button className="logout" onClick={this.logout}>
+        <button
+          className="logout"
+          style={{ width: 100, float: "right", margin: 20 }}
+          onClick={this.logout}
+        >
           LOGOUT
         </button>
         <LoginValidate submit={this.login} {...this.props} />

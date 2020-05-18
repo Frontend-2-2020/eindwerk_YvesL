@@ -21,7 +21,7 @@ const CreateCommentComponent = (props) => {
         <button
           className="btn btn-outline-dark"
           style={{ float: "right", marginRight: "50px", margin: 10 }}
-          onClick={props.postcomment}
+          onClick={props.addComment}
         >
           SUBMIT
         </button>

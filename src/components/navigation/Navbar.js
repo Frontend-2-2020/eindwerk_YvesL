@@ -17,7 +17,7 @@ const Navi = (props) => {
       <Link to="/" className="mr-auto navbar-brand">
         <FaRedditAlien style={{ color: "white", height: 50, width: 50 }} />
       </Link>
-
+      {/* ////SHOW THE LOGIN LED IN THE NAVBAR////// */}
       <div className="loggedIn">
         {led ? (
           <div className="ledgreen"></div>

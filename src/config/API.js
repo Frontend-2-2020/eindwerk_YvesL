@@ -9,10 +9,15 @@ if (TOKEN) {
   API.defaults.headers.common["Authorization"] = "Bearer " + TOKEN;
 }
 
+//////FUNCTION TO SHOW LIMITED TEXT IN THE POST//////
 export const textLimit = (str) => {
-  if (str.length > 20) {
-    return str.substring(0, 20) + "...";
+  if (str.length > 150) {
+    return str.substring(0, 150) + "...";
   } else {
     return str;
   }
 };
+
+// export const confirm = window.confirm(
+//   "Do you really want to Delete this comment?"
+// );
