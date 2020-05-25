@@ -1,62 +1,56 @@
+.card {
+  margin-bottom: 60px;
+}
+
 .cardbody {
   display: flex;
   flex-flow: column;
   justify-content: center;
-  width: 70vw;
+  width: auto;
   height: auto;
-  margin: auto;
-  margin-bottom: 35px;
+  /* margin: auto; */
+  /* margin: 30px; */
+  /* margin-bottom: 35px; */
   border-radius: 8px;
-  box-shadow: 0px 4px 8px black;
-  background-color: rgb(228, 220, 220);
+  /* border: 1px solid black; */
+  /* box-shadow: 0px 4px 8px white; */
+  /* background-color: rgb(228, 220, 220); */
 }
 
 .contactinfo {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  background-color: rgb(8, 6, 6);
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  box-shadow: 0px 4px 8px white;
+  /* padding: 10px; */
+  /* background-color: rgb(8, 6, 6); */
+  /* border-top-left-radius: 8px;
+  border-top-right-radius: 8px; */
+  /* box-shadow: 0px 4px 8px white; */
 }
 
-.social {
+.contactinfo .social {
   display: flex;
   flex-direction: row;
-  font-size: 1.8rem;
-  margin: 0px 20px;
+  font-size: 1.1rem;
+  /* margin: 0px 20px; */
 }
 
-.social a:nth-child(1) {
+.contactinfo .social a:nth-child(1) {
   color: orange;
   margin-right: 10px;
 }
 
-.social a:nth-child(2) {
+.contactinfo .social a:nth-child(2) {
   color: rgb(0, 77, 128);
   margin-right: 10px;
 }
 
-.social a:nth-child(3) {
+.contactinfo .social a:nth-child(3) {
   color: gb(82, 102, 167);
   margin-right: 10px;
 }
 
-.social a:hover {
+.contactinfo .social a:hover {
   transform: skew(8deg);
-}
-
-.cardtext {
-  display: flex;
-  justify-content: center;
-  flex-flow: column;
-  flex-wrap: wrap;
-  width: 65vw;
-  height: auto;
-  margin: 0px auto;
-  padding: 15px;
-  color: black;
 }
 
 .cardheader {
@@ -64,10 +58,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
 
-  box-shadow: 0 3px 8px #1f1d1d;
-  border-radius: 8px;
-  margin: 15px;
-  background-color: #fff;
+  /* box-shadow: 0 3px 8px #1f1d1d; */
+  /* border-radius: 8px; */
+  /* margin: 15px; */
+  /* background-color: #fff; */
 }
 
 .cardheader h3 {
@@ -84,17 +78,24 @@
 }
 
 .commentsAndLikes {
-  padding: 15px;
+  /* padding: 15px; */
   display: flex;
   justify-content: space-around;
 }
 
+.contactinfo .userbt {
+  width: 85px;
+  height: 30px;
+  cursor: hand;
+  border-radius: 100%;
+  font-size: 1.2rem;
+  color: black;
+  background-color: rgb(226, 229, 226);
+}
 
-
-.iconuser {
-  display: flex;
-  flex-flow: column;
-  justify-content: space-between;
+.contactinfo .userbt:hover {
+  color: grey;
+  box-shadow: 0 0.125rem 0.5rem grey;
 }
 
 .dateposted {
@@ -109,21 +110,16 @@
   justify-content: center;
 }
 
-.readpost {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .commentbox {
   color: black;
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-top: 20px;
 }
 
-.commentbox>* {
+.commentbox > * {
   margin-left: 20px;
-
 }
 
 .commentbox span {
@@ -135,15 +131,20 @@ span:hover {
 }
 
 .nofcomments {
-  justify-content: flex-start;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
   color: black;
 }
 
+.nofcomments > * {
+  margin-left: 25px;
+}
 .addcomments {
   cursor: pointer;
 }
 
-.likebox>* {
+.likebox > * {
   margin: 10px;
 }
 
@@ -153,31 +154,43 @@ span:hover {
   padding: 10px;
 }
 
-.followbutton {
-  width: 85px;
-  height: 30px;
-  cursor: hand;
-  border-radius: 100%;
-  font-size: 1.2rem;
+.cardtext {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  flex-wrap: wrap;
+  width: auto;
+  height: auto;
+  margin: 0px auto;
   color: black;
 }
 
-.followbutton:hover {
-  color: grey;
-  box-shadow: 0 0.125rem 0.5rem grey;
+.cardtext h3 {
+  font-family: Lobster, cursive;
+  margin-left: 20px;
+  color: black;
+}
+
+.readpost {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .balloon {
   position: relative;
-
-  /* max-width: 40em; */
   background-color: #fff;
   padding: 1.125em 1.5em;
   margin-top: 20px;
   font-size: 1.25em;
+  width: 95%;
   border-radius: 1rem;
   box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
     0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
+}
+
+.balloon img {
+  max-width: 100%;
 }
 
 .balloon::before {
@@ -194,10 +207,9 @@ span:hover {
   filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
 }
 
-/* html {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica,
-    Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 300;
-  color: #192229;
-} */
+.postcardEnd {
+  background-color: black;
+  color: black;
+  width: 100%;
+  margin-top: 100px;
+}

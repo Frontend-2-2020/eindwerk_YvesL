@@ -8,7 +8,6 @@ import Validate from "../Forms/Validate";
 import { FaEdit } from "react-icons/fa";
 import DetailPostCard from "./DetailPostCard";
 import CommentPostcard from "./CommentPostCard";
-//import Confirm from "../../ui/modal/Confirm";
 
 export class DetailPost extends Component {
   state = {
@@ -52,7 +51,7 @@ export class DetailPost extends Component {
 
   ///////MAKING A PUT REQUEST TO EDIT THE SPECIFIC POST(SAME ID AS RECEIVED FROM PROPS)///////
   //////PASSING THE TITLE AND BODY(RECEIVED FROM VALUES) THAT WE LIKE TO EDIT//////////
-  submitHandler = (values) => {
+  updatePostHandler = (values) => {
     const { id } = this.props;
     const data = {
       title: values.title,
@@ -65,7 +64,7 @@ export class DetailPost extends Component {
   };
 
   /////////DELETE THE POST (I CAN ONLY DELETE MY OWN POSTS)/////////
-  deletePost = () => {
+  deletePostHandler = () => {
     console.log("delete");
     const { id } = this.props;
     const confirmDelete = window.confirm(
@@ -89,14 +88,7 @@ export class DetailPost extends Component {
     const pageContent = (
       <div className="cards">
         {/* ///////EDIT POST BUTTON//////// */}
-        <div
-          style={{
-            textAlign: "center",
-            cursor: "pointer",
-            color: "#FFF",
-            marginTop: 120,
-          }}
-        >
+        <div className="showEditBtn">
           <FaEdit onClick={this.showEditpostBtn} style={{ fontSize: 35 }} />
           <p>Change Post</p>
         </div>
@@ -106,20 +98,29 @@ export class DetailPost extends Component {
           <Validate
             btnTxt="Edit"
             formTxt="Edit Post"
-            submit={this.submitHandler}
+            submit={this.updatePostHandler}
           />
         </div>
 
         {/* ///////ORIGINAL POST DETAIL//////// */}
         <div>
-          <DetailPostCard {...postDetails} {...user} delete={this.deletePost} />
+          <DetailPostCard
+            {...postDetails}
+            {...user}
+            delete={this.deletePostHandler}
+          />
         </div>
         <div>
           <h1 className="headers">Comments on {user.first_name}'s post</h1>
 
           {/* //////COMMENTS MADE ON THAT POST//////// */}
           {comments.map((comment) => (
-            <CommentPostcard key={comment.id} {...postDetails} {...comment} />
+            <CommentPostcard
+              key={comment.id}
+              {...postDetails}
+              {...comment}
+              /* {...this.state.comments} */
+            />
           ))}
         </div>
       </div>

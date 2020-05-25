@@ -1,0 +1,101 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400);
+
+/* * {
+  font-family: "Roboto", Arial, sans-serif;
+} */
+
+.material {
+  font-size: 22px;
+  padding: 5px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 25px;
+  color: #fff;
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+.main-wrapper {
+  border-radius: 4px;
+  background-color: white;
+  padding: 1px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  position: relative;
+}
+
+.postbtn {
+  font-size: 1.9rem;
+  color: black;
+  position: relative;
+  border-radius: 50%;
+  padding: 5px;
+  margin: 3px;
+  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); */
+  box-shadow: 0 0 8px red;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s ease;
+}
+
+.postbtn:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border: solid 2px;
+  transform: scale(0.8);
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.postbtn:hover:after {
+  transform: scale(1);
+  box-shadow: 10px 0 20px rgba(0, 0, 0, 0.19), 6px 0 6px rgba(0, 0, 0, 0.23);
+}
+
+.postbtn {
+  background-color: #fff;
+}
+
+.postbtn:hover {
+  color: #cd8484;
+}
+
+.postbtn:after {
+  border-color: #cd8484;
+}
+
+.postbtn:hover {
+  background-color: white;
+  transform: rotate(90deg);
+  cursor: pointer;
+  box-shadow: none;
+}
+
+/* p {
+  color: rgb(19, 10, 10);
+  font-weight: 300;
+  margin-top: 50px;
+} */
+
+@media (min-width: 601px) {
+  .material-icons {
+    padding: 10px;
+    margin: 5px;
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 993px) {
+  .material-icons {
+    padding: 20px;
+    margin: 10px;
+    font-size: 4rem;
+  }
+  .material-icons:after {
+    border-width: 3px;
+    top: -3px;
+    left: -3px;
+  }
+}

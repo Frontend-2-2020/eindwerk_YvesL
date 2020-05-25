@@ -29,11 +29,11 @@ const DetailPostCard = (props) => {
               <hr style={{ width: "40%" }} />
               <p>
                 <strong>posted on:</strong>
-                {moment(props.created).format("llll")}
+                {moment(props.created_at).format("llll")}
               </p>
               <p>
                 <strong>updated on:</strong>
-                {moment(props.updated).format("llll")}
+                {moment(props.updated_at).format("llll")}
               </p>
 
               {props.first_name === "Yves" ? (

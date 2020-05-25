@@ -1,6 +1,12 @@
 body {
   margin-top: 20px;
+}
 
+.showEditBtn {
+  text-align: center;
+  cursor: pointer;
+  color: black;
+  margin-top: 120px;
 }
 
 .card::after {
@@ -129,5 +135,4 @@ p,
 
 .editForm {
   display: none;
-
 }

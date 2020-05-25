@@ -1,53 +1,53 @@
 @import url("https://fonts.googleapis.com/css?family=Abel");
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
-
-#follow-button {
-  color: #3399ff;
-  font-family: "Helvetica";
-  font-size: 10pt;
-  border: 1px solid;
-  border-color: #3399ff;
-  border-radius: 3px;
-  width: 85px;
-  height: 30px;
-  position: absolute;
-  right: 35px;
-  top: 25px;
-  cursor: hand;
-}
-
-/* @media only screen and (max-width: 850px) {
-  .card {
-    width: 100%;
-  }
-} */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
 
 .row {
-  min-height: 600px;
+  min-height: 500px;
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
   justify-content: center;
   margin: auto;
+}
+
+.intro {
+  background-color: black;
+  padding: 40px 20px;
+  width: 70%;
+  margin: auto;
+}
+
+.innerleftcol {
+  /* margin-left: 30px; */
+  padding: 25px;
+}
+
+@media only screen and (max-width: 990px) {
+  .row {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .innerrightcol {
+    margin: auto;
+  }
+  .poster {
+    margin-top: 100px;
+  }
 }
 
 .pagination {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  color: green;
 }
 
-.pagination ul {
-  color: black;
-}
-.pagination li {
-  color: black;
-}
 .pagination a {
   color: black;
 }
-.pagination .active {
-  color: green;
+
+.pagination a:hover {
+  color: rgb(96, 64, 226);
 }
 
 .btn {
@@ -61,4 +61,76 @@
 .btn:hover {
   background-color: rgb(90, 81, 81);
   color: white;
+}
+
+.sidebar1 {
+  padding: 20px;
+  margin: 110px 0px 20px 70px;
+  position: sticky;
+  top: 150px;
+  background-color: black;
+  color: white;
+}
+.sidebar2 {
+  padding: 20px;
+  margin: 110px 0px 20px 70px;
+  position: sticky;
+  top: 400px;
+  background-color: black;
+  color: white;
+}
+
+.headersidebar {
+  text-align: center;
+  border-bottom: 2px solid seagreen;
+}
+.contentsidebar {
+  text-align: left;
+
+  margin-top: 40px;
+}
+
+.contentsidebar ul {
+  list-style-type: none;
+}
+
+.col {
+  display: flex;
+}
+
+.poster {
+  height: auto;
+  margin-top: -180px;
+  margin-bottom: 100px;
+}
+
+.poster img {
+  height: 100%;
+  width: 100%;
+}
+
+.blogtitle {
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+.maintitle {
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 3rem;
+  white-space: nowrap;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
+}
+h2 {
+  font-size: 2rem;
+  color: black;
+}
+p {
+  margin: 0;
+  font-size: 1.3rem;
 }

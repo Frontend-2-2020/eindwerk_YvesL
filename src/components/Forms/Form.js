@@ -15,6 +15,7 @@ export default class componentName extends Component {
           borderRadius: "8px",
           padding: 15,
           backgroundColor: "lightgrey",
+          opacity: 0.8,
         }}
       >
         <h3>{this.props.formTxt}</h3>

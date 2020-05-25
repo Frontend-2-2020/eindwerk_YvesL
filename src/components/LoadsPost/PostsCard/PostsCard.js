@@ -10,7 +10,9 @@ import {
   FaInstagram,
   FaLinkedin,
   FaTwitter,
-  FaUser,
+  //FaUser,
+  FaRegThumbsUp,
+  //FaRegThumbsDown,
 } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { textLimit } from "../../../config/API";
@@ -23,15 +25,15 @@ class CardComponent extends Component {
     id: null,
     commentInput: [],
   };
+  //////VALIDATE COMMENTS/////////////
+  onChangeInEditor = (event, editor) => {
+    const data = editor.getData();
+    this.setState({ commentInput: data });
+  };
 
   ///////HANDLER THAT OPENS THE BOX TO WRITE YOUR COMMENTS///////
   showCommentHandler = () => {
     this.setState({ isClicked: !this.state.isClicked, id: this.props.postid });
-  };
-
-  onChangeInEditor = (event, editor) => {
-    const data = editor.getData();
-    this.setState({ commentInput: data });
   };
 
   /////WE RECEIVER THE NEEDED ID FROM THE SETSTATE AND STORE IT IN A CONST///////
@@ -56,11 +58,27 @@ class CardComponent extends Component {
       .then(this.setState({ isClicked: !this.state.isClicked }));
   };
 
+  addLikeHandler = () => {
+    API.post("api/posts/" + this.props.postid + "/like")
+      .then((res) => {
+        alert("Your like was succesfull");
+      })
+      .catch((err) => alert(err + " You can only like a post once"));
+  };
+
+  unLikeHandler = () => {
+    API.post("api/posts/" + this.props.postid + "/unlike")
+      .then((res) => {
+        alert("Your unlike was succesfull");
+      })
+      .then(this.setState({ likeClick: !this.state.likeClick }))
+      .catch((err) => alert(err + " You can only unlike a post once"));
+  };
+
   render() {
     const { isClicked } = this.state;
     const { props } = this;
     const str = props.body; //FUNCTION IN CONFIG
-    console.log(props.user);
     TimeAgo.addLocale(en); //PACKAGE USED FOR ...DAYS AGO
     const timeAgo = new TimeAgo("en-US");
 
@@ -73,99 +91,103 @@ class CardComponent extends Component {
       />
     );
 
-    ///////WHEN WE CLICK 'ADDCOMMENT' THE COMMENTFIELD APPEARS
+    ///////ONCLICK 'ADDCOMMENT' THE COMMENTFIELD APPEARS
     const showcommentfield = isClicked ? commentfield : null;
 
     return (
       <div className={classes.card}>
+        <hr className={classes.postcardEnd} />
         <div className={classes.cardbody}>
-          <div className={classes.contactinfo}>
-            <div className={classes.social}>
-              <a href="https://www.instagram.com">
-                <FaInstagram />
-              </a>
-              <a href="https://www.linkedin.com">
-                <FaLinkedin />
-              </a>
-
-              <a href="https://www.twitter.com">
-                <FaTwitter />
-              </a>
-            </div>
-            <div className={classes.iconuser}>
-              <div className="btn">
-                {" "}
-                <Link to={"/user/" + props.id}>
-                  <button className={classes.followbutton}>
-                    <FaUser />
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
+          {/* AVATAR / USERINFO / DATE POSTED / LAST LOGIN */}
           <div className={classes.cardheader}>
             <img src={props.avatar} alt="profile pic" />
-            <h3>{props.first_name}</h3>
+            <h3 style={{ color: "grey", textDecoration: "underline" }}>
+              {props.title}
+            </h3>
 
-            <div className={classes.dateposted}>
-              <div style={{ margin: 10 }}>
-                <span style={{ color: "black" }}>
-                  Posted by{" "}
-                  <Link to={"/user/" + props.id}>{props.first_name} </Link>
-                  on {moment(props.date).format("llll")}
-                </span>
-              </div>
-              <div style={{ margin: 10, color: "grey" }}>
-                <br />
-                <strong>
-                  {timeAgo.format(new Date(props.date) - 2 * 60 * 60 * 1000)}
-                </strong>
-              </div>
+            <div style={{ color: "black" }}>
+              <br />
+              <strong>
+                Last online{" "}
+                {timeAgo.format(
+                  new Date(props.last_login_at) - 2 * 60 * 60 * 1000
+                )}
+              </strong>
             </div>
           </div>
-
+          {/* POSTBODY */}
           <div className={classes.cardheader2}>
             <div>
               <div className={classes.cardtext}>
-                <div className="noname">
-                  <h3 style={{ color: "grey", textDecoration: "underline" }}>
-                    {props.title}
-                  </h3>
-                  <p
-                    className={classes.balloon}
-                    dangerouslySetInnerHTML={{
-                      __html: textLimit(str),
-                    }}
-                  ></p>
+                <Link to={"/user/" + props.id}>
+                  <h3>{props.first_name}</h3>
+                </Link>
+                <div
+                  className={classes.balloon}
+                  dangerouslySetInnerHTML={{
+                    __html: textLimit(str),
+                  }}
+                ></div>
+                <div className={classes.dateposted}>
+                  <div style={{ margin: 10 }}>
+                    <span style={{ color: "black", fontSize: 12 }}>
+                      {moment(props.date).format("llll")}
+                    </span>
+                  </div>
                 </div>
-                <div className={classes.readpost}>
+                {/* </div> */}
+                {/* <div className={classes.readpost}>
                   <Link to={"/detail/" + props.postid}>
-                    <button className="btn btn-outline-dark">Full post</button>
+                    <button className="btn btn-no outline">Full post</button>
                   </Link>
-                </div>
+                </div> */}
               </div>
             </div>
-
+            {/* COMMENTS / LIKES */}
             <div className={classes.commentsAndLikes}>
               <div className={classes.commentbox}>
+                <div className={classes.contactinfo}>
+                  <div className={classes.social}>
+                    <a href="https://www.instagram.com">
+                      <FaInstagram />
+                    </a>
+                    <a href="https://www.linkedin.com">
+                      <FaLinkedin />
+                    </a>
+                    <a href="https://www.twitter.com">
+                      <FaTwitter />
+                    </a>
+                  </div>
+                </div>
                 <div className={classes.nofcomments}>
                   <Link to={"/detail/" + props.postid}>
                     <span>
                       <FaRegComment style={{ marginBottom: 3 }} />{" "}
-                      {props.comments_count} Comments
+                      {props.comments_count}
                     </span>
                   </Link>
-                </div>
 
-                <div
-                  className={classes.addcomments}
-                  onClick={this.showCommentHandler}
-                >
-                  {" "}
                   <div>
-                    <span>
-                      <FaCommentMedical /> Add Comment
-                    </span>
+                    <div
+                      className={classes.addcomments}
+                      onClick={this.showCommentHandler}
+                    >
+                      <span>
+                        <FaCommentMedical /> Add
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="likeBtn">
+                    {/* <FaRegThumbsDown
+                      onClick={this.unLikeHandler}
+                      style={{ cursor: "pointer" }}
+                    />{" "} */}
+                    <FaRegThumbsUp
+                      onClick={this.addLikeHandler}
+                      style={{ marginBottom: 3, cursor: "pointer" }}
+                    />{" "}
+                    <span>{props.likes_count}</span>
                   </div>
                 </div>
               </div>
@@ -177,12 +199,12 @@ class CardComponent extends Component {
     );
   }
 }
-////USING REACT.MEMO H.O.C.
+//USING REACT.MEMO H.O.C.
 export default React.memo(CardComponent, (prevProps, nextProps) => {
   if (
-    prevProps.posts.length > 0 &&
-    nextProps.posts.length > 0 &&
-    prevProps.posts[0].title === nextProps.posts[0].title
+    prevProps.title.length > 0 &&
+    nextProps.title.length > 0 &&
+    prevProps.title === nextProps.title
   ) {
     return true;
   }

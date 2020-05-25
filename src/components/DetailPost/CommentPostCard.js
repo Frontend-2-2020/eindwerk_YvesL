@@ -51,11 +51,11 @@ const CommentPostCard = (props) => {
               <hr style={{ width: "80%", backgroundColor: "green" }} />
               <p>
                 <strong>posted on:</strong>
-                {moment(user.created_at).format("llll")}
+                {moment(props.created_at).format("llll")}
               </p>
               <p>
                 <strong>updated on:</strong>
-                {moment(user.updated_at).format("llll")}
+                {moment(props.updated_at).format("llll")}
               </p>
               {/* <span onClick={props.clicked}>
                 <Trashcan />

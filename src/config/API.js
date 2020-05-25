@@ -17,7 +17,3 @@ export const textLimit = (str) => {
     return str;
   }
 };
-
-// export const confirm = window.confirm(
-//   "Do you really want to Delete this comment?"
-// );
