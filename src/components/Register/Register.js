@@ -4,13 +4,13 @@ import { withRouter } from "react-router";
 import { Formik } from "formik";
 import RegisterForm from "../Forms/RegisterForm";
 
-class RegisterComponent extends Component {
+class Register extends Component {
   state = {
     color: "",
   };
 
   ////CREATING A USER ,ALL FIELDS ARE REQUIRED AND DETERMINED BY THE API////////
-  register = (values) => {
+  register = (values, { resetForm }) => {
     API.post("api/users", {
       first_name: document.querySelector("[name=firstname]").value,
       last_name: document.querySelector("[name=lastname]").value,
@@ -26,6 +26,7 @@ class RegisterComponent extends Component {
           "Your account has been created, please login to continue"
       );
       this.props.history.push("/login");
+      resetForm(values);
     });
   };
 
@@ -76,4 +77,4 @@ class RegisterComponent extends Component {
 }
 
 ////USED WITHROUTER TO GET ACCES TO HISTORY TO REDIRECT TO THE LOGIN/////
-export default withRouter(RegisterComponent);
+export default withRouter(Register);

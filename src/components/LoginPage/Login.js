@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { API } from "../../config/API";
-import LoginValidate from "../Forms/LoginValidate";
+import { Formik } from "formik";
 import { connect } from "react-redux";
 import { loginAuth } from "../../redux/actions/authActions";
-import { logoutAuth } from "../../redux/actions/authActions";
+import LoginForm from "../Forms/LoginForm";
 
-class LoginComponent extends Component {
-  login = (values) => {
+class Login extends Component {
+  login = (values, { resetForm }) => {
     /////CLIENT_ID EN CLIENT_SECRET IS PROVIDED BY THE API (ITC JANNICK)//////
     ////API CALL NAAR "API + OAUTH/TOKEN" , ALL FIEDS ARE REQUIRED FOR OATH2///////
     API.post("oauth/token", {
@@ -26,25 +26,36 @@ class LoginComponent extends Component {
         "Bearer " + response.data.access_token;
       ///////NOW THAT WE HAVE AN ACCES TOKEN WE CAN RUN THE AXIOS CALL TO GET THE POSTS
       this.props.loginAuth();
+      resetForm(values);
     });
   };
 
-  ////ON LOGOUT WE REMOVE THE TOKEN FROM THE LOCAL STORAGE////////
-  logout = () => {
-    this.props.logoutAuth(); /////<-----LOGOUT FUNCTION FROM AUTH ACTIONS
+  validateHandler = (values) => {
+    console.log("validated");
+    const errors = {};
+    const requiredFields = ["username", "password"];
+
+    requiredFields.forEach((field) => {
+      if (!values[field]) {
+        errors[field] = "required";
+      }
+    });
+    return errors;
   };
 
   render() {
     return (
       <div>
-        <button
-          className="logout"
-          style={{ width: 100, float: "right", margin: 20 }}
-          onClick={this.logout}
+        <Formik
+          onSubmit={this.login}
+          validate={this.validateHandler}
+          initialValues={{
+            username: "",
+            password: "",
+          }}
         >
-          LOGOUT
-        </button>
-        <LoginValidate submit={this.login} {...this.props} />
+          {(props) => <LoginForm {...props} />}
+        </Formik>
       </div>
     );
   }
@@ -57,8 +68,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loginAuth: () => dispatch(loginAuth()),
-    logoutAuth: () => dispatch(logoutAuth()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

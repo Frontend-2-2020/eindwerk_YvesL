@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "@reach/dialog/styles.css";
-import "./DetailPost.css";
+import "./Detail.css";
 import { Redirect } from "react-router";
 import { API } from "../../config/API";
 import { Spinner } from "../../ui/spinner/Spinner";
 import Validate from "../Forms/Validate";
 import { FaEdit } from "react-icons/fa";
-import DetailPostCard from "./DetailPostCard";
-import CommentPostcard from "./CommentPostCard";
+import Post from "./Post";
+import Comment from "./Comment";
 
 export class DetailPost extends Component {
   state = {
@@ -35,7 +35,7 @@ export class DetailPost extends Component {
 
   /////GET THE DETAILS OF THE SPECIFIC POST, PROPS (ID) RECEIVED FROM BUTTON POSTSCARD(ROUTER/:ID)//////
   getDetailedpost() {
-    const { id } = this.props;
+    const { id } = this.props.match.params;
     API.get("api/posts/" + id).then((response) => {
       const detail = response.data;
       const user = detail.user;
@@ -104,23 +104,14 @@ export class DetailPost extends Component {
 
         {/* ///////ORIGINAL POST DETAIL//////// */}
         <div>
-          <DetailPostCard
-            {...postDetails}
-            {...user}
-            delete={this.deletePostHandler}
-          />
+          <Post {...postDetails} {...user} delete={this.deletePostHandler} />
         </div>
         <div>
-          <h1 className="headers">Comments on {user.first_name}'s post</h1>
+          <h1 className="headers">Comments</h1>
 
           {/* //////COMMENTS MADE ON THAT POST//////// */}
           {comments.map((comment) => (
-            <CommentPostcard
-              key={comment.id}
-              {...postDetails}
-              {...comment}
-              /* {...this.state.comments} */
-            />
+            <Comment key={comment.id} {...postDetails} {...comment} />
           ))}
         </div>
       </div>

@@ -1,9 +1,9 @@
 import React from "react";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import classes from "./Comments.module.css";
+import classes from "./CreateComment.module.css";
 
-const CreateCommentComponent = (props) => {
+const CreateComment = (props) => {
   return (
     <div>
       <div className={classes.commentInputbox}>
@@ -30,4 +30,4 @@ const CreateCommentComponent = (props) => {
   );
 };
 
-export default CreateCommentComponent;
+export default CreateComment;

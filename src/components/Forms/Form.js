@@ -22,7 +22,6 @@ export default class componentName extends Component {
         <div className="row mt-2">
           <div className="col">
             <div className="form-group">
-              {/* <label htmlFor="exampleFormControlInput1">Title</label> */}
               <Field
                 type="text"
                 name="title"

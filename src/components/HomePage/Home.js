@@ -1,17 +1,15 @@
 import React, { PureComponent } from "react";
-import { API } from "../../../config/API";
-import classes from "./LoadPosts.module.css";
-import PostsCard from "../PostsCard/PostsCard";
+import { API } from "../../config/API";
+import classes from "./Home.module.css";
+import OverviewCard from "./OverviewCard";
 import Pagination from "react-js-pagination";
-import { Spinner } from "../../../ui/spinner/Spinner";
-import Validate from "../../Forms/Validate";
-import ButtonMaterial from "../../../ui/helpers/button/ButtonMaterial";
-import Button from "../../../ui/helpers/button/Button";
-import griffith from "../../../assets/images/griffith.jpg";
+import { Spinner } from "../../ui/spinner/Spinner";
+import Validate from "../Forms/Validate";
+import AddPostBtn from "../../ui/helpers/button/AddPostBtn";
+import CloseBtn from "../../ui/helpers/button/CloseBtn";
+import griffith from "../../assets/images/griffith.jpg";
 
-// import { AccessAlarm, ThreeDRotation } from "@material-ui/icons";
-
-class LoadPosts extends PureComponent {
+class Home extends PureComponent {
   state = {
     posts: [],
     loading: false,
@@ -36,30 +34,13 @@ class LoadPosts extends PureComponent {
   }
 
   ////////OPTIONAL GETTING ALL USERS AND LOOPING THROUGH ALL PAGES//////////////
-  // getAllUsers() {
-  //   const pagenumber = 1;
-  //   API.get("api/users?page=" + pagenumber)
-  //     .then((response) => {
-  //       const { last_page } = response.data;
-  //       ////FIRST CALL TO GET THE LAST PAGE,THEN LOOP OVER PAGE TO TILL LAST PAGE////
-  //       ///THEN DO AXIOS REQUEST OVER ALL THE PAGES///////
-  //       for (let page = 1; page <= last_page; page++) {
-  //         API.get("api/users?page=" + page).then((response) => {
-  //           const { data } = response.data;
-  //           data.map((eachPage) => {
-  //             if (eachPage.blog_posts.length > 7)
-  //               this.setState({
-  //                 allUsers: {
-  //                   name: eachPage.first_name,
-  //                   nop: eachPage.blog_posts.length,
-  //                 },
-  //               });
-  //           });
-  //         });
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
+  getAllUsers() {
+    API.get("api/users")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  }
 
   ////////PAGINATION, I CHOSE TO USE THE PAGINATION NODE HERE////////
   handlePageChange = (pageNumber) => {
@@ -69,7 +50,7 @@ class LoadPosts extends PureComponent {
   ///////PREVENTING AN INFINITE LOOP////////////
   componentDidMount() {
     this.getposts();
-    //this.getAllUsers();
+    this.getAllUsers();
     //RELOADING THE PAGE EVERY 10 SEC
     // setInterval(() => {
     //   this.getposts();
@@ -99,12 +80,7 @@ class LoadPosts extends PureComponent {
 
   render() {
     const { posts, loading, isClicked /*allUsers*/ } = this.state;
-    ////DISPLAY MOST ACTIVE USERS///////
-    // if (allUsers.nop > 7) {
-    //   console.log(allUsers);
-    // }
 
-    //console.log(allUsers);
     ///////STORING THE PAGE CONTENT IN A VARIABLE TO OUTPUT WHEN LOADING IS COMPLETE///////
     const AllPosts = (
       <div>
@@ -123,7 +99,7 @@ class LoadPosts extends PureComponent {
                   onClick={this.createPostHandler}
                   style={{ width: 100, margin: "auto" }}
                 >
-                  <ButtonMaterial />
+                  <AddPostBtn />
                 </div>
 
                 <div className={classes.pagination}>
@@ -142,7 +118,7 @@ class LoadPosts extends PureComponent {
 
               {posts.map((post) => (
                 <div key={post.id}>
-                  <PostsCard
+                  <OverviewCard
                     postid={post.id}
                     posts={post.user_id}
                     {...post}
@@ -154,7 +130,6 @@ class LoadPosts extends PureComponent {
             </div>
           </div>
           <div className="col-lg-3 md-2 ">
-            {/* <div className={classes.innerrightcol}> */}
             <div className={classes.sidebar1}>
               <div className={classes.headersidebar}>Most active users</div>
               <div className={classes.contentsidebar}>
@@ -182,7 +157,6 @@ class LoadPosts extends PureComponent {
           </div>
         </div>
       </div>
-      /* </div> */
     );
 
     //////IF LOADING IS TRUE SHOW SPINNER ELSE SHOW PAGE///////
@@ -193,7 +167,7 @@ class LoadPosts extends PureComponent {
     const postBox = (
       <div style={{ display: "flex", flexFlow: "column" }}>
         <div onClick={this.createPostHandler}>
-          <Button btnTxt="cancel" color="red" />
+          <CloseBtn btnTxt="cancel" color="red" />
         </div>
 
         <Validate
@@ -211,4 +185,4 @@ class LoadPosts extends PureComponent {
   }
 }
 
-export default LoadPosts;
+export default Home;

@@ -1,10 +1,10 @@
 import React from "react";
 import { Add } from "@material-ui/icons";
-import "./ButtonMaterial.css";
+import "./AddPostBtn.css";
 
-const ButtonMaterial = (props) => {
+const AddPostBtn = (props) => {
   return (
-    <div className="material">
+    <div className="AddPost">
       <h1>Post</h1>
 
       <Add className="postbtn" fontSize="large" />
@@ -12,4 +12,4 @@ const ButtonMaterial = (props) => {
   );
 };
 
-export default ButtonMaterial;
+export default AddPostBtn;

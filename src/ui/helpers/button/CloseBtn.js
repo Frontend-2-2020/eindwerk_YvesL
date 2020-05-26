@@ -1,7 +1,7 @@
 import React from "react";
-import "./Button.css";
+import "./CloseBtn.css";
 
-const Button = (props) => {
+const CloseBtn = (props) => {
   return (
     <button className="customBtn" color={props.color}>
       {props.btnTxt}
@@ -9,4 +9,4 @@ const Button = (props) => {
   );
 };
 
-export default Button;
+export default CloseBtn;

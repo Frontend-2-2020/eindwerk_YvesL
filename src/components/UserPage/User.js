@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { API } from "../../config/API";
-import "./Users.css";
+import "./User.css";
 import { Spinner } from "../../ui/spinner/Spinner";
-import UserCard from "./UserCard";
-import UserProfileCard from "./UserProfileCard";
+import UsersPost from "./UsersPost";
+import UsersProfile from "./UsersProfile";
 import UsersComments from "./UsersComments";
 import PropTypes from "prop-types";
 
@@ -19,7 +19,7 @@ export class User extends Component {
 
   ///////API CALL TO GET THE USERS DETAIL, RECEIVING ID PROPS FROM USER.JS (URL PARAMS)//////
   getuser() {
-    const { id } = this.props;
+    const { id } = this.props.match.params;
     API.get("api/users/" + id).then((response) => {
       const { data } = response;
       data.comments.map((comm) => this.setState({ blog: comm.blog_post }));
@@ -41,7 +41,7 @@ export class User extends Component {
 
   render() {
     const { user, blogposts, comments, loaded } = this.state;
-    // console.log(blogposts);
+
     //////USE LATER ON!!!!!//////////
     const numberOfPosts = Object.keys(blogposts).length;
 
@@ -49,7 +49,7 @@ export class User extends Component {
     const userOutput = (
       <div className="profilepage">
         {/* USER PROFILE CARD */}
-        <UserProfileCard {...user} />
+        <UsersProfile {...user} />
 
         {/* PREVIOUS POSTS MADE BY USER */}
         <h3>
@@ -58,7 +58,7 @@ export class User extends Component {
         <hr />
         <div className="userPostsCard">
           {blogposts.map((blogpost) => (
-            <UserCard key={blogpost.id} {...blogpost} {...user} />
+            <UsersPost key={blogpost.id} {...blogpost} {...user} />
           ))}
         </div>
 

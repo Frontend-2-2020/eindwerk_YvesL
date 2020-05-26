@@ -1,9 +1,9 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
-import "./UserProfileCard.css";
+import "./UsersProfile.css";
 import PropTypes from "prop-types";
 
-const UserProfileCard = (props) => {
+const UsersProfile = (props) => {
   console.log(props);
   return (
     <div className="profile">
@@ -48,9 +48,9 @@ const UserProfileCard = (props) => {
   );
 };
 
-export default UserProfileCard;
+export default UsersProfile;
 
-UserProfileCard.propTypes = {
+UsersProfile.propTypes = {
   first_name: PropTypes.string,
   last_name: PropTypes.string,
   avatar: PropTypes.string,

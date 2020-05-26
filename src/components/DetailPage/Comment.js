@@ -6,7 +6,7 @@ import { API } from "../../config/API";
 import { withRouter } from "react-router";
 import PropTypes from "prop-types";
 
-const CommentPostCard = (props) => {
+const Comment = (props) => {
   const deleteComment = () => {
     console.log("delete");
 
@@ -78,9 +78,9 @@ const CommentPostCard = (props) => {
   );
 };
 
-export default withRouter(CommentPostCard);
+export default withRouter(Comment);
 
-CommentPostCard.propTypes = {
+Comment.propTypes = {
   first_name: PropTypes.string,
   id: PropTypes.number.isRequired,
   avatar: PropTypes.string,

@@ -2,11 +2,14 @@ import React from "react";
 import { Trashcan } from "../../ui/helpers/Trashcan";
 import moment from "moment";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-const DetailPostCard = (props) => {
+const Post = (props) => {
+  console.log(props.first_name);
+
   return (
     <div>
-      <h1 className="headers">{props.first_name}'s post</h1>
+      <h1 className="headers">{props.first_name}</h1>
       <div className="row pt-5 mt-30 ">
         <div className="col-lg-4 col-sm-6 mb-30 pb-5 m-auto">
           <div className="card" href="http">
@@ -36,7 +39,7 @@ const DetailPostCard = (props) => {
                 {moment(props.updated_at).format("llll")}
               </p>
 
-              {props.first_name === "Yves" ? (
+              {props.first_name === props.user.first_name ? (
                 <span onClick={props.delete}>
                   {" "}
                   <Trashcan />
@@ -54,9 +57,13 @@ const DetailPostCard = (props) => {
   );
 };
 
-export default DetailPostCard;
+const mapStateToProps = (state) => {
+  return { user: state.auth };
+};
 
-DetailPostCard.propTypes = {
+export default connect(mapStateToProps)(Post);
+
+Post.propTypes = {
   title: PropTypes.string,
   name: PropTypes.string,
   body: PropTypes.string,

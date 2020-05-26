@@ -1,9 +1,9 @@
 import React from "react";
-import "./UserCard.css";
+import "./UsersPost.css";
 import moment from "moment";
 import PropTypes from "prop-types";
 
-const UserCard = (props) => {
+const UsersPost = (props) => {
   return (
     <div className="usercard">
       <div className="box-shadow bg-white rounded-circle mx-auto text-center">
@@ -34,9 +34,9 @@ const UserCard = (props) => {
   );
 };
 
-export default UserCard;
+export default UsersPost;
 
-UserCard.propTypes = {
+UsersPost.propTypes = {
   avatar: PropTypes.string,
   title: PropTypes.string,
   body: PropTypes.string,

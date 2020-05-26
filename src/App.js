@@ -3,17 +3,21 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import classes from "./App.module.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Navi from "./components/navigation/Navbar";
+import { connect } from "react-redux";
+import { loginAuth } from "./redux/actions/authActions";
 //import Page404 from "./pages/Page404";
-//import Social from "./ui/social/Social";
 
 /////IMPORTING THROUGH REACT.LAZY
-const User = React.lazy(() => import("./pages/User"));
-const Detail = React.lazy(() => import("./pages/Detail"));
-const Register = React.lazy(() => import("./pages/Register"));
-const Login = React.lazy(() => import("./pages/Login"));
-const Home = React.lazy(() => import("./pages/Home"));
+const User = React.lazy(() => import("./components/UserPage/User"));
+const Detail = React.lazy(() => import("./components/DetailPage/Detail"));
+const Register = React.lazy(() => import("./components/Register/Register"));
+const Login = React.lazy(() => import("./components/LoginPage/Login"));
+const Home = React.lazy(() => import("./components/HomePage/Home"));
 
 class App extends Component {
+  componentDidMount() {
+    this.props.loginAuth();
+  }
   render() {
     return (
       <div className={classes.App}>
@@ -37,4 +41,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginAuth: () => dispatch(loginAuth()),
+  };
+};
+
+export default connect(undefined, mapDispatchToProps)(App);

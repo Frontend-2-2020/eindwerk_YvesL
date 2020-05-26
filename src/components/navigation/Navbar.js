@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 import { FaRedditAlien } from "react-icons/fa";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
 import $ from "jquery";
+import { connect } from "react-redux";
+import { logoutAuth } from "../../redux/actions/authActions";
 
 const Navi = (props) => {
   const [collapsed, setCollapsed] = useState(true);
   const toggleNavbar = () => setCollapsed(!collapsed);
-  //const state = store.getState();
-  //const { led } = state.auth;
-  const loginToken = localStorage.getItem("yves_acces_token");
 
+  /////!!!!!!!!!CHANGE TO VANILLA JS/////
   $(window).scroll(function () {
     if ($(window).scrollTop() >= 700) {
       $(".navb").css("background-color", "white");
@@ -20,6 +20,13 @@ const Navi = (props) => {
     }
   });
 
+  const logout = () => {
+    console.log("clicked");
+    props.logoutAuth(); /////<-----LOGOUT FUNCTION FROM AUTH ACTIONS
+  };
+
+  console.log(props);
+
   return (
     <Navbar className="navb" fixed="top" name="Yves">
       <Link to="/" className="mr-auto navbar-brand">
@@ -27,22 +34,36 @@ const Navi = (props) => {
       </Link>
       {/* ////SHOW THE LOGIN LED IN THE NAVBAR////// */}
       <div className="loggedIn">
-        {loginToken != null ? (
+        {props.user.user ? (
           <div className="ledgreen"></div>
         ) : (
           <div className="ledred"></div>
         )}
       </div>
-      <Link to="/login" style={{ margin: 10 }}>
-        <button type="button" className="btn btn-outline-dark navbar-right">
-          login
+
+      {!props.user.user ? (
+        <Link to="/login" style={{ margin: 10 }}>
+          <button type="button" className="btn btn-outline-dark navbar-right">
+            login
+          </button>
+        </Link>
+      ) : (
+        /* <Link to="/login" style={{ margin: 10 }}> */
+        <button
+          type="button"
+          className="btn btn-outline-dark navbar-right"
+          onClick={() => logout()}
+        >
+          logout
         </button>
-      </Link>
+        /* </Link> */
+      )}
       <Link to="/register" style={{ margin: 10 }}>
         <button type="button" className="btn btn-outline-dark ">
           register
         </button>
       </Link>
+
       <NavbarToggler onClick={toggleNavbar} className="mr-2 " />
 
       <Collapse isOpen={!collapsed} navbar>
@@ -63,10 +84,13 @@ const Navi = (props) => {
   );
 };
 
-export default Navi;
+const mapStateToProps = (state) => {
+  return { user: state.auth };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutAuth: () => dispatch(logoutAuth()),
+  };
+};
 
-// const mapStateToProps = (state) => {
-//   return { auth: state.auth };
-// };
-
-// export default connect(mapStateToProps)(Navi);
+export default connect(mapStateToProps, mapDispatchToProps)(Navi);

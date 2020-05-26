@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import classes from "./PostsCard.module.css";
-import { API } from "../../../config/API";
-import Comments from "./Comments/Comments";
+import classes from "./OverviewCard.module.css";
+import { API } from "../../config/API";
+import CreateComment from "./CreateComments";
 import moment from "moment";
 import {
   FaRegComment,
@@ -10,16 +10,15 @@ import {
   FaInstagram,
   FaLinkedin,
   FaTwitter,
-  //FaUser,
   FaRegThumbsUp,
   //FaRegThumbsDown,
 } from "react-icons/fa";
 import PropTypes from "prop-types";
-import { textLimit } from "../../../config/API";
+import { textLimit } from "../../config/API";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 
-class CardComponent extends Component {
+class OverviewCard extends Component {
   state = {
     isClicked: false,
     id: null,
@@ -61,7 +60,7 @@ class CardComponent extends Component {
   addLikeHandler = () => {
     API.post("api/posts/" + this.props.postid + "/like")
       .then((res) => {
-        alert("Your like was succesfull");
+        alert("Your liked this post");
       })
       .catch((err) => alert(err + " You can only like a post once"));
   };
@@ -84,7 +83,7 @@ class CardComponent extends Component {
 
     ///////BOX WHERE WE TYPE OUR COMMENTS//////////
     const commentfield = (
-      <Comments
+      <CreateComment
         commentbox={this.showCommentHandler}
         addComment={this.addCommentHandler}
         editor={this.onChangeInEditor}
@@ -110,7 +109,7 @@ class CardComponent extends Component {
               <strong>
                 Last online{" "}
                 {timeAgo.format(
-                  new Date(props.last_login_at) - 2 * 60 * 60 * 1000
+                  moment.utc(props.last_login_at).local().toDate()
                 )}
               </strong>
             </div>
@@ -136,11 +135,11 @@ class CardComponent extends Component {
                   </div>
                 </div>
                 {/* </div> */}
-                {/* <div className={classes.readpost}>
+                <div className={classes.readpost}>
                   <Link to={"/detail/" + props.postid}>
                     <button className="btn btn-no outline">Full post</button>
                   </Link>
-                </div> */}
+                </div>
               </div>
             </div>
             {/* COMMENTS / LIKES */}
@@ -200,7 +199,7 @@ class CardComponent extends Component {
   }
 }
 //USING REACT.MEMO H.O.C.
-export default React.memo(CardComponent, (prevProps, nextProps) => {
+export default React.memo(OverviewCard, (prevProps, nextProps) => {
   if (
     prevProps.title.length > 0 &&
     nextProps.title.length > 0 &&
@@ -211,7 +210,7 @@ export default React.memo(CardComponent, (prevProps, nextProps) => {
   return false;
 });
 
-CardComponent.propTypes = {
+OverviewCard.propTypes = {
   avatar: PropTypes.string,
   title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,

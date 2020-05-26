@@ -6,7 +6,7 @@ import moment from "moment";
 import "./UsersComments.css";
 import { Trashcan } from "../../ui/helpers/Trashcan";
 import PropTypes from "prop-types";
-import Button from "../../ui/helpers/button/Button";
+import CloseBtn from "../../ui/helpers/button/CloseBtn";
 
 class UsersComments extends Component {
   state = {
@@ -101,18 +101,12 @@ class UsersComments extends Component {
                 <div onClick={this.deleteComment} style={{ marginTop: 35 }}>
                   <Trashcan />
                 </div>
-                <div
-                  onClick={this.showEditCommentBtn}
-                  /* style={{ marginTop: 20 }} */
-                >
-                  <Button btnTxt="Edit Comment" />
+                <div onClick={this.showEditCommentBtn}>
+                  <CloseBtn btnTxt="Edit Comment" />
                 </div>
               </div>
-
               {/* HIDE THIS EDITCOMMENTBOX */}
-              {/* ///////FORMIK//////// */}
               {showEditComment}
-              {/* ///////END FORMIK///////// */}
             </div>
           </div>
         </div>
