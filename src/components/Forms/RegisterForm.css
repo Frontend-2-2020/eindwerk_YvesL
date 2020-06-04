@@ -1,13 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
 
 .login-panel {
   width: 70vw;
   height: auto;
   background-color: #ddcccc;
-
   margin: 130px auto;
   display: flex;
   flex-flow: row;
@@ -16,8 +13,6 @@
   box-shadow: 0 4px 10px rgb(3, 1, 1);
   padding: 10px;
 }
-
-
 
 @media only screen and (max-width: 850px) {
   .login-panel {
@@ -39,7 +34,7 @@
 .right-side h1 {
   text-transform: uppercase;
   margin-bottom: 30px;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 .right-side p {
@@ -60,7 +55,7 @@
 
 h4 {
   color: grey;
-  font-family: 'Source Code Pro', monospace;
+  font-family: "Source Code Pro", monospace;
 }
 
 span {
@@ -79,9 +74,7 @@ input.submit-btn {
 }
 
 input.submit-btn:hover {
-  background: linear-gradient(120deg,
-      rgba(63, 94, 251, 1),
-      rgba(106, 208, 217, 1));
+  background: linear-gradient(120deg, rgba(63, 94, 251, 1), rgba(106, 208, 217, 1));
   border: 0;
   color: #fff;
   cursor: pointer;

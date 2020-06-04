@@ -18,8 +18,9 @@
 }
 
 .innerleftcol {
-  /* margin-left: 30px; */
   padding: 25px;
+  /* background-color: hsla(261, 92%, 47%, 0.7); */
+  opacity: 0.9;
 }
 
 @media only screen and (max-width: 990px) {
@@ -43,11 +44,17 @@
 }
 
 .pagination a {
-  color: black;
+  color: rgb(252, 248, 248);
+  padding: 10px;
+  background-color: green;
+}
+
+.pagination a:active {
+  color: blue;
 }
 
 .pagination a:hover {
-  color: rgb(96, 64, 226);
+  color: rgb(1, 1, 12);
 }
 
 .btn {
@@ -109,6 +116,15 @@
   width: 100%;
 }
 
+.postertitle {
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 2rem;
+  white-space: nowrap;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
+}
+
 .blogtitle {
   position: absolute;
   top: 20%;
@@ -116,21 +132,4 @@
   transform: translate(-50%, -50%);
   color: white;
   text-align: center;
-}
-
-.maintitle {
-  text-transform: uppercase;
-  margin: 0;
-  font-size: 3rem;
-  white-space: nowrap;
-  font-family: "Roboto Condensed", sans-serif;
-  color: black;
-}
-h2 {
-  font-size: 2rem;
-  color: black;
-}
-p {
-  margin: 0;
-  font-size: 1.3rem;
 }

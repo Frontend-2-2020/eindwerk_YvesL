@@ -1,10 +1,10 @@
-.mr-2 {
+.navbar-toggler {
   display: none;
-  background-color: #fff;
+  color: black;
 }
 
 @media only screen and (max-width: 700px) {
-  .mr-2 {
+  .navbar-toggler {
     display: block;
   }
 
@@ -13,13 +13,6 @@
   }
 }
 
-.navbar-toggler-icon {
-  color: black;
+.btn-no-outline:hover {
+  border-bottom: 3px solid black;
 }
-.navbar-toggler-icon:hover {
-  background: #ff0000;
-}
-
-/* .navb {
-  background-color: green;
-} */

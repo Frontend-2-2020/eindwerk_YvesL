@@ -1,0 +1,89 @@
+/* ////ORIGINAL POST///// */
+.commentscontainer {
+  width: 50vw;
+  margin: 0px auto;
+  padding: 20px;
+}
+
+.originalpost {
+  margin: 0px auto;
+  border: 1px solid green;
+}
+
+.commented hr {
+  width: 20vw;
+}
+
+.postheader {
+  background-color: black;
+  padding: 10px;
+  color: #fff;
+}
+
+.postcontent {
+  padding: 10px;
+  color: black;
+  background-color: #fff;
+}
+
+.postcontent img {
+  max-width: 100%;
+  padding: 20px;
+}
+
+.postcontent hr {
+  width: 40vw;
+}
+
+.bodyheader {
+  padding: 5px;
+  margin: 5px;
+}
+
+.details {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.posttitle {
+  font-style: italic;
+  font-size: 1.2rem;
+}
+/* ////COMMENTS///// */
+.contentcomment {
+  margin: 0px auto;
+  padding-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: black;
+  color: white;
+}
+
+.contentcomment hr {
+  width: 40vw;
+}
+
+.avatar img {
+  width: 30px;
+  height: 30px;
+  margin: 5px 10px;
+  border-radius: 50%;
+}
+
+.commenttitle {
+  margin-top: 13px;
+  font-size: 1rem;
+}
+
+.commentbody {
+  margin: 15px 10px;
+  font-size: 0.9rem;
+}
+
+.activeDelete,
+.blurredDelete {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}

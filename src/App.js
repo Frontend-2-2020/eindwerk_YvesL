@@ -6,22 +6,23 @@ import Navi from "./components/navigation/Navbar";
 import { connect } from "react-redux";
 import { loginAuth } from "./redux/actions/authActions";
 //import Page404 from "./pages/Page404";
+import { fetchPosts } from "../src/redux/actions/postactions";
 
 /////IMPORTING THROUGH REACT.LAZY
-const User = React.lazy(() => import("./components/UserPage/User"));
-const Detail = React.lazy(() => import("./components/DetailPage/Detail"));
-const Register = React.lazy(() => import("./components/Register/Register"));
-const Login = React.lazy(() => import("./components/LoginPage/Login"));
-const Home = React.lazy(() => import("./components/HomePage/Home"));
+const User = React.lazy(() => import("./pages/User"));
+const Detail = React.lazy(() => import("./pages/Detail"));
+const Register = React.lazy(() => import("./pages/Register"));
+const Login = React.lazy(() => import("./pages/Login"));
+const Home = React.lazy(() => import("./pages/Home"));
 
 class App extends Component {
   componentDidMount() {
     this.props.loginAuth();
+    this.props.fetchPosts();
   }
   render() {
     return (
       <div className={classes.App}>
-        {/* <Social /> */}
         <Router>
           <Suspense fallback={<div>Loading...</div>}>
             {" "}
@@ -44,6 +45,7 @@ class App extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     loginAuth: () => dispatch(loginAuth()),
+    fetchPosts: () => dispatch(fetchPosts()),
   };
 };
 

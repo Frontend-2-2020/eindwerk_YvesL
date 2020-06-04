@@ -6,29 +6,27 @@ import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
 import $ from "jquery";
 import { connect } from "react-redux";
 import { logoutAuth } from "../../redux/actions/authActions";
+import PropTypes from "prop-types";
+
+/////!!!!!!!!!CHANGE TO VANILLA JS/////
+$(window).scroll(function () {
+  if ($(window).scrollTop() >= 700) {
+    $(".navb").css("background-color", "white", "transition", "750ms ease");
+  } else {
+    $(".navb").css("background-color", "hsla(0, 0%, 0%, 0)");
+  }
+});
 
 const Navi = (props) => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState();
   const toggleNavbar = () => setCollapsed(!collapsed);
 
-  /////!!!!!!!!!CHANGE TO VANILLA JS/////
-  $(window).scroll(function () {
-    if ($(window).scrollTop() >= 700) {
-      $(".navb").css("background-color", "white");
-    } else {
-      $(".navb").css("background-color", "hsla(0, 0%, 0%, 0)");
-    }
-  });
-
   const logout = () => {
-    console.log("clicked");
     props.logoutAuth(); /////<-----LOGOUT FUNCTION FROM AUTH ACTIONS
   };
 
-  console.log(props);
-
   return (
-    <Navbar className="navb" fixed="top" name="Yves">
+    <Navbar className="navb" fixed="top" light style={{ opacity: "0.6" }}>
       <Link to="/" className="mr-auto navbar-brand">
         <FaRedditAlien style={{ color: "black", height: 50, width: 50 }} />
       </Link>
@@ -40,7 +38,7 @@ const Navi = (props) => {
           <div className="ledred"></div>
         )}
       </div>
-
+      {/* ///////TOGGLE LOGIN/LOGOUT BTN/////// */}
       {!props.user.user ? (
         <Link to="/login" style={{ margin: 10 }}>
           <button type="button" className="btn btn-outline-dark navbar-right">
@@ -48,7 +46,6 @@ const Navi = (props) => {
           </button>
         </Link>
       ) : (
-        /* <Link to="/login" style={{ margin: 10 }}> */
         <button
           type="button"
           className="btn btn-outline-dark navbar-right"
@@ -56,17 +53,14 @@ const Navi = (props) => {
         >
           logout
         </button>
-        /* </Link> */
       )}
       <Link to="/register" style={{ margin: 10 }}>
         <button type="button" className="btn btn-outline-dark ">
           register
         </button>
       </Link>
-
-      <NavbarToggler onClick={toggleNavbar} className="mr-2 " />
-
-      <Collapse isOpen={!collapsed} navbar>
+      <NavbarToggler onClick={toggleNavbar} />
+      <Collapse isOpen={collapsed} navbar>
         <Nav navbar>
           <NavItem>
             <Link to="/login" style={{ color: "white" }}>
@@ -94,3 +88,9 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navi);
+
+NavbarToggler.propTypes = {
+  type: PropTypes.string,
+  tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  // pass in custom element to use
+};

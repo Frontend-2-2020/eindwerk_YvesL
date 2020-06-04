@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { API } from "../../config/API";
+import { API } from "../config/API";
 import { withRouter } from "react-router";
 import { Formik } from "formik";
-import RegisterForm from "../Forms/RegisterForm";
+import RegisterForm from "../components/Forms/RegisterForm";
 
 class Register extends Component {
   state = {
@@ -43,7 +43,7 @@ class Register extends Component {
     return errors;
   };
 
-  ///// COLOR PICKED WITH SWTCHESPICKER GETS STORED IN DE STATE/////////
+  ///// COLOR PICKED WITH SWATCHESPICKER GETS STORED IN DE STATE/////////
   ///// AND ADDED AS A VALUE TO THE FAVOURITE_COLOR KEY/////////////////
   handleChangeComplete = (color) => {
     this.setState({ color: color.hex });
@@ -76,5 +76,5 @@ class Register extends Component {
   }
 }
 
-////USED WITHROUTER TO GET ACCES TO HISTORY TO REDIRECT TO THE LOGIN/////
+////HOC WITHROUTER TO GET ACCES HISTORY PROPS AND REDIRECT TO LOGIN/////
 export default withRouter(Register);

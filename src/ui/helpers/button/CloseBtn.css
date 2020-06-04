@@ -1,15 +1,15 @@
 .customBtn {
   border: none;
-  margin: 30px auto 15px;
+  margin: 5px auto 25px;
   display: block;
-  font-size: 20px;
+  font-size: 10px;
   outline: none;
   position: relative;
   -webkit-transition: 0.3s;
   transition: 0.3s;
   padding: 10px;
   background-color: transparent;
-  color: black;
+  color: red;
   text-transform: uppercase;
 }
 
@@ -19,7 +19,7 @@
 
 .customBtn:before {
   content: "";
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid rgb(158, 157, 157);
   padding: 0 10px;
   position: absolute;
   bottom: 0;

@@ -4,9 +4,8 @@ import "./AddPostBtn.css";
 
 const AddPostBtn = (props) => {
   return (
-    <div className="AddPost">
+    <div className="AddPost" href="#scrollToTop">
       <h1>Post</h1>
-
       <Add className="postbtn" fontSize="large" />
     </div>
   );

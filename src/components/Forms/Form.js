@@ -9,8 +9,8 @@ export default class componentName extends Component {
     return (
       <Form
         style={{
-          width: "70vw",
-          margin: "auto",
+          width: "45vw",
+          margin: "10px auto",
           border: "2px solid black",
           borderRadius: "8px",
           padding: 15,

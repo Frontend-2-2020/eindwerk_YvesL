@@ -1,5 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+
 .card {
-  margin-bottom: 60px;
+  margin-bottom: 10px;
+  transform: scale(0.8);
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+.card:hover {
+  transform: scale(0.9);
 }
 
 .cardbody {
@@ -47,10 +56,20 @@
   justify-content: space-between;
 }
 
-.cardheader h3 {
-  font-family: Lobster, cursive;
+.cardtitle {
+  font-family: "Roboto Condensed", sans-serif;
+  text-transform: uppercase;
+  font-size: 1.2rem;
   padding: 10px;
-  margin: 10px;
+  color: grey;
+}
+
+.cardusername {
+  font-family: "Roboto Condensed", sans-serif;
+  text-transform: uppercase;
+  padding-left: 15px;
+  font-size: 1.1rem;
+  color: black;
 }
 
 .cardheader img {
@@ -60,25 +79,9 @@
   padding: 5px;
 }
 
-.commentsAndLikes {
-  /* padding: 15px; */
+.commentslikes {
   display: flex;
   justify-content: space-around;
-}
-
-.contactinfo .userbt {
-  width: 85px;
-  height: 30px;
-  cursor: hand;
-  border-radius: 100%;
-  font-size: 1.2rem;
-  color: black;
-  background-color: rgb(226, 229, 226);
-}
-
-.contactinfo .userbt:hover {
-  color: grey;
-  box-shadow: 0 0.125rem 0.5rem grey;
 }
 
 .dateposted {
@@ -113,14 +116,14 @@ span:hover {
   text-decoration: underline;
 }
 
-.nofcomments {
+.commentscount {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
   color: black;
 }
 
-.nofcomments > * {
+.commentscount > * {
   margin-left: 25px;
 }
 .addcomments {
@@ -129,6 +132,17 @@ span:hover {
 
 .likebox > * {
   margin: 10px;
+}
+
+.likebtn {
+  display: flex;
+  flex-flow: row;
+  cursor: pointer;
+}
+
+.likebtn span {
+  margin-bottom: 3px;
+  margin-left: 3px;
 }
 
 .socialbox {
@@ -148,12 +162,6 @@ span:hover {
   color: black;
 }
 
-.cardtext h3 {
-  font-family: Lobster, cursive;
-  margin-left: 20px;
-  color: black;
-}
-
 .readpost {
   display: flex;
   justify-content: flex-end;
@@ -168,8 +176,7 @@ span:hover {
   font-size: 1.25em;
   width: 95%;
   border-radius: 1rem;
-  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
-    0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3), 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
 }
 
 .balloon img {
@@ -190,9 +197,9 @@ span:hover {
   filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
 }
 
-.postcardEnd {
+.cardrule {
   background-color: black;
   color: black;
   width: 100%;
-  margin-top: 100px;
+  margin-top: 50px;
 }

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { API } from "../../config/API";
+import { API } from "../config/API";
 import { Formik } from "formik";
 import { connect } from "react-redux";
-import { loginAuth } from "../../redux/actions/authActions";
-import LoginForm from "../Forms/LoginForm";
+import { loginAuth } from "../redux/actions/authActions";
+import LoginForm from "../components/Forms/LoginForm";
 
 class Login extends Component {
   login = (values, { resetForm }) => {
@@ -26,6 +26,7 @@ class Login extends Component {
         "Bearer " + response.data.access_token;
       ///////NOW THAT WE HAVE AN ACCES TOKEN WE CAN RUN THE AXIOS CALL TO GET THE POSTS
       this.props.loginAuth();
+      this.props.history.push("/");
       resetForm(values);
     });
   };

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import classes from "./OverviewCard.module.css";
+import classes from "./Post.module.css";
 import { API } from "../../config/API";
-import CreateComment from "./CreateComments";
+import CreateComment from "../Comments/CreateComments";
 import moment from "moment";
 import {
   FaRegComment,
@@ -10,20 +10,24 @@ import {
   FaInstagram,
   FaLinkedin,
   FaTwitter,
-  FaRegThumbsUp,
-  //FaRegThumbsDown,
 } from "react-icons/fa";
-import PropTypes from "prop-types";
+//import PropTypes from "prop-types";
 import { textLimit } from "../../config/API";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import HeartIcon from "../../ui/helpers/HeartIcon";
+//import NoHeartIcon from "../../ui/helpers/NoHeartIcon";
 
 class OverviewCard extends Component {
   state = {
     isClicked: false,
     id: null,
     commentInput: [],
+    likes: this.props.post.likes_count,
+    comments: this.props.post.comments_count,
+    color: "black",
   };
+
   //////VALIDATE COMMENTS/////////////
   onChangeInEditor = (event, editor) => {
     const data = editor.getData();
@@ -32,56 +36,61 @@ class OverviewCard extends Component {
 
   ///////HANDLER THAT OPENS THE BOX TO WRITE YOUR COMMENTS///////
   showCommentHandler = () => {
-    this.setState({ isClicked: !this.state.isClicked, id: this.props.postid });
+    const { id } = this.props.post;
+    this.setState({ isClicked: !this.state.isClicked, id: id });
   };
 
-  /////WE RECEIVER THE NEEDED ID FROM THE SETSTATE AND STORE IT IN A CONST///////
-  ////THEN WE STORE THE VALUES THAT WE WANNA POST ALSO IN A VARIABLE(DATA ITC)///
+  ////COMMENT ON THE RIGHT ID AND SEND THE DATA TO THE SERVER///
   addCommentHandler = () => {
     const { id, commentInput } = this.state;
     const data = {
       blog_post_id: id,
       body: commentInput,
     };
-    /////POSTING COMMENT DATA TO THE SERVER THROUGH AXIOS//////////
     API.post("api/comments", data)
-      .then((res) => {
-        alert("Your comment was posted succesfully");
-      })
-      .catch((err) =>
-        alert(
-          err +
-            " ,Make sure that you are logged in if you want to make a comment"
-        )
-      )
-      .then(this.setState({ isClicked: !this.state.isClicked }));
+      .then((res) => alert("Your comment was posted succesfully"))
+      .catch((err) => alert(err + "Make sure that you are logged in"))
+      .then(
+        this.setState({
+          isClicked: !this.state.isClicked,
+          comments: this.props.post.comments_count + 1,
+        })
+      );
   };
 
   addLikeHandler = () => {
-    API.post("api/posts/" + this.props.postid + "/like")
+    const { id } = this.props.post;
+    API.post("api/posts/" + id + "/like")
       .then((res) => {
-        alert("Your liked this post");
+        this.setState({
+          likes: this.props.post.likes_count + 1,
+          heart: !this.state.heart,
+          color: "red",
+        });
       })
       .catch((err) => alert(err + " You can only like a post once"));
   };
 
   unLikeHandler = () => {
-    API.post("api/posts/" + this.props.postid + "/unlike")
+    const { id } = this.props.post;
+    API.post("api/posts/" + id + "/unlike")
       .then((res) => {
+        this.setState({
+          likes: this.props.post.likes_count - 1,
+        });
         alert("Your unlike was succesfull");
       })
-      .then(this.setState({ likeClick: !this.state.likeClick }))
       .catch((err) => alert(err + " You can only unlike a post once"));
   };
 
   render() {
-    const { isClicked } = this.state;
-    const { props } = this;
-    const str = props.body; //FUNCTION IN CONFIG
+    const { isClicked, likes, comments, color } = this.state;
+    const str = this.props.post.body; //FUNCTION TEXTLIMIT IN CONFIG
     TimeAgo.addLocale(en); //PACKAGE USED FOR ...DAYS AGO
     const timeAgo = new TimeAgo("en-US");
+    const { props } = this;
 
-    ///////BOX WHERE WE TYPE OUR COMMENTS//////////
+    ///////CK EDITOR WHERE WE TYPE OUR COMMENTS//////////
     const commentfield = (
       <CreateComment
         commentbox={this.showCommentHandler}
@@ -95,16 +104,13 @@ class OverviewCard extends Component {
 
     return (
       <div className={classes.card}>
-        <hr className={classes.postcardEnd} />
+        <hr className={classes.cardrule} />
         <div className={classes.cardbody}>
           {/* AVATAR / USERINFO / DATE POSTED / LAST LOGIN */}
           <div className={classes.cardheader}>
             <img src={props.avatar} alt="profile pic" />
-            <h3 style={{ color: "grey", textDecoration: "underline" }}>
-              {props.title}
-            </h3>
-
-            <div style={{ color: "black" }}>
+            <div className={classes.cardtitle}>{props.post.title}</div>
+            <div className={classes.lastOnline} style={{ color: "black" }}>
               <br />
               <strong>
                 Last online{" "}
@@ -118,8 +124,8 @@ class OverviewCard extends Component {
           <div className={classes.cardheader2}>
             <div>
               <div className={classes.cardtext}>
-                <Link to={"/user/" + props.id}>
-                  <h3>{props.first_name}</h3>
+                <Link to={"/user/" + props.user_id}>
+                  <div className={classes.cardusername}>{props.first_name}</div>
                 </Link>
                 <div
                   className={classes.balloon}
@@ -130,20 +136,20 @@ class OverviewCard extends Component {
                 <div className={classes.dateposted}>
                   <div style={{ margin: 10 }}>
                     <span style={{ color: "black", fontSize: 12 }}>
-                      {moment(props.date).format("llll")}
+                      {moment(props.post.created_at).format("llll")}
                     </span>
                   </div>
                 </div>
-                {/* </div> */}
+
                 <div className={classes.readpost}>
-                  <Link to={"/detail/" + props.postid}>
-                    <button className="btn btn-no outline">Full post</button>
+                  <Link to={"/detail/" + props.post.id}>
+                    <button className="btn btn-no outline">Detail post</button>
                   </Link>
                 </div>
               </div>
             </div>
             {/* COMMENTS / LIKES */}
-            <div className={classes.commentsAndLikes}>
+            <div className={classes.commentslikes}>
               <div className={classes.commentbox}>
                 <div className={classes.contactinfo}>
                   <div className={classes.social}>
@@ -158,35 +164,41 @@ class OverviewCard extends Component {
                     </a>
                   </div>
                 </div>
-                <div className={classes.nofcomments}>
-                  <Link to={"/detail/" + props.postid}>
+                <div className={classes.commentscount}>
+                  <Link to={"/detail/" + props.post.id}>
                     <span>
-                      <FaRegComment style={{ marginBottom: 3 }} />{" "}
-                      {props.comments_count}
+                      <FaRegComment style={{ marginBottom: 3 }} /> {comments}
                     </span>
                   </Link>
-
+                  {/* //////ADD COMMENTS////// */}
                   <div>
                     <div
                       className={classes.addcomments}
                       onClick={this.showCommentHandler}
                     >
-                      <span>
-                        <FaCommentMedical /> Add
-                      </span>
+                      <FaCommentMedical style={{ fontSize: "1.2rem" }} />
                     </div>
                   </div>
-
-                  <div className="likeBtn">
-                    {/* <FaRegThumbsDown
-                      onClick={this.unLikeHandler}
-                      style={{ cursor: "pointer" }}
-                    />{" "} */}
-                    <FaRegThumbsUp
+                  {/* //////ADD LIKES////// */}
+                  <div>
+                    <div
+                      className={classes.likebtn}
                       onClick={this.addLikeHandler}
-                      style={{ marginBottom: 3, cursor: "pointer" }}
-                    />{" "}
-                    <span>{props.likes_count}</span>
+                    >
+                      <div style={{ color: color }}>
+                        <HeartIcon />{" "}
+                      </div>
+                      <span style={{ marginTop: 1 }}>{likes}</span>
+                    </div>
+
+                    {/* <div
+                        className={classes.likeBtn}
+                        onClick={this.unLikeHandler}
+                      >
+                        <NoHeartIcon />{" "}
+                        <span style={{ marginTop: 1 }}>{likes}</span>
+                      </div>
+                    )}  */}
                   </div>
                 </div>
               </div>
@@ -201,23 +213,23 @@ class OverviewCard extends Component {
 //USING REACT.MEMO H.O.C.
 export default React.memo(OverviewCard, (prevProps, nextProps) => {
   if (
-    prevProps.title.length > 0 &&
-    nextProps.title.length > 0 &&
-    prevProps.title === nextProps.title
+    prevProps.post.title.length > 0 &&
+    nextProps.post.title.length > 0 &&
+    prevProps.post.title === nextProps.post.title
   ) {
     return true;
   }
   return false;
 });
 
-OverviewCard.propTypes = {
-  avatar: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
-  timediv: PropTypes.instanceOf(Date),
-  timstamp: PropTypes.instanceOf(Date),
-  first_name: PropTypes.string.isRequired,
-  postid: PropTypes.number.isRequired,
-  body: PropTypes.string.isRequired,
-  comments_count: PropTypes.number,
-};
+//OverviewCard.propTypes = {
+
+// title: PropTypes.string.isRequired,
+// id: PropTypes.number.isRequired,
+// timediv: PropTypes.instanceOf(Date),
+// timstamp: PropTypes.instanceOf(Date),
+// first_name: PropTypes.string.isRequired,
+// postid: PropTypes.number.isRequired,
+// body: PropTypes.string.isRequired,
+// comments_count: PropTypes.number,
+//};

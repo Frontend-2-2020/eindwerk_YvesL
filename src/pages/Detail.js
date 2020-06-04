@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import "@reach/dialog/styles.css";
 import "./Detail.css";
 import { Redirect } from "react-router";
-import { API } from "../../config/API";
-import { Spinner } from "../../ui/spinner/Spinner";
-import Validate from "../Forms/Validate";
+import { API } from "../config/API";
+import { Spinner } from "../ui/spinner/Spinner";
+import Validate from "../components/Forms/Validate";
 import { FaEdit } from "react-icons/fa";
-import Post from "./Post";
-import Comment from "./Comment";
+import DetailCard from "../components/Posts/DetailCard";
+import Comments from "../components/Comments/Comments";
 
-export class DetailPost extends Component {
+export class Detail extends Component {
   state = {
     postDetails: {},
     user: {},
@@ -19,7 +19,7 @@ export class DetailPost extends Component {
   };
 
   ///////HIDE OR SHOW THE INPUT FORM///////////
-  showEditpostBtn() {
+  editPostHandler() {
     let editBtn = document.querySelector(".editForm");
     if (editBtn.style.display === "none") {
       editBtn.style.display = "block";
@@ -30,11 +30,11 @@ export class DetailPost extends Component {
 
   ///////PREVENTING THE INFINITE LOOP////////
   componentDidMount() {
-    this.getDetailedpost();
+    this.getDetail();
   }
 
   /////GET THE DETAILS OF THE SPECIFIC POST, PROPS (ID) RECEIVED FROM BUTTON POSTSCARD(ROUTER/:ID)//////
-  getDetailedpost() {
+  getDetail() {
     const { id } = this.props.match.params;
     API.get("api/posts/" + id).then((response) => {
       const detail = response.data;
@@ -52,7 +52,7 @@ export class DetailPost extends Component {
   ///////MAKING A PUT REQUEST TO EDIT THE SPECIFIC POST(SAME ID AS RECEIVED FROM PROPS)///////
   //////PASSING THE TITLE AND BODY(RECEIVED FROM VALUES) THAT WE LIKE TO EDIT//////////
   updatePostHandler = (values) => {
-    const { id } = this.props;
+    const { id } = this.props.match.params;
     const data = {
       title: values.title,
       body: values.body,
@@ -66,7 +66,7 @@ export class DetailPost extends Component {
   /////////DELETE THE POST (I CAN ONLY DELETE MY OWN POSTS)/////////
   deletePostHandler = () => {
     console.log("delete");
-    const { id } = this.props;
+    const { id } = this.props.match.params;
     const confirmDelete = window.confirm(
       "Are you sure want to delete your post?"
     );
@@ -76,7 +76,7 @@ export class DetailPost extends Component {
         .then(() => this.setState({ redirect: true }))
         .catch((err) =>
           alert(
-            "You are not Authorized to delete a post from another user" + err
+            "You are not authorized to delete a post from another user" + err
           )
         );
     }
@@ -84,15 +84,14 @@ export class DetailPost extends Component {
 
   render() {
     const { postDetails, user, comments, loading, redirect } = this.state;
-
+    console.log(user);
     const pageContent = (
-      <div className="cards">
+      <div className="detailpage">
         {/* ///////EDIT POST BUTTON//////// */}
-        <div className="showEditBtn">
-          <FaEdit onClick={this.showEditpostBtn} style={{ fontSize: 35 }} />
-          <p>Change Post</p>
+        <div className="showEditForm">
+          <FaEdit onClick={this.editPostHandler} style={{ fontSize: 35 }} />
+          <p>Edit Post</p>
         </div>
-
         {/* ///////FORMIK EDIT POST//////// */}
         <div className="editForm">
           <Validate
@@ -101,17 +100,31 @@ export class DetailPost extends Component {
             submit={this.updatePostHandler}
           />
         </div>
-
         {/* ///////ORIGINAL POST DETAIL//////// */}
         <div>
-          <Post {...postDetails} {...user} delete={this.deletePostHandler} />
+          <DetailCard
+            {...postDetails}
+            {...user}
+            delete={this.deletePostHandler}
+          />
         </div>
         <div>
-          <h1 className="headers">Comments</h1>
-
           {/* //////COMMENTS MADE ON THAT POST//////// */}
           {comments.map((comment) => (
-            <Comment key={comment.id} {...postDetails} {...comment} />
+            <Comments
+              key={comment.id}
+              blog_post={postDetails}
+              title={postDetails.title}
+              comment={comment}
+              name={comment.user.first_name}
+              updated_at={postDetails.updated_at}
+              user_id={postDetails.user_id}
+              body={postDetails.body}
+              first_name={postDetails.user.first_name}
+              commentbody={comment.body}
+              showOriginalPost={false}
+              avatar={comment.user.avatar}
+            />
           ))}
         </div>
       </div>
@@ -129,4 +142,4 @@ export class DetailPost extends Component {
   }
 }
 
-export default DetailPost;
+export default Detail;

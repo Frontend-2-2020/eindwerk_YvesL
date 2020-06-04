@@ -1,59 +1,47 @@
 import React, { PureComponent } from "react";
-import { API } from "../../config/API";
+import { API } from "../config/API";
 import classes from "./Home.module.css";
-import OverviewCard from "./OverviewCard";
-import Pagination from "react-js-pagination";
-import { Spinner } from "../../ui/spinner/Spinner";
-import Validate from "../Forms/Validate";
-import AddPostBtn from "../../ui/helpers/button/AddPostBtn";
-import CloseBtn from "../../ui/helpers/button/CloseBtn";
-import griffith from "../../assets/images/griffith.jpg";
+import Post from "../components/Posts/Post";
+import ReactPaginate from "react-paginate";
+import { Spinner } from "../ui/spinner/Spinner";
+import Validate from "../components/Forms/Validate";
+import AddPostBtn from "../ui/helpers/button/AddPostBtn";
+import CloseBtn from "../ui/helpers/button/CloseBtn";
+import griffith from "../assets/images/griffith.jpg";
+import { connect } from "react-redux";
+import { fetchPosts, setTotalPages } from "../redux/actions/postactions";
+import { Link } from "react-router-dom";
 
 class Home extends PureComponent {
   state = {
-    posts: [],
-    loading: false,
+    loading: true,
     user: {},
-    activePage: 1,
     isClicked: false,
     allUsers: [],
   };
 
-  ///////MAKING THE API CALL TO GET THE POSTS////////
-  getposts() {
-    const { activePage } = this.state;
-    API.get("api/posts?page=" + activePage)
-      .then((response) => {
-        const { data } = response.data;
-        this.setState({
-          posts: data,
-          loading: true,
-        });
-      })
-      .catch((err) => console.log(err));
-  }
-
   ////////OPTIONAL GETTING ALL USERS AND LOOPING THROUGH ALL PAGES//////////////
   getAllUsers() {
-    API.get("api/users")
-      .then((res) => {
-        console.log(res);
+    API.get("api/users?nopaginate")
+      .then((response) => {
+        const { data } = response;
+        this.setState({ allUsers: data });
       })
       .catch((err) => console.log(err));
   }
 
   ////////PAGINATION, I CHOSE TO USE THE PAGINATION NODE HERE////////
-  handlePageChange = (pageNumber) => {
-    this.setState({ activePage: pageNumber }, () => this.getposts());
+  handlePageClick = (data) => {
+    this.props.fetchPosts(data.selected + 1);
   };
 
   ///////PREVENTING AN INFINITE LOOP////////////
   componentDidMount() {
-    this.getposts();
     this.getAllUsers();
+    this.props.setTotalPages();
     //RELOADING THE PAGE EVERY 10 SEC
     // setInterval(() => {
-    //   this.getposts();
+    //   this.props.getPosts();
     // }, 10000);
   }
 
@@ -63,7 +51,7 @@ class Home extends PureComponent {
   };
 
   ////////PERFORMING AN AXIOS PUT TO PLACE THE NEW POST ON THE SERVER//////////////
-  ////////REFRESHING THE PAGE AFTER SUBMIT TO GO BACK TO THE HOMEPAGE//////////////
+  ////////RELOAD THE PAGE AFTER SUBMIT TO GO BACK TO THE HOMEPAGE//////////////
   addPostHandler(values) {
     const data = {
       title: values.title,
@@ -72,73 +60,106 @@ class Home extends PureComponent {
     API.post("api/posts", data)
       .then((res) => {
         console.log(res);
+        if (res) {
+          window.location.reload();
+        }
       })
+
       .catch((err) => {
         console.log(err);
       });
   }
 
   render() {
-    const { posts, loading, isClicked /*allUsers*/ } = this.state;
+    const { loading, isClicked, allUsers } = this.state;
+    const { posts } = this.props;
+    const list = allUsers.map((user) => {
+      if (user.blog_posts.length >= 8) {
+        return (
+          <li key={user.id}>
+            <Link to={"/user/" + user.id}>
+              <img
+                src={user.avatar}
+                alt="avatar"
+                style={{ height: 15, width: 15 }}
+              />
+            </Link>{" "}
+            {user.first_name + " posted " + user.blog_posts.length + " posts"}
+          </li>
+        );
+      } else {
+        return null;
+      }
+    });
 
     ///////STORING THE PAGE CONTENT IN A VARIABLE TO OUTPUT WHEN LOADING IS COMPLETE///////
     const AllPosts = (
-      <div>
+      <div id="scrollToTop">
         <div className={classes.poster}>
           <div className={classes.blogtitle}>
-            <h1 className={classes.maintitle}>Adventured Out</h1>
+            <h1 className={classes.postertitle}>Adventured Out</h1>
             <p>Scroll for more!</p>
           </div>
           <img src={griffith} alt="pp" />
         </div>
         <div className={classes.row}>
-          <div className="col-lg-8 col-md-11 col-ml-2  ">
+          <div className="col-lg-8 col-md-11 col-ml-2 ">
             <div className={classes.innerleftcol}>
               <div className={classes.intro}>
                 <div
                   onClick={this.createPostHandler}
                   style={{ width: 100, margin: "auto" }}
                 >
+                  {/* //////ADD POST BTN (HELPERS)//////// */}
                   <AddPostBtn />
                 </div>
-
+                {/* /////PAGINATION////// */}
                 <div className={classes.pagination}>
-                  <Pagination
-                    itemClass="page-item"
-                    linkClass="page-link"
-                    activePage={this.state.activePage}
-                    itemsCountPerPage={15}
-                    totalItemsCount={56}
-                    pageRangeDisplayed={4}
-                    onChange={this.handlePageChange}
-                  />
+                  <ReactPaginate
+                    previousLabel={"previous"}
+                    nextLabel={"next"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={this.props.pageCount}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={this.handlePageClick}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination"}
+                    activeClassName={"active"}
+                  ></ReactPaginate>
                 </div>
               </div>
               <br />
+              {/* ///////POST//////// */}
 
               {posts.map((post) => (
                 <div key={post.id}>
-                  <OverviewCard
-                    postid={post.id}
-                    posts={post.user_id}
-                    {...post}
-                    {...post.user}
-                    date={post.created_at}
+                  <Post
+                    post={post}
+                    avatar={post.user.avatar}
+                    first_name={post.user.first_name}
+                    user_id={post.user_id}
+                    last_login_at={post.user.last_login_at}
                   />
                 </div>
               ))}
             </div>
           </div>
+          {/* /////SIDEBAR////// */}
           <div className="col-lg-3 md-2 ">
             <div className={classes.sidebar1}>
               <div className={classes.headersidebar}>Most active users</div>
               <div className={classes.contentsidebar}>
                 {" "}
-                <ul>
-                  <li>Angelo</li>
-                  <li>Tim</li>
-                  <li>Yves</li>
-                  <li>Carl</li>
+                <ul
+                  style={{
+                    listStyleType: "none",
+                    textAlign: "left",
+                    paddingLeft: 20,
+                  }}
+                >
+                  {list}
                 </ul>
               </div>
             </div>
@@ -169,7 +190,6 @@ class Home extends PureComponent {
         <div onClick={this.createPostHandler}>
           <CloseBtn btnTxt="cancel" color="red" />
         </div>
-
         <Validate
           submit={this.addPostHandler}
           btnTxt="Post"
@@ -180,9 +200,23 @@ class Home extends PureComponent {
 
     ////////BY CLICKING THE "CREATE POST" BUTTON WE DISPLAY THE POSTFORM,//////////
     ////////IF NOT ALL THE POSTS ARE SHOWN//////////////////////////////////////
-
     return isClicked ? postBox : pageIsLoaded;
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    posts: state.posts.posts,
+    totalPages: state.posts.totalPages,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setTotalPages: () => dispatch(setTotalPages()),
+    fetchPosts: (activePage) => dispatch(fetchPosts(activePage)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
