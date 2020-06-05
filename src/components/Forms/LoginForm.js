@@ -23,11 +23,7 @@ export default class loginForm extends Component {
             <Field type="password" name="password" />
 
             <div>
-              <input
-                type="submit"
-                value="Log in"
-                className=" login btn btn-outline-dark"
-              />
+              <input type="submit" value="Log in" className=" login" />
             </div>
 
             <button className="media fb">
