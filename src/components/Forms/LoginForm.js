@@ -10,16 +10,16 @@ export default class loginForm extends Component {
       <div className="container">
         <div className="content">
           <Form>
-            <h4 htmlFor="username">
+            <p htmlFor="username">
               Email <span>*</span>
-            </h4>
+            </p>
             <Field type="email" name="username" />
             <CustomErrorMessage name="username" />
             <br />
 
-            <h4 htmlFor="password">
+            <p htmlFor="password">
               Password <span>*</span>
-            </h4>
+            </p>
             <Field type="password" name="password" />
 
             <div>

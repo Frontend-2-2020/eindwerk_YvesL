@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ErrorMessage } from "formik";
+import PropTypes from "prop-types";
 
 class CustomErrorMessage extends Component {
   render() {
@@ -17,3 +18,7 @@ class CustomErrorMessage extends Component {
 }
 
 export default CustomErrorMessage;
+
+CustomErrorMessage.propTypes = {
+  name: PropTypes.string,
+};

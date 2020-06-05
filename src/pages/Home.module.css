@@ -2,6 +2,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
 
+.scrollToTop {
+  margin-top: 10px;
+}
+
+.poster img {
+  height: auto;
+  width: 100%;
+  margin-top: -90px;
+}
+
+.postertitle {
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 2rem;
+  white-space: nowrap;
+  font-family: "Roboto Condensed", sans-serif;
+  color: black;
+}
+
+.blogtitle {
+  position: absolute;
+  top: 25%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
 .row {
   min-height: 500px;
   display: flex;
@@ -10,31 +38,24 @@
   margin: auto;
 }
 
-.intro {
-  background-color: black;
-  padding: 40px 20px;
-  width: 70%;
-  margin: auto;
+.col {
+  display: flex;
 }
 
 .innerleftcol {
   padding: 25px;
-  /* background-color: hsla(261, 92%, 47%, 0.7); */
   opacity: 0.9;
 }
 
-@media only screen and (max-width: 990px) {
-  .row {
-    display: flex;
-    flex-flow: column;
-  }
+.intro {
+  padding: 0px 20px;
+  width: 70%;
+  margin: auto;
+}
 
-  .innerrightcol {
-    margin: auto;
-  }
-  .poster {
-    margin-top: 100px;
-  }
+.createposthandler {
+  width: 100px;
+  margin: auto;
 }
 
 .pagination {
@@ -44,17 +65,56 @@
 }
 
 .pagination a {
-  color: rgb(252, 248, 248);
+  color: black;
   padding: 10px;
-  background-color: green;
+  background-color: white;
 }
 
 .pagination a:active {
-  color: blue;
+  color: rgb(0, 0, 8);
 }
 
 .pagination a:hover {
-  color: rgb(1, 1, 12);
+  color: white;
+  background-color: black;
+  box-shadow: 0 0 8px black;
+}
+
+.sidebar1 {
+  padding: 20px;
+  margin: 110px 20px 20px 10px;
+  position: sticky;
+  top: 150px;
+  background-color: rgb(246, 248, 250);
+  color: rgb(33, 35, 38);
+}
+
+.sidebar2 {
+  padding: 20px;
+  margin: 110px 20px 20px 10px;
+  position: sticky;
+  top: 430px;
+  background-color: rgb(246, 248, 250);
+  color: rgb(33, 35, 38);
+}
+
+.sidebarlists {
+  list-style-type: none;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.headersidebar {
+  text-align: center;
+  border-bottom: 2px solid rgb(99, 104, 134);
+}
+.contentsidebar {
+  text-align: left;
+  margin-top: 40px;
+}
+
+.contentsidebar ul {
+  list-style-type: none;
 }
 
 .btn {
@@ -70,66 +130,34 @@
   color: white;
 }
 
-.sidebar1 {
-  padding: 20px;
-  margin: 110px 0px 20px 70px;
-  position: sticky;
-  top: 150px;
-  background-color: black;
-  color: white;
-}
-.sidebar2 {
-  padding: 20px;
-  margin: 110px 0px 20px 70px;
-  position: sticky;
-  top: 400px;
-  background-color: black;
-  color: white;
-}
-
-.headersidebar {
-  text-align: center;
-  border-bottom: 2px solid seagreen;
-}
-.contentsidebar {
-  text-align: left;
-
-  margin-top: 40px;
-}
-
-.contentsidebar ul {
-  list-style-type: none;
-}
-
-.col {
+.addpostform {
   display: flex;
+  flex-flow: column;
 }
 
-.poster {
-  height: auto;
-  margin-top: -180px;
-  margin-bottom: 100px;
-}
+/* ////MEDIA QUERY///// */
+@media only screen and (max-width: 990px) {
+  .row {
+    display: flex;
+    flex-flow: column;
+  }
 
-.poster img {
-  height: 100%;
-  width: 100%;
-}
+  .sidebar1,
+  .sidebar2 {
+    margin: 0px auto;
+    width: 70vw;
+  }
 
-.postertitle {
-  text-transform: uppercase;
-  margin: 0;
-  font-size: 2rem;
-  white-space: nowrap;
-  font-family: "Roboto Condensed", sans-serif;
-  color: black;
-}
+  .poster {
+    margin-top: 70px;
+  }
 
-.blogtitle {
-  position: absolute;
-  top: 20%;
-  left: 25%;
-  transform: translate(-50%, -50%);
-  color: white;
-  text-align: center;
+  .blogtitle {
+    font-size: 0.7rem;
+    top: 15%;
+    left: 30%;
+  }
+  .postertitle {
+    font-size: 1.2rem;
+  }
 }

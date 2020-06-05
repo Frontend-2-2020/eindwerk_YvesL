@@ -53,9 +53,10 @@
   border-bottom: 2px solid #888;
 }
 
-h4 {
+.right-side p {
   color: grey;
   font-family: "Source Code Pro", monospace;
+  font-size: 1rem;
 }
 
 span {
@@ -68,8 +69,7 @@ input.submit-btn {
   width: 100px;
   background-color: transparent;
   font-size: 14px;
-  font-weight: 900;
-  padding: 5px;
+  font-weight: 800;
   margin-top: 30px;
 }
 

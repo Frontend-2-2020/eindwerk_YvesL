@@ -33,7 +33,7 @@ class Comments extends Component {
     };
     API.put("api/comments/" + id, data)
       .then((res) => alert("You updated your comment succesfully" + res))
-      .catch((err) => alert("Oops! Something went wrong" + err))
+      .catch((err) => alert("Oops! Something went wrong"))
       .then(() => this.props.history.push("/"));
   };
 
@@ -45,9 +45,7 @@ class Comments extends Component {
     if (confirm === true) {
       API.delete("api/comments/" + id)
         .then((res) => alert("Comment met " + id + " has been deleted"))
-        .catch((err) =>
-          alert("Not Authorized to delete a comment from another user")
-        )
+        .catch((err) => alert("Not authorized to delete this comment "))
         .then(() => this.props.history.push("/"));
     }
   };
@@ -58,7 +56,6 @@ class Comments extends Component {
 
   render() {
     const { clicked, postUser } = this.state;
-    console.log(postUser);
     const { user } = this.props.user;
     ////CK EDITOR TO EDIT/////
     const editComment = (
@@ -75,15 +72,11 @@ class Comments extends Component {
 
     return (
       <div className="commentscontainer">
+        {/* //////ORIGINAL POST///// */}
         {this.props.showOriginalPost ? (
           <div className="originalpost">
             <div className="postheader">
-              {" "}
-              <img
-                src={postUser.avatar}
-                alt="postavatar"
-                style={{ height: "40px", width: "40px", borderRadius: "50%" }}
-              />
+              <img src={postUser.avatar} alt="postavatar" />
             </div>
             <div className="postcontent">
               <div className="details">
@@ -110,12 +103,11 @@ class Comments extends Component {
               dangerouslySetInnerHTML={{ __html: this.props.commentbody }}
             ></div>
           </div>
-          <div style={{ marginLeft: "auto" }}>
+          <div className="showhidebin">
             {/* ///////SHOW OR HIDE TRASHBIN//////// */}
             {user !== undefined && user.first_name === this.props.name ? (
               <div className="activeDelete">
                 <div onClick={this.deleteComment}>
-                  {" "}
                   <Trashcan />
                 </div>
                 <div onClick={this.toggleEditCommentField}>
@@ -123,9 +115,8 @@ class Comments extends Component {
                 </div>
               </div>
             ) : (
-              <div className="blurredDelete" style={{ opacity: "0.3" }}>
+              <div className="blurredDelete">
                 <div>
-                  {" "}
                   <Trashcan />
                 </div>
                 <div>
@@ -153,4 +144,7 @@ Comments.propTypes = {
   updated_at: PropTypes.string,
   body: PropTypes.string,
   first_name: PropTypes.string,
+  last_name: PropTypes.string,
+  name: PropTypes.string,
+  commentbody: PropTypes.string,
 };

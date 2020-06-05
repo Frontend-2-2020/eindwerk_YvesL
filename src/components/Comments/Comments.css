@@ -20,6 +20,12 @@
   color: #fff;
 }
 
+.postheader img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
 .postcontent {
   padding: 10px;
   color: black;
@@ -81,9 +87,17 @@
   font-size: 0.9rem;
 }
 
+.showhidebin {
+  margin-left: auto;
+}
+
 .activeDelete,
 .blurredDelete {
   display: flex;
   flex-flow: row;
   align-items: center;
+}
+
+.blurredDelete {
+  opacity: 0.3;
 }

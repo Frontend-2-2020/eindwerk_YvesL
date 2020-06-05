@@ -14,6 +14,7 @@ const PostsReducer = (state = initialState, action) => {
       return {
         ...state,
         totalPages: action.payload.last_page,
+        total: action.payload.total,
       };
     default:
       return state;

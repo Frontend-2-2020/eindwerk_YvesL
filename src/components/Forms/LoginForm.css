@@ -12,9 +12,7 @@
   right: 0;
   border-radius: 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  /* box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3); */
   box-shadow: 0 4px 10px rgb(3, 1, 1);
-  /* background-color: #ddcccc; */
 }
 
 .content {
@@ -28,9 +26,9 @@
   justify-content: center;
 }
 
-h4 {
+Form p {
   color: grey;
-  font-size: 15px;
+  font-size: 1rem;
 }
 
 span {
@@ -80,7 +78,6 @@ input:focus {
   font-family: "Raleway", sans-serif;
   letter-spacing: 0.2em;
   color: #e74c3c;
-  /* transition: background 1s, color 1s; */
   box-shadow: 0 4px 10px rgb(3, 1, 1);
 }
 

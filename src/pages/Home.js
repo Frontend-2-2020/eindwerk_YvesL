@@ -7,10 +7,11 @@ import { Spinner } from "../ui/spinner/Spinner";
 import Validate from "../components/Forms/Validate";
 import AddPostBtn from "../ui/helpers/button/AddPostBtn";
 import CloseBtn from "../ui/helpers/button/CloseBtn";
-import griffith from "../assets/images/griffith.jpg";
+import poster from "../assets/images/poster.jpg";
 import { connect } from "react-redux";
 import { fetchPosts, setTotalPages } from "../redux/actions/postactions";
 import { Link } from "react-router-dom";
+import Footer from "../components/navigation/Footer";
 
 class Home extends PureComponent {
   state = {
@@ -31,7 +32,7 @@ class Home extends PureComponent {
   }
 
   ////////PAGINATION, I CHOSE TO USE THE PAGINATION NODE HERE////////
-  handlePageClick = (data) => {
+  PageHandler = (data) => {
     this.props.fetchPosts(data.selected + 1);
   };
 
@@ -39,6 +40,7 @@ class Home extends PureComponent {
   componentDidMount() {
     this.getAllUsers();
     this.props.setTotalPages();
+
     //RELOADING THE PAGE EVERY 10 SEC
     // setInterval(() => {
     //   this.props.getPosts();
@@ -64,7 +66,6 @@ class Home extends PureComponent {
           window.location.reload();
         }
       })
-
       .catch((err) => {
         console.log(err);
       });
@@ -72,7 +73,12 @@ class Home extends PureComponent {
 
   render() {
     const { loading, isClicked, allUsers } = this.state;
-    const { posts } = this.props;
+    const { posts, total, totalPages } = this.props;
+    const users = allUsers.length;
+
+    console.log(allUsers);
+
+    //////MOST ACTIVE USERS///////
     const list = allUsers.map((user) => {
       if (user.blog_posts.length >= 8) {
         return (
@@ -94,21 +100,21 @@ class Home extends PureComponent {
 
     ///////STORING THE PAGE CONTENT IN A VARIABLE TO OUTPUT WHEN LOADING IS COMPLETE///////
     const AllPosts = (
-      <div id="scrollToTop">
+      <div className={classes.scrollToTop}>
         <div className={classes.poster}>
           <div className={classes.blogtitle}>
             <h1 className={classes.postertitle}>Adventured Out</h1>
             <p>Scroll for more!</p>
           </div>
-          <img src={griffith} alt="pp" />
+          <img src={poster} alt="pp" />
         </div>
         <div className={classes.row}>
           <div className="col-lg-8 col-md-11 col-ml-2 ">
             <div className={classes.innerleftcol}>
               <div className={classes.intro}>
                 <div
+                  className={classes.createposthandler}
                   onClick={this.createPostHandler}
-                  style={{ width: 100, margin: "auto" }}
                 >
                   {/* //////ADD POST BTN (HELPERS)//////// */}
                   <AddPostBtn />
@@ -123,7 +129,7 @@ class Home extends PureComponent {
                     pageCount={this.props.pageCount}
                     marginPagesDisplayed={2}
                     pageRangeDisplayed={5}
-                    onPageChange={this.handlePageClick}
+                    onPageChange={this.PageHandler}
                     containerClassName={"pagination"}
                     subContainerClassName={"pages pagination"}
                     activeClassName={"active"}
@@ -147,20 +153,12 @@ class Home extends PureComponent {
             </div>
           </div>
           {/* /////SIDEBAR////// */}
-          <div className="col-lg-3 md-2 ">
+          <div className="col-lg-4 md-3 ">
             <div className={classes.sidebar1}>
               <div className={classes.headersidebar}>Most active users</div>
               <div className={classes.contentsidebar}>
                 {" "}
-                <ul
-                  style={{
-                    listStyleType: "none",
-                    textAlign: "left",
-                    paddingLeft: 20,
-                  }}
-                >
-                  {list}
-                </ul>
+                <ul className="sidebarlists">{list}</ul>
               </div>
             </div>
             <div className={classes.sidebar2}>
@@ -168,15 +166,16 @@ class Home extends PureComponent {
               <div className={classes.contentsidebar}>
                 {" "}
                 <ul id="pop">
-                  <li>Latest Movies</li>
-                  <li>Music releases</li>
-                  <li>Car DIY</li>
-                  <li>Pets</li>
+                  <li>{total} Posts</li>
+                  <li>{totalPages} Pages</li>
+                  <li>{users} Users</li>
+                  <li>...</li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
 
@@ -186,7 +185,7 @@ class Home extends PureComponent {
 
     //////HERE WE ARE DISPLAYING THE POSTFORM TO ADD A NEW POST//////
     const postBox = (
-      <div style={{ display: "flex", flexFlow: "column" }}>
+      <div className={classes.addpostform}>
         <div onClick={this.createPostHandler}>
           <CloseBtn btnTxt="cancel" color="red" />
         </div>
@@ -209,6 +208,7 @@ const mapStateToProps = (state) => {
     auth: state.auth,
     posts: state.posts.posts,
     totalPages: state.posts.totalPages,
+    total: state.posts.total,
   };
 };
 

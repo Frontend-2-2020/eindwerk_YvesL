@@ -6,6 +6,7 @@ import Post from "../components/Posts/Post";
 import Profile from "../components/User/Profile";
 import Comments from "../components/Comments/Comments";
 import { connect } from "react-redux";
+import userbg from "../assets/images/userbg.jpg";
 
 import PropTypes from "prop-types";
 
@@ -49,9 +50,11 @@ export class User extends Component {
 
     ///////PROFILE  ,  POSTS MADE BY THAT USER  ,  POSTS WHERE THAT USER COMMENTED ON//////////
     const userOutput = (
-      <div className="profilepage">
+      <div
+        className="profilepage"
+        style={{ backgroundImage: `url(${userbg})` }}
+      >
         <Profile {...user} />
-
         <p>
           {user.first_name} made {numberOfPosts} posts
         </p>

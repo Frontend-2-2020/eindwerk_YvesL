@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
-import { FaRedditAlien } from "react-icons/fa";
+import customlogo from "../../assets/images/LogoAfroCode.png";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
 import $ from "jquery";
 import { connect } from "react-redux";
@@ -11,9 +11,9 @@ import PropTypes from "prop-types";
 /////!!!!!!!!!CHANGE TO VANILLA JS/////
 $(window).scroll(function () {
   if ($(window).scrollTop() >= 700) {
-    $(".navb").css("background-color", "white", "transition", "750ms ease");
+    $(".nav").css("background-color", "white", "transition", "750ms ease");
   } else {
-    $(".navb").css("background-color", "hsla(0, 0%, 0%, 0)");
+    $(".nav").css("background-color", "hsla(0, 0%, 0%, 0)");
   }
 });
 
@@ -26,9 +26,9 @@ const Navi = (props) => {
   };
 
   return (
-    <Navbar className="navb" fixed="top" light style={{ opacity: "0.6" }}>
+    <Navbar className="nav" fixed="top" light>
       <Link to="/" className="mr-auto navbar-brand">
-        <FaRedditAlien style={{ color: "black", height: 50, width: 50 }} />
+        <img src={customlogo} alt="logo" />
       </Link>
       {/* ////SHOW THE LOGIN LED IN THE NAVBAR////// */}
       <div className="loggedIn">
@@ -63,12 +63,17 @@ const Navi = (props) => {
       <Collapse isOpen={collapsed} navbar>
         <Nav navbar>
           <NavItem>
-            <Link to="/login" style={{ color: "white" }}>
+            <Link
+              to="/login"
+              style={{
+                color: "black",
+              }}
+            >
               login
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/register" style={{ color: "white" }}>
+            <Link to="/register" style={{ color: "black" }}>
               register
             </Link>
           </NavItem>
@@ -92,5 +97,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Navi);
 NavbarToggler.propTypes = {
   type: PropTypes.string,
   tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-  // pass in custom element to use
+  user: PropTypes.object,
 };

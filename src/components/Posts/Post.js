@@ -11,12 +11,12 @@ import {
   FaLinkedin,
   FaTwitter,
 } from "react-icons/fa";
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { textLimit } from "../../config/API";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import HeartIcon from "../../ui/helpers/HeartIcon";
-//import NoHeartIcon from "../../ui/helpers/NoHeartIcon";
+import NoHeartIcon from "../../ui/helpers/NoHeartIcon";
 
 class OverviewCard extends Component {
   state = {
@@ -180,6 +180,7 @@ class OverviewCard extends Component {
                     </div>
                   </div>
                   {/* //////ADD LIKES////// */}
+
                   <div>
                     <div
                       className={classes.likebtn}
@@ -191,14 +192,12 @@ class OverviewCard extends Component {
                       <span style={{ marginTop: 1 }}>{likes}</span>
                     </div>
 
-                    {/* <div
-                        className={classes.likeBtn}
-                        onClick={this.unLikeHandler}
-                      >
-                        <NoHeartIcon />{" "}
-                        <span style={{ marginTop: 1 }}>{likes}</span>
-                      </div>
-                    )}  */}
+                    <div
+                      className={classes.likebtn}
+                      onClick={this.unLikeHandler}
+                    >
+                      <NoHeartIcon />{" "}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -222,14 +221,13 @@ export default React.memo(OverviewCard, (prevProps, nextProps) => {
   return false;
 });
 
-//OverviewCard.propTypes = {
-
-// title: PropTypes.string.isRequired,
-// id: PropTypes.number.isRequired,
-// timediv: PropTypes.instanceOf(Date),
-// timstamp: PropTypes.instanceOf(Date),
-// first_name: PropTypes.string.isRequired,
-// postid: PropTypes.number.isRequired,
-// body: PropTypes.string.isRequired,
-// comments_count: PropTypes.number,
-//};
+OverviewCard.propTypes = {
+  title: PropTypes.string,
+  id: PropTypes.number,
+  timediv: PropTypes.instanceOf(Date),
+  timstamp: PropTypes.instanceOf(Date),
+  first_name: PropTypes.string,
+  postid: PropTypes.number,
+  body: PropTypes.string,
+  comments_count: PropTypes.number,
+};

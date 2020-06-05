@@ -12,31 +12,31 @@ export default class componentName extends Component {
           <div className="right-side">
             <h1>Register</h1>
 
-            <h4 htmlFor="first_name">
+            <p htmlFor="first_name">
               first_name <span>*</span>
-            </h4>
+            </p>
             <Field type="text" name="firstname" />
             <CustomErrorMessage name="firstname" />
             <br />
             <br />
 
-            <h4 htmlFor="last_name">
+            <p htmlFor="last_name">
               last_name <span>*</span>
-            </h4>
+            </p>
             <Field type="text" name="lastname" />
             <CustomErrorMessage name="lastname" />
             <br />
             <br />
 
-            <h4 htmlFor="email">
+            <p htmlFor="email">
               email <span>*</span>
-            </h4>
+            </p>
             <Field type="email" name="email" />
             <CustomErrorMessage name="email" />
             <br />
             <br />
 
-            <h4 htmlFor="password">password</h4>
+            <p htmlFor="password">password</p>
             <input type="password" name="password" />
           </div>
           <div className="left-side">

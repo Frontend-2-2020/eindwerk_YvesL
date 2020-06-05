@@ -7,7 +7,6 @@ const Profile = (props) => {
   console.log(props);
   return (
     <div className="profile">
-      <h3>About {props.first_name}</h3>
       <hr />
       <div className="row">
         <div className="profile-card">
@@ -27,6 +26,7 @@ const Profile = (props) => {
                   margin: "0px auto",
                   backgroundColor: props.favorite_color,
                   border: "1px solid black",
+                  borderRadius: "50%",
                 }}
               ></p>
             </h2>
