@@ -50,6 +50,7 @@ label {
 
 .inner:after {
   bottom: 50%;
+  transform: rotate(-45deg);
 }
 
 .outer:hover label {

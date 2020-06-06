@@ -32,7 +32,7 @@ class Comments extends Component {
       body: values.body,
     };
     API.put("api/comments/" + id, data)
-      .then((res) => alert("You updated your comment succesfully" + res))
+      .then((res) => alert("You updated your comment succesfully"))
       .catch((err) => alert("Oops! Something went wrong"))
       .then(() => this.props.history.push("/"));
   };

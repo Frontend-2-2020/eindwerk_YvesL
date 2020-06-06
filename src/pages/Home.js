@@ -108,6 +108,7 @@ class Home extends PureComponent {
           </div>
           <img src={poster} alt="pp" />
         </div>
+
         <div className={classes.row}>
           <div className="col-lg-8 col-md-11 col-ml-2 ">
             <div className={classes.innerleftcol}>
@@ -122,8 +123,8 @@ class Home extends PureComponent {
                 {/* /////PAGINATION////// */}
                 <div className={classes.pagination}>
                   <ReactPaginate
-                    previousLabel={"previous"}
-                    nextLabel={"next"}
+                    previousLabel={"<<<"}
+                    nextLabel={">>>"}
                     breakLabel={"..."}
                     breakClassName={"break-me"}
                     pageCount={this.props.pageCount}
@@ -136,22 +137,22 @@ class Home extends PureComponent {
                   ></ReactPaginate>
                 </div>
               </div>
-              <br />
+
               {/* ///////POST//////// */}
 
               {posts.map((post) => (
-                <div key={post.id}>
-                  <Post
-                    post={post}
-                    avatar={post.user.avatar}
-                    first_name={post.user.first_name}
-                    user_id={post.user_id}
-                    last_login_at={post.user.last_login_at}
-                  />
-                </div>
+                <Post
+                  key={post.id}
+                  post={post}
+                  avatar={post.user.avatar}
+                  first_name={post.user.first_name}
+                  user_id={post.user_id}
+                  last_login_at={post.user.last_login_at}
+                />
               ))}
             </div>
           </div>
+
           {/* /////SIDEBAR////// */}
           <div className="col-lg-4 md-3 ">
             <div className={classes.sidebar1}>

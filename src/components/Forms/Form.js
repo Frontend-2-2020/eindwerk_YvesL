@@ -9,13 +9,14 @@ export default class componentName extends Component {
     return (
       <Form
         style={{
-          width: "45vw",
-          margin: "10px auto",
+          width: "70vw",
           border: "2px solid black",
           borderRadius: "8px",
           padding: 15,
+          color: "black",
           backgroundColor: "lightgrey",
-          opacity: 0.8,
+          opacity: 0.9,
+          marginBottom: 20,
         }}
       >
         <h3>{this.props.formTxt}</h3>
@@ -57,7 +58,7 @@ export default class componentName extends Component {
               <input
                 type="submit"
                 value={this.props.buttonTxt}
-                className="btn btn-outline-dark float-right"
+                className="btn btn-outline-dark btn-block "
               />
             </div>
           </div>

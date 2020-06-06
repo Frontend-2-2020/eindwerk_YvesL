@@ -62,17 +62,31 @@ const Navi = (props) => {
       <NavbarToggler onClick={toggleNavbar} />
       <Collapse isOpen={collapsed} navbar>
         <Nav navbar>
-          <NavItem>
-            <Link
-              to="/login"
-              style={{
-                color: "black",
-              }}
-            >
-              login
-            </Link>
-          </NavItem>
-          <NavItem>
+          {!props.user.user ? (
+            <NavItem className="btnhide">
+              <Link
+                to="/login"
+                style={{
+                  color: "black",
+                }}
+              >
+                login
+              </Link>
+            </NavItem>
+          ) : (
+            <NavItem className="btnhide">
+              <Link
+                to="/"
+                style={{
+                  color: "black",
+                }}
+                onClick={() => logout()}
+              >
+                logout
+              </Link>
+            </NavItem>
+          )}
+          <NavItem className="btnhide">
             <Link to="/register" style={{ color: "black" }}>
               register
             </Link>

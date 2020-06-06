@@ -37,7 +37,7 @@
 }
 
 .customBtn:active {
-  /* background: #000; */
+ 
   color: #000;
   -webkit-transition: none;
   transition: none;

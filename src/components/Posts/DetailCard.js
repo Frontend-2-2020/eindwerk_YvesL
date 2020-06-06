@@ -4,11 +4,10 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import HeartIcon from "../../ui/helpers/HeartIcon";
-import Commenticon from "../../ui/helpers/Commenticon";
 
 const DetailCard = (props) => {
   const { user } = props.user;
-  const { likes, comments } = props;
+  const { likes } = props;
 
   const likedBy = likes.map((like) => (
     <li key={like.id} style={{ display: "flex" }}>
@@ -16,16 +15,10 @@ const DetailCard = (props) => {
     </li>
   ));
 
-  const commentedBy = comments.map((comment) => (
-    <li key={comment.id} style={{ display: "flex" }}>
-      {comment.user.first_name} {comment.user.last_name}
-    </li>
-  ));
-
   return (
     <div>
       <div className="row pt-5 mt-30 ">
-        <div className="col-lg-8 col-sm-6 mb-30 pb-5 m-auto">
+        <div className="col-lg-8 col-sm-6 mb-1 pb-1 m-auto">
           <div className="card">
             <div
               className="head"
@@ -122,22 +115,6 @@ const DetailCard = (props) => {
                     </span>
                   </button>
                   <ul>{likedBy}</ul>
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    className="btn btn-pill btn-warning"
-                    style={{ display: "flex" }}
-                  >
-                    <Commenticon />
-                    <span
-                      className="badge badge-light"
-                      style={{ margin: "5px" }}
-                    >
-                      {props.comments.length}
-                    </span>
-                  </button>
-                  <ul>{commentedBy}</ul>
                 </div>
               </div>
             </div>

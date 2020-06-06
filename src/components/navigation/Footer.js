@@ -5,7 +5,7 @@ const Footer = (props) => {
   return (
     <div style={{ backgroundColor: "rgb(246, 248, 250)" }}>
       <hr />
-      <footer className="container py-5">
+      <footer className="contain py-5 ml-5">
         <div className="row">
           <div className="col-12 col-md">
             <img
