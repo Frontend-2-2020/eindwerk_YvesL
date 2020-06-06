@@ -1,7 +1,8 @@
 /* ////ORIGINAL POST///// */
 .commentscontainer {
-  width: 70vw;
-  margin: 0px auto;
+  width: 80vw;
+  margin: auto;
+
 
 }
 
@@ -58,7 +59,7 @@
 }
 
 /* ////COMMENTS///// */
-.contentcomment {
+.commentcontent {
   margin: 0px auto;
   padding-top: 10px;
   display: flex;
@@ -67,9 +68,11 @@
   color: white;
 }
 
-.contentcomment hr {
+.commentcontent hr {
   width: 40vw;
 }
+
+
 
 .avatar img {
   width: 30px;
@@ -90,6 +93,8 @@
 
 .commentValidate {
   color: black;
+  background-color: green;
+  width: inherit;
 }
 
 .showhidebin {

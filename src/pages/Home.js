@@ -103,7 +103,7 @@ class Home extends PureComponent {
       <div className={classes.scrollToTop}>
         <div className={classes.poster}>
           <div className={classes.blogtitle}>
-            <h1 className={classes.postertitle}>Adventured Out</h1>
+            <h1 className={classes.postertitle}>Bem Vindo...</h1>
             <p>Scroll for more!</p>
           </div>
           <img src={poster} alt="pp" />

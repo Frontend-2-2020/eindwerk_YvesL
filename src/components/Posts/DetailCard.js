@@ -8,6 +8,7 @@ import HeartIcon from "../../ui/helpers/HeartIcon";
 const DetailCard = (props) => {
   const { user } = props.user;
   const { likes } = props;
+  console.log(props);
 
   const likedBy = likes.map((like) => (
     <li key={like.id} style={{ display: "flex" }}>

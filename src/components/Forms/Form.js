@@ -9,14 +9,14 @@ export default class componentName extends Component {
     return (
       <Form
         style={{
-          width: "70vw",
+          width: "80vw",
           border: "2px solid black",
           borderRadius: "8px",
           padding: 15,
           color: "black",
-          backgroundColor: "lightgrey",
-          opacity: 0.9,
-          marginBottom: 20,
+          backgroundColor: "#949494",
+
+          margin: "auto",
         }}
       >
         <h3>{this.props.formTxt}</h3>

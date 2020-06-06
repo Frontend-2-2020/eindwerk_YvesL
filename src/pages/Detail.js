@@ -84,7 +84,7 @@ export class Detail extends Component {
 
   render() {
     const { postDetails, user, comments, loading, redirect } = this.state;
-    console.log(user);
+    console.log(postDetails);
     const pageContent = (
       <div className="detailpage">
         {/* ///////EDIT POST BUTTON//////// */}
@@ -105,6 +105,7 @@ export class Detail extends Component {
           <DetailCard
             {...postDetails}
             {...user}
+            detailbody={postDetails.body}
             delete={this.deletePostHandler}
           />
         </div>

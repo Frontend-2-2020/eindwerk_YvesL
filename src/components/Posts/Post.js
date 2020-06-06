@@ -127,17 +127,24 @@ class OverviewCard extends Component {
                 <Link to={"/user/" + props.user_id}>
                   <div className={classes.cardusername}>{props.first_name}</div>
                 </Link>
-                <div
-                  className={classes.balloon}
-                  dangerouslySetInnerHTML={{
-                    __html: textLimit(str),
+                <Link
+                  to={"/detail/" + props.post.id}
+                  style={{
+                    textDecoration: "none",
+                    color: "#333",
+                    cursor: "pointer",
                   }}
-                ></div>
+                >
+                  <div
+                    className={classes.balloon}
+                    dangerouslySetInnerHTML={{
+                      __html: textLimit(str),
+                    }}
+                  ></div>
+                </Link>
                 <div className={classes.dateposted}>
                   <div style={{ margin: 10 }}>
-                    <span style={{ color: "black", fontSize: 12 }}>
-                      {moment(props.post.created_at).format("llll")}
-                    </span>
+                    <span>{moment(props.post.created_at).format("llll")}</span>
                   </div>
                 </div>
 
@@ -181,7 +188,7 @@ class OverviewCard extends Component {
                   </div>
                   {/* //////ADD LIKES////// */}
 
-                  <div>
+                  <div className={classes.likebtnbox}>
                     <div
                       className={classes.likebtn}
                       onClick={this.addLikeHandler}

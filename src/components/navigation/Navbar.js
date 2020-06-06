@@ -41,21 +41,21 @@ const Navi = (props) => {
       {/* ///////TOGGLE LOGIN/LOGOUT BTN/////// */}
       {!props.user.user ? (
         <Link to="/login" style={{ margin: 10 }}>
-          <button type="button" className="btn btn-outline-dark navbar-right">
+          <button type="button" className="btn btn-no-outline navbar-right">
             login
           </button>
         </Link>
       ) : (
         <button
           type="button"
-          className="btn btn-outline-dark navbar-right"
+          className="btn btn-no-outline navbar-right"
           onClick={() => logout()}
         >
           logout
         </button>
       )}
       <Link to="/register" style={{ margin: 10 }}>
-        <button type="button" className="btn btn-outline-dark ">
+        <button type="button" className="btn btn-no-outline ">
           register
         </button>
       </Link>

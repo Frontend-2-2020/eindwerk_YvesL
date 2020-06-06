@@ -132,19 +132,23 @@ span:hover {
   cursor: pointer;
 }
 
-.likebox>* {
-  margin: 10px;
+
+
+.likebtnbox {
+  display: flex;
+
 }
 
 .likebtn {
   display: flex;
   flex-flow: row;
   cursor: pointer;
+
 }
 
 .likebtn span {
-  margin-bottom: 3px;
-  margin-left: 3px;
+
+  margin: 3px;
 }
 
 .socialbox {

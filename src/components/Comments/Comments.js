@@ -93,7 +93,7 @@ class Comments extends Component {
           </div>
         ) : null}
         {/* //////COMMENT SECTION///////// */}
-        <div className="contentcomment">
+        <div className="commentcontent">
           <div className="avatar">
             <img src={this.props.avatar} alt="av" />
           </div>
