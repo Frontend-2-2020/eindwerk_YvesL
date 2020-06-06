@@ -143,7 +143,7 @@ class OverviewCard extends Component {
                   ></div>
                 </Link>
                 <div className={classes.dateposted}>
-                  <div style={{ margin: 10 }}>
+                  <div style={{ margin: 10, color: "black" }}>
                     <span>{moment(props.post.created_at).format("llll")}</span>
                   </div>
                 </div>
