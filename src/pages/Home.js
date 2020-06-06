@@ -110,7 +110,7 @@ class Home extends PureComponent {
         </div>
 
         <div className={classes.row}>
-          <div className="col-lg-8 col-md-11 col-ml-2 ">
+          <div className="col-lg-8 col-md-11 col-sm-12 col-ml-2 ">
             <div className={classes.innerleftcol}>
               <div className={classes.intro}>
                 <div
