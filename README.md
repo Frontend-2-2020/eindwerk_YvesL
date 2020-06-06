@@ -1,7 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Site Url:
-[![Netlify Status](https://api.netlify.com/api/v1/badges/4efd7540-21ec-42e5-b8cd-9f039874207a/deploy-status)](https://app.netlify.com/sites/eindwerk-yves/deploys)
+##Site Url : https://eindwerk-yves-loeys.netlify.app/
 
 ## Available Scripts
 
