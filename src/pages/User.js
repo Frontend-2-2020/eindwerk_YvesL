@@ -17,6 +17,10 @@ export class User extends Component {
     blogposts: [],
     comments: [],
     loaded: false,
+    limitPost: 1,
+    limitComment: 1,
+    totalposts: null,
+    totalcomments: null,
   };
 
   ///////API CALL TO GET THE USERS DETAIL, RECEIVING ID PROPS FROM USER.JS (URL PARAMS)//////
@@ -33,6 +37,8 @@ export class User extends Component {
         blogposts: data.blog_posts,
         comments: data.comments,
         loaded: true,
+        totalposts: data.blog_posts.length,
+        totalcomments: data.comments.length,
       });
     });
   }
@@ -42,11 +48,24 @@ export class User extends Component {
     this.getuser();
   }
 
+  limitpostsHandler = () => {
+    this.setState({ limitPost: this.state.totalposts });
+  };
+
+  limitcommentsHandler = () => {
+    this.setState({ limitComment: this.state.totalcomments });
+  };
+
   render() {
-    const { user, blogposts, comments, loaded } = this.state;
+    const {
+      user,
+      blogposts,
+      comments,
+      loaded,
+      limitPost,
+      limitComment,
+    } = this.state;
     const numberOfPosts = Object.keys(blogposts).length;
-    //console.log(this.props);
-    console.log(user);
 
     ///////PROFILE  ,  POSTS MADE BY THAT USER  ,  POSTS WHERE THAT USER COMMENTED ON//////////
     const userOutput = (
@@ -59,21 +78,28 @@ export class User extends Component {
           {user.first_name} made {numberOfPosts} posts
         </p>
         <div className="usercard">
-          {blogposts.map((post) => (
-            <Post
-              key={post.id}
-              post={post}
-              user_id={user.id}
-              avatar={user.avatar}
-              first_name={user.first_name}
-              last_login_at={user.last_login_at}
-            />
-          ))}
+          {blogposts.slice(0, limitPost).map((post) => {
+            return (
+              <Post
+                key={post.id}
+                post={post}
+                user_id={user.id}
+                avatar={user.avatar}
+                first_name={user.first_name}
+                last_login_at={user.last_login_at}
+              />
+            );
+          })}
         </div>
-
+        <br />
+        <button className="loadmore" onClick={this.limitpostsHandler}>
+          LOAD MORE
+        </button>
+        <br />
         <p>Comments {user.first_name} made</p>
+
         <div className="commentcard">
-          {comments.map((comment) => (
+          {comments.slice(0, limitComment).map((comment) => (
             <Comments
               key={comment.id}
               name={user.first_name}
@@ -88,6 +114,11 @@ export class User extends Component {
             />
           ))}
         </div>
+        <br />
+        <button className="loadmore" onClick={this.limitcommentsHandler}>
+          LOAD MORE
+        </button>
+        <br />
       </div>
     );
     ///////SPINNER WHILE LOADING////////

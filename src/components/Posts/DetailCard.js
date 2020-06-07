@@ -1,14 +1,13 @@
 import React from "react";
 import { Trashcan } from "../../ui/helpers/Trashcan";
+import { connect } from "react-redux";
 import moment from "moment";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import HeartIcon from "../../ui/helpers/HeartIcon";
 
 const DetailCard = (props) => {
   const { user } = props.user;
   const { likes } = props;
-  console.log(props);
 
   const likedBy = likes.map((like) => (
     <li key={like.id} style={{ display: "flex" }}>
@@ -38,7 +37,7 @@ const DetailCard = (props) => {
                   flex: "1",
                 }}
               >
-                {props.first_name}
+                {props.first_name} {props.last_name}
               </p>
 
               <div
@@ -67,8 +66,7 @@ const DetailCard = (props) => {
                   margin: "20px 20px",
                 }}
               >
-                {/* <strong>posted on:</strong> */}
-                {moment(props.created_at).format("llll")}
+                {moment(props.dateposted).format("llll")}
               </p>
             </div>
 

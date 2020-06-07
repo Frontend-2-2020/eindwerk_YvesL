@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import classes from "./Post.module.css";
 import { API } from "../../config/API";
-import CreateComment from "../Comments/CreateComments";
+import { Link } from "react-router-dom";
+import { textLimit } from "../../config/API";
+import classes from "./Post.module.css";
 import moment from "moment";
 import {
   FaRegComment,
@@ -12,9 +12,9 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import PropTypes from "prop-types";
-import { textLimit } from "../../config/API";
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
+import CreateComment from "../Comments/CreateComments";
 import HeartIcon from "../../ui/helpers/HeartIcon";
 import NoHeartIcon from "../../ui/helpers/NoHeartIcon";
 

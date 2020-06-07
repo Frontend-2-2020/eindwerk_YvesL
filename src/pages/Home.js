@@ -1,16 +1,16 @@
 import React, { PureComponent } from "react";
 import { API } from "../config/API";
-import classes from "./Home.module.css";
-import Post from "../components/Posts/Post";
-import ReactPaginate from "react-paginate";
+import { connect } from "react-redux";
+import { fetchPosts, setTotalPages } from "../redux/actions/postactions";
 import { Spinner } from "../ui/spinner/Spinner";
+import { Link } from "react-router-dom";
+import classes from "./Home.module.css";
+import poster from "../assets/images/poster.jpg";
+import ReactPaginate from "react-paginate";
 import Validate from "../components/Forms/Validate";
 import AddPostBtn from "../ui/helpers/button/AddPostBtn";
 import CloseBtn from "../ui/helpers/button/CloseBtn";
-import poster from "../assets/images/poster.jpg";
-import { connect } from "react-redux";
-import { fetchPosts, setTotalPages } from "../redux/actions/postactions";
-import { Link } from "react-router-dom";
+import Post from "../components/Posts/Post";
 import Footer from "../components/navigation/Footer";
 
 class Home extends PureComponent {

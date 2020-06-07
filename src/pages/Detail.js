@@ -3,9 +3,10 @@ import "@reach/dialog/styles.css";
 import "./Detail.css";
 import { Redirect } from "react-router";
 import { API } from "../config/API";
+import { connect } from "react-redux";
 import { Spinner } from "../ui/spinner/Spinner";
-import Validate from "../components/Forms/Validate";
 import { FaEdit } from "react-icons/fa";
+import Validate from "../components/Forms/Validate";
 import DetailCard from "../components/Posts/DetailCard";
 import Comments from "../components/Comments/Comments";
 
@@ -84,7 +85,7 @@ export class Detail extends Component {
 
   render() {
     const { postDetails, user, comments, loading, redirect } = this.state;
-    console.log(postDetails);
+
     const pageContent = (
       <div className="detailpage">
         {/* ///////EDIT POST BUTTON//////// */}
@@ -106,6 +107,7 @@ export class Detail extends Component {
             {...postDetails}
             {...user}
             detailbody={postDetails.body}
+            datePosted={postDetails.created_at}
             delete={this.deletePostHandler}
           />
         </div>
@@ -143,4 +145,8 @@ export class Detail extends Component {
   }
 }
 
-export default Detail;
+const mapStateToProps = (state) => {
+  return { user: state.auth };
+};
+
+export default connect(mapStateToProps)(Detail);
