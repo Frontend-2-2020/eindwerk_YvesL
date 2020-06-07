@@ -8,11 +8,14 @@ const Footer = (props) => {
       <footer className="contain py-5 ml-5">
         <div className="row">
           <div className="col-12 col-md">
+            <p>* Links are currently unavailable, try again later.</p>
+            <br />
             <img
               src={customlogo}
               alt="logo"
               style={{ height: "60px", width: "60px" }}
             />
+            <p>Yves Loeys WebDev</p>
             <small className="d-block mb-3 text-muted">&copy; 2017-2019</small>
           </div>
           <div className="col-6 col-md">

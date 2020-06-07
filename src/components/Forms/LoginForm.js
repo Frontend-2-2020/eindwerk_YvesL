@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Field } from "formik";
 import "./LoginForm.css";
 import CustomErrorMessage from "../Forms/CustomErrorMessage";
-import { FaFacebookF, FaGoogle } from "react-icons/fa";
+//import { FaFacebookF, FaGoogle } from "react-icons/fa";
 
 export default class loginForm extends Component {
   render() {
@@ -25,8 +25,8 @@ export default class loginForm extends Component {
             <div>
               <input type="submit" value="Log in" className=" login" />
             </div>
-
-            <button className="media fb">
+            {/* /////IF MORE TIME , INTEGRATE FB AND GOOGLE LOGIN///////// */}
+            {/* <button className="media fb">
               <div style={{ margin: "auto" }}>
                 <FaFacebookF />
               </div>
@@ -35,7 +35,7 @@ export default class loginForm extends Component {
               <div style={{ margin: "auto" }}>
                 <FaGoogle />
               </div>
-            </button>
+            </button> */}
           </Form>
         </div>
       </div>

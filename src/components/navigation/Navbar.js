@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "./NavBar.css";
-import { Link } from "react-router-dom";
-import customlogo from "../../assets/images/LogoAfroCode.png";
 import { Collapse, Navbar, NavbarToggler, Nav, NavItem } from "reactstrap";
-import $ from "jquery";
-import { connect } from "react-redux";
 import { logoutAuth } from "../../redux/actions/authActions";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import customlogo from "../../assets/images/LogoAfroCode.png";
 import PropTypes from "prop-types";
+import "./NavBar.css";
+import $ from "jquery";
 
 /////!!!!!!!!!CHANGE TO VANILLA JS/////
 $(window).scroll(function () {

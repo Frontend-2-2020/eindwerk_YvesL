@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { API } from "../config/API";
-import "./User.css";
 import { Spinner } from "../ui/spinner/Spinner";
+import { connect } from "react-redux";
+import "./User.css";
+import userbg from "../assets/images/userbg.jpg";
+import PropTypes from "prop-types";
 import Post from "../components/Posts/Post";
 import Profile from "../components/User/Profile";
 import Comments from "../components/Comments/Comments";
-import { connect } from "react-redux";
-import userbg from "../assets/images/userbg.jpg";
-
-import PropTypes from "prop-types";
 
 export class User extends Component {
   /////////INITIAL STATE//////////

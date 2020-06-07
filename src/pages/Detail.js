@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import "@reach/dialog/styles.css";
-import "./Detail.css";
 import { Redirect } from "react-router";
 import { API } from "../config/API";
 import { connect } from "react-redux";
 import { Spinner } from "../ui/spinner/Spinner";
 import { FaEdit } from "react-icons/fa";
+import "@reach/dialog/styles.css";
+import "./Detail.css";
 import Validate from "../components/Forms/Validate";
 import DetailCard from "../components/Posts/DetailCard";
 import Comments from "../components/Comments/Comments";
@@ -66,7 +66,6 @@ export class Detail extends Component {
 
   /////////DELETE THE POST (I CAN ONLY DELETE MY OWN POSTS)/////////
   deletePostHandler = () => {
-    console.log("delete");
     const { id } = this.props.match.params;
     const confirmDelete = window.confirm(
       "Are you sure want to delete your post?"

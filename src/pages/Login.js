@@ -32,7 +32,6 @@ class Login extends Component {
   };
 
   validateHandler = (values) => {
-    console.log("validated");
     const errors = {};
     const requiredFields = ["username", "password"];
 

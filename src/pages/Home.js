@@ -76,8 +76,6 @@ class Home extends PureComponent {
     const { posts, total, totalPages } = this.props;
     const users = allUsers.length;
 
-    console.log(allUsers);
-
     //////MOST ACTIVE USERS///////
     const list = allUsers.map((user) => {
       if (user.blog_posts.length >= 8) {

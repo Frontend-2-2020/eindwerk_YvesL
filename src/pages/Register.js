@@ -50,7 +50,6 @@ class Register extends Component {
   };
 
   render() {
-    console.log(this.state.color);
     return (
       <div>
         <Formik

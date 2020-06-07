@@ -16,7 +16,9 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
 import CreateComment from "../Comments/CreateComments";
 import HeartIcon from "../../ui/helpers/HeartIcon";
-import NoHeartIcon from "../../ui/helpers/NoHeartIcon";
+//import NoHeartIcon from "../../ui/helpers/NoHeartIcon";
+
+/////!!!! temporary disabled unlike handler,works///////
 
 class OverviewCard extends Component {
   state = {
@@ -65,23 +67,23 @@ class OverviewCard extends Component {
         this.setState({
           likes: this.props.post.likes_count + 1,
           heart: !this.state.heart,
-          color: "red",
+          // color: "red",
         });
       })
       .catch((err) => alert(err + " You can only like a post once"));
   };
 
-  unLikeHandler = () => {
-    const { id } = this.props.post;
-    API.post("api/posts/" + id + "/unlike")
-      .then((res) => {
-        this.setState({
-          likes: this.props.post.likes_count - 1,
-        });
-        alert("Your unlike was succesfull");
-      })
-      .catch((err) => alert(err + " You can only unlike a post once"));
-  };
+  // unLikeHandler = () => {
+  //   const { id } = this.props.post;
+  //   API.post("api/posts/" + id + "/unlike")
+  //     .then((res) => {
+  //       this.setState({
+  //         likes: this.props.post.likes_count - 1,
+  //       });
+  //       alert("Your unlike was succesfull");
+  //     })
+  //     .catch((err) => alert(err + " You can only unlike a post once"));
+  // };
 
   render() {
     const { isClicked, likes, comments, color } = this.state;
@@ -143,7 +145,7 @@ class OverviewCard extends Component {
                   ></div>
                 </Link>
                 <div className={classes.dateposted}>
-                  <div style={{ margin: 10, color: "black" }}>
+                  <div style={{ margin: 10 }}>
                     <span>{moment(props.post.created_at).format("llll")}</span>
                   </div>
                 </div>
@@ -199,12 +201,12 @@ class OverviewCard extends Component {
                       <span style={{ marginTop: 1 }}>{likes}</span>
                     </div>
 
-                    <div
+                    {/* <div
                       className={classes.likebtn}
                       onClick={this.unLikeHandler}
                     >
                       <NoHeartIcon />{" "}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

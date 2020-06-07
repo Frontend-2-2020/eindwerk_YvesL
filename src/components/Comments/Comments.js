@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { API } from "../../config/API";
-import Validate from "../Forms/Validate";
-import moment from "moment";
-import "./Comments.css";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { Trashcan } from "../../ui/helpers/Trashcan";
+import "./Comments.css";
+import moment from "moment";
+import Validate from "../Forms/Validate";
 import PropTypes from "prop-types";
 import CloseBtn from "../../ui/helpers/button/CloseBtn";
-import { connect } from "react-redux";
 
 class Comments extends Component {
   state = {
@@ -57,6 +58,8 @@ class Comments extends Component {
   render() {
     const { clicked, postUser } = this.state;
     const { user } = this.props.user;
+    const { user_id } = this.props.comment;
+
     ////CK EDITOR TO EDIT/////
     const editComment = (
       <div className="commentValidate">
@@ -94,10 +97,13 @@ class Comments extends Component {
         ) : null}
         {/* //////COMMENT SECTION///////// */}
         <div className="commentcontent">
-          <div className="avatar">
-            <img src={this.props.avatar} alt="av" />
-          </div>
+          <Link to={"/user/" + user_id}>
+            <div className="avatar">
+              <img src={this.props.avatar} alt="av" />
+            </div>
+          </Link>
           <div className="commenttitle">{this.props.name} said ...</div>
+
           <div className="commentbody">
             <div
               dangerouslySetInnerHTML={{ __html: this.props.commentbody }}

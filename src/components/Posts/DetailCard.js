@@ -1,9 +1,9 @@
 import React from "react";
 import { Trashcan } from "../../ui/helpers/Trashcan";
 import { connect } from "react-redux";
-import moment from "moment";
-import PropTypes from "prop-types";
 import HeartIcon from "../../ui/helpers/HeartIcon";
+import PropTypes from "prop-types";
+import moment from "moment";
 
 const DetailCard = (props) => {
   const { user } = props.user;

@@ -2,13 +2,10 @@
 .commentscontainer {
   width: 80vw;
   margin: auto;
-
-
 }
 
 .originalpost {
   margin: 5px auto;
-
 }
 
 .commented hr {
@@ -71,8 +68,6 @@
 .commentcontent hr {
   width: 40vw;
 }
-
-
 
 .avatar img {
   width: 30px;

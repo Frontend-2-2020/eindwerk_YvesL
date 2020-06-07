@@ -88,8 +88,12 @@
 .dateposted {
   display: flex;
   flex-flow: column;
-  color: grey;
+
   text-align: end;
+}
+
+.dateposted span {
+  color: grey;
 }
 
 .showpostbtn {

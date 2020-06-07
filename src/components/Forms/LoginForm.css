@@ -3,16 +3,12 @@
 .container {
   width: 65vw;
   height: 400px;
-  background: #ededed;
   position: absolute;
   margin: auto;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  border-radius: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 10px rgb(3, 1, 1);
 }
 
 @media only screen and (max-width: 600px) {
@@ -33,11 +29,10 @@
 }
 
 Form p {
-  color: grey;
   font-size: 1rem;
 }
 
-span {
+Form span {
   color: red;
 }
 
@@ -45,16 +40,14 @@ input {
   width: 100%;
   height: 30px;
   margin-bottom: 20px;
-  background: none;
-  color: #e74c3c;
+  color: #020202;
   border: none;
-  border-bottom: 1px solid #e74c3c;
-  opacity: 0.5;
-  transition: opacity 0.3s;
+  border-bottom: 3px solid rgb(238, 175, 175)
 }
 
 input:hover {
   opacity: 1;
+  color: green;
 }
 
 input:focus {
@@ -106,11 +99,6 @@ input:focus {
   box-shadow: 0 4px 10px rgb(3, 1, 1);
 }
 
-.logout:hover {
-  color: #ecf0f1;
-  cursor: pointer;
-}
-
 .media {
   width: 100%;
   height: 30px;
@@ -121,24 +109,12 @@ input:focus {
   transition: opacity 0.3s;
 }
 
-
-
-
-
 .media:hover {
   opacity: 1;
   cursor: pointer;
 }
 
-.fb {
-  background: #3a5a98;
-  color: white;
-}
 
-.g {
-  background: #dc4437;
-  color: white;
-}
 
 button:focus {
   outline: none;
@@ -158,8 +134,7 @@ button:focus {
   box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89ff00 0 2px 12px;
 }
 
-.loggedIn,
-.loggedOut {
+.loggedIn {
   height: 30px;
   width: 25%;
   margin: 10px 0;

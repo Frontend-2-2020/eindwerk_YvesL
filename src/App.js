@@ -1,12 +1,12 @@
 import React, { Component, Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import classes from "./App.module.css";
+import { fetchPosts } from "../src/redux/actions/postactions";
+import { loginAuth } from "./redux/actions/authActions";
+import { connect } from "react-redux";
 import "bootstrap/dist/css/bootstrap.css";
 import Navi from "./components/navigation/Navbar";
-import { connect } from "react-redux";
-import { loginAuth } from "./redux/actions/authActions";
+import classes from "./App.module.css";
 //import Page404 from "./pages/Page404";
-import { fetchPosts } from "../src/redux/actions/postactions";
 
 /////IMPORTING THROUGH REACT.LAZY
 const User = React.lazy(() => import("./pages/User"));

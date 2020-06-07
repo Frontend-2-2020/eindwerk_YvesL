@@ -15,7 +15,6 @@ export default class componentName extends Component {
           padding: 15,
           color: "black",
           backgroundColor: "#949494",
-
           margin: "auto",
         }}
       >

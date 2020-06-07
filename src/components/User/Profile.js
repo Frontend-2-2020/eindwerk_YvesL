@@ -4,7 +4,6 @@ import "./Profile.css";
 import PropTypes from "prop-types";
 
 const Profile = (props) => {
-  console.log(props);
   return (
     <div className="profile">
       <hr />
