@@ -172,11 +172,11 @@ span:hover {
   color: black;
 }
 
-.readpost {
+/* .readpost {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
-}
+} */
 
 .balloon {
   position: relative;

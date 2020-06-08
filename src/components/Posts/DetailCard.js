@@ -18,7 +18,7 @@ const DetailCard = (props) => {
   return (
     <div>
       <div className="row pt-5 mt-30 ">
-        <div className="col-lg-8 col-sm-6 mb-1 pb-1 m-auto">
+        <div className="col-lg-8 col-md-8 col-sm-8 mb-1 pb-1 m-auto">
           <div className="card">
             <div
               className="head"
@@ -70,7 +70,7 @@ const DetailCard = (props) => {
               </p>
             </div>
 
-            <div className="card-body text-center">
+            <div className="card-body text-center" style={{ maxWidth: "100%" }}>
               <h3 className="card-title pt-1 mb-3">{props.title}</h3>
               <p dangerouslySetInnerHTML={{ __html: props.body }}></p>
               <hr style={{ width: "40%" }} />

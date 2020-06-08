@@ -149,12 +149,6 @@ class OverviewCard extends Component {
                     <span>{moment(props.post.created_at).format("llll")}</span>
                   </div>
                 </div>
-
-                <div className={classes.readpost}>
-                  <Link to={"/detail/" + props.post.id}>
-                    <button className="btn btn-no outline">Detail post</button>
-                  </Link>
-                </div>
               </div>
             </div>
             {/* COMMENTS / LIKES */}

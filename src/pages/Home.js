@@ -19,7 +19,6 @@ class Home extends PureComponent {
     user: {},
     isClicked: false,
     allUsers: [],
-    total: null,
   };
 
   ////////OPTIONAL GETTING ALL USERS AND LOOPING THROUGH ALL PAGES//////////////
@@ -76,8 +75,6 @@ class Home extends PureComponent {
     const { loading, isClicked, allUsers } = this.state;
     const { posts, total, totalPages } = this.props;
     const users = allUsers.length;
-
-    console.log(this.props);
 
     //////MOST ACTIVE USERS///////
     const list = allUsers.map((user) => {

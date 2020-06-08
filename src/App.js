@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import "bootstrap/dist/css/bootstrap.css";
 import Navi from "./components/navigation/Navbar";
 import classes from "./App.module.css";
-//import Page404 from "./pages/Page404";
 
 /////IMPORTING THROUGH REACT.LAZY
 const User = React.lazy(() => import("./pages/User"));
@@ -14,6 +13,7 @@ const Detail = React.lazy(() => import("./pages/Detail"));
 const Register = React.lazy(() => import("./pages/Register"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Home = React.lazy(() => import("./pages/Home"));
+const Page404 = React.lazy(() => import("./pages/Page404"));
 
 class App extends Component {
   componentDidMount() {
@@ -32,8 +32,8 @@ class App extends Component {
               <Route path="/detail/:id" component={Detail} />
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
-              <Route path="/" component={Home} />
-              {/* <Route component={Page404} /> */}
+              <Route path="/" exact component={Home} />
+              <Route path="*" component={Page404} />
             </Switch>
           </Suspense>
         </Router>
